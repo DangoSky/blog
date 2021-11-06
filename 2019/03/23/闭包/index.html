@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,11 +310,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./tags/前端基础/" target="_blank">
+                            <a href="/blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
@@ -326,7 +326,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -363,7 +363,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\assets\js\APlayer.min.js"> </script><h1 id="闭包的原理"><a href="#闭包的原理" class="headerlink" title="闭包的原理"></a>闭包的原理</h1><p>&emsp;&emsp;说闭包之前，需要先说一下变量作用域。在JS中作用域分为全局作用域和局部作用域，决定了变量和函数的可见范围。定义在函数内部的变量一般情况下只对当前所在函数可见，在函数外部是无法读取到函数内部的变量的。不过 JavaScript 是门神奇的语言，若是在函数内没有声明一个变量便对其赋值的话，实际上会默认将该变量声明为全局变量。而作用域链，是指在函数内部查找某一个变量的时候，先会在当前函数内寻找查找，若是找不到则会循着它的父级外部函数一直向上，直到找到该值或是到全局环境为止，也就是说外部父级函数和全局变量对某一函数而言都是可见的，这就形成了一条作用域链。而且在 Javascript 中，函数是一等公民，即函数可以被赋值，可以作为参数传递，也可以作为函数结果被 return 回去。根据这几点，我们就可以设置出一种方法，使得在函数外部依旧可以使用到函数内部的变量（这种需求也还是很常见的），而这种方法，就是闭包。</p>
+                <script src="assets\js\APlayer.min.js"> </script><h1 id="闭包的原理"><a href="#闭包的原理" class="headerlink" title="闭包的原理"></a>闭包的原理</h1><p>&emsp;&emsp;说闭包之前，需要先说一下变量作用域。在JS中作用域分为全局作用域和局部作用域，决定了变量和函数的可见范围。定义在函数内部的变量一般情况下只对当前所在函数可见，在函数外部是无法读取到函数内部的变量的。不过 JavaScript 是门神奇的语言，若是在函数内没有声明一个变量便对其赋值的话，实际上会默认将该变量声明为全局变量。而作用域链，是指在函数内部查找某一个变量的时候，先会在当前函数内寻找查找，若是找不到则会循着它的父级外部函数一直向上，直到找到该值或是到全局环境为止，也就是说外部父级函数和全局变量对某一函数而言都是可见的，这就形成了一条作用域链。而且在 Javascript 中，函数是一等公民，即函数可以被赋值，可以作为参数传递，也可以作为函数结果被 return 回去。根据这几点，我们就可以设置出一种方法，使得在函数外部依旧可以使用到函数内部的变量（这种需求也还是很常见的），而这种方法，就是闭包。</p>
 <p>&emsp;&emsp;我对闭包的理解是，<strong>在一个函数中使用了一个内部函数，而且在这个内部函数中使用到了外部函数的变量</strong>。在一般情况下，函数一旦执行完毕其内部的变量就会被销毁无法再被访问到，但通过返回一个函数（或者让一个全局变量接受这个函数，所以并不是只有返回函数才算是闭包）就可以使得该函数作用域链上可见的变量在函数外依旧可见，而我们只要在函数外使用一个变量来接受该返回结果就可以延长它们的生命周期了。这也就是闭包的两个作用： </p>
 <ol>
 <li><p><strong>可以在函数外部读取到函数内部的变量</strong>。</p>
@@ -617,7 +617,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2019/03/23/闭包/" class="b-link-green">闭包</a>
+                    <a href="/blog/2019/03/23/闭包/" class="b-link-green">闭包</a>
                 </p>
             </div>
         </div>
@@ -667,7 +667,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2019/03/28/JS之模拟实现/">
+                <a href="/blog/2019/03/28/JS之模拟实现/">
                     <div class="card-image">
                         
                         
@@ -690,7 +690,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -701,7 +701,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
@@ -716,7 +716,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2019/03/20/JS之原型和原型链/">
+                <a href="/blog/2019/03/20/JS之原型和原型链/">
                     <div class="card-image">
                         
                         
@@ -736,7 +736,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -747,11 +747,11 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/前端基础/" target="_blank">
+                    <a href="/blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -890,7 +890,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -946,7 +946,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -972,5 +972,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

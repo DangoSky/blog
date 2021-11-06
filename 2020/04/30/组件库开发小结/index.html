@@ -29,7 +29,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -38,7 +38,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -311,15 +311,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/实习记录/" target="_blank">
+                            <a href="/blog/tags/实习记录/" target="_blank">
                                 <span class="chip bg-color">实习记录</span>
                             </a>
                         
-                            <a href="./tags/组件库/" target="_blank">
+                            <a href="/blog/tags/组件库/" target="_blank">
                                 <span class="chip bg-color">组件库</span>
                             </a>
                         
-                            <a href="./tags/Antd/" target="_blank">
+                            <a href="/blog/tags/Antd/" target="_blank">
                                 <span class="chip bg-color">Antd</span>
                             </a>
                         
@@ -331,7 +331,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/实习记录/" class="post-category" target="_blank">
+                            <a href="/blog/categories/实习记录/" class="post-category" target="_blank">
                                 实习记录
                             </a>
                         
@@ -368,7 +368,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>从一月初回公司到五一又开始请长假这四个月实习时间以来，我估计得有三分之一的时间是在写组件库的，所以写一篇 Blog 简要谈谈我对组件库的认识，和在这方面的实践。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>从一月初回公司到五一又开始请长假这四个月实习时间以来，我估计得有三分之一的时间是在写组件库的，所以写一篇 Blog 简要谈谈我对组件库的认识，和在这方面的实践。</p>
 <h1 id="我对组件库的认识"><a href="#我对组件库的认识" class="headerlink" title="我对组件库的认识"></a>我对组件库的认识</h1><p>三大框架有一个共同点，就是组件化思想，把一个页面划分为多个组件，从一个个组件写起，最后组装成一个页面，乃至整个项目。而在这一个个业务组件里，我们或多或少都会使用到基础组件，或者叫做 UI 组件，就是只负责 UI 和自身逻辑的一些组件。比如一个 Input 输入框组件，它负责了基本的 UI 展示，包括各种 hover、focus、disabled 态，输入内容校验、以及对输入框内容变化、按下回车、点击清除图标时的回调函数进行封装等自身逻辑。这样在我们开发时就可以只专注于业务逻辑代码，而不需要再去重新写输入框的样式和基本逻辑。</p>
 <p>可以说，维护自己的一个组件库的好处有：</p>
 <ol>
@@ -409,14 +409,14 @@
 <li><p>通过配置后可以使用 <code>import { Input } from &#39;dangosky&#39;</code> 来导入我们的 <code>dangosky</code> 组件库，使得项目使用的组件库从 Antd 迁移到 <code>dangosky</code> 只需要修改它的导入包名就行，实现低成本迁移。</p>
 </li>
 </ol>
-<p><img src="/blog/2020/04/30/组件库开发小结/4.png" alt></p>
+<p><img src="/2020/04/30/组件库开发小结/4.png" alt></p>
 <p>下面再说说基于 Antd 再度封装的组件库实现原理。因为只是对 Antd 的样式修改而已，所以主要就是修改组件的 <code>className</code> 类名、修改 less 样式文件中的类名：</p>
 <h4 id="1-修改组件的类名"><a href="#1-修改组件的类名" class="headerlink" title="1. 修改组件的类名"></a>1. 修改组件的类名</h4><p>Antd 为每个组件的 props 都提供了一个 <code>prefixCls</code> 属性，用来作为每个组件的类名前缀。所以可以在我们的新组件中指定 <code>prefixCls</code>，将其替换成我们自己的 <code>dangosky</code>。这样组件中的 <code>className</code> 类名就可以从 <code>ant-input</code> 变成 <code>.dangosky-input</code> 了。</p>
 <p>Antd 有一个 <code>getPrefixCls</code> 函数来处理这个逻辑，它是由外层的 <code>configProvider</code> 组件利用 React 的 <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">Context</a> 特性传递到内部组件的，可以无视组件嵌套的深度。</p>
-<p><img src="/blog/2020/04/30/组件库开发小结/1.png" alt></p>
-<p><img src="/blog/2020/04/30/组件库开发小结/2.png" alt></p>
+<p><img src="/2020/04/30/组件库开发小结/1.png" alt></p>
+<p><img src="/2020/04/30/组件库开发小结/2.png" alt></p>
 <p>以 input 组件为例，Antd 内部是这样调用的。如果我们在组件内指定了 <code>prefixCls</code> 这个 prop 的话（它重命名为了 <code>customizePrefixCls</code>），<code>getPrefixCls</code> 就会返回我们指定的类名前缀，否则就默认返回 <code>ant-{组件名}</code>。</p>
-<p><img src="/blog/2020/04/30/组件库开发小结/3.png" alt></p>
+<p><img src="/2020/04/30/组件库开发小结/3.png" alt></p>
 <h4 id="2-修改样式文件的类名"><a href="#2-修改样式文件的类名" class="headerlink" title="2. 修改样式文件的类名"></a>2. 修改样式文件的类名</h4><p>将 DOM 节点的类名前缀改为 <code>dangosky</code> 后，还需要将 less 中的类名前缀也改为 <code>dangosky</code> 才行，不然会匹配不到相应的样式。Antd 里有一个<a href="https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less" target="_blank" rel="noopener">全局的样式文件</a>，包含了一些全局的样式变量，它会在每个组件中都被引入进去。其中有一个变量是 <code>@ant-prefix</code> ，less 中的每个类名都会在前面加上 <code>@ant-prefix</code> 。所以我们可以定制新组件库的主题文件，在里面将 <code>@ant-prefix</code> 值修改成 <code>dangosky</code>，之后在每个新组件的样式文件中导入这个主题文件覆盖原来的 Antd 值就可以了。</p>
 <h4 id="3-在组件里自动引入样式文件"><a href="#3-在组件里自动引入样式文件" class="headerlink" title="3. 在组件里自动引入样式文件"></a>3. 在组件里自动引入样式文件</h4><p>在使用 Antd 组件的时候可以不用手动 <code>import</code> 进样式文件，Antd 提供了一个插件 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 来实现按需加载和自动引入样式文件。</p>
 <p>我们在使用某个组件的时候，都是直接 <code>import { xxx } from &#39;antd&#39;</code>。如果不加以额外的插件辅助的话，这样的写法会导入 antd 中的所有模块，如果要只加载指定的组件的话，我们就需要使用下面这种写法了。</p>
@@ -425,7 +425,7 @@
 </code></pre>
 <p>这种写法的问题在于比较繁琐，那么有没有更简洁的方式来实现按需引入呢？我们可以使用 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 插件，使用这个插件后，我们依旧可以使用 <code>import { xxx } from &#39;antd&#39;</code> 来导入我们想要的组件，这个插件背后会帮我们转换成 <code>antd/es/xxx</code>。可见<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L76" target="_blank" rel="noopener">源码</a>。</p>
 <p><code>babel-plugin-import</code> 还会再自动导入进它的样式文件。从它的<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L90" target="_blank" rel="noopener">源码</a>里可以看到，当在 babel 配置里设置了 <code>style: true</code> 的话，它会自动引入该组件下的 <code>style</code> 文件夹，所以就会默认引入我们写好的 <code>index.tsx</code> 文件（再在这里引入具体的样式文件）。除了取值为 true 外，还可以是 false 和一个函数，具体可以看文档。</p>
-<p><img src="/blog/2020/04/30/组件库开发小结/5.jpg" alt></p>
+<p><img src="/2020/04/30/组件库开发小结/5.jpg" alt></p>
 
             </div>
             <hr/>
@@ -447,9 +447,9 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2020/04/30/组件库开发小结/" class="b-link-green">组件库开发小结</a>
+                    <a href="/blog/2020/04/30/组件库开发小结/" class="b-link-green">组件库开发小结</a>
                 </p>
             </div>
         </div>
@@ -470,7 +470,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/blog/2020/04/30/组件库开发小结/';
+        this.page.url = 'https://dangosky.github.io/2020/04/30/组件库开发小结/';
         this.page.identifier = '/2020/04/30/组件库开发小结/';
         this.page.title = '组件库开发小结';
     };
@@ -499,7 +499,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2020/05/07/Vue2-的-Diff-算法/">
+                <a href="/blog/2020/05/07/Vue2-的-Diff-算法/">
                     <div class="card-image">
                         
                         
@@ -521,7 +521,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/源码解析/" class="post-category" target="_blank">
+                            <a href="/blog/categories/源码解析/" class="post-category" target="_blank">
                                     源码解析
                                 </a>
                             
@@ -532,11 +532,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/Vue/" target="_blank">
+                    <a href="/blog/tags/Vue/" target="_blank">
                         <span class="chip bg-color">Vue</span>
                     </a>
                     
-                    <a href="./tags/源码解析/" target="_blank">
+                    <a href="/blog/tags/源码解析/" target="_blank">
                         <span class="chip bg-color">源码解析</span>
                     </a>
                     
@@ -551,7 +551,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2020/04/11/颜色规范校验-lint/">
+                <a href="/blog/2020/04/11/颜色规范校验-lint/">
                     <div class="card-image">
                         
                         
@@ -570,7 +570,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/实习记录/" class="post-category" target="_blank">
+                            <a href="/blog/categories/实习记录/" class="post-category" target="_blank">
                                     实习记录
                                 </a>
                             
@@ -581,19 +581,19 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/实习记录/" target="_blank">
+                    <a href="/blog/tags/实习记录/" target="_blank">
                         <span class="chip bg-color">实习记录</span>
                     </a>
                     
-                    <a href="./tags/Node/" target="_blank">
+                    <a href="/blog/tags/Node/" target="_blank">
                         <span class="chip bg-color">Node</span>
                     </a>
                     
-                    <a href="./tags/正则表达式/" target="_blank">
+                    <a href="/blog/tags/正则表达式/" target="_blank">
                         <span class="chip bg-color">正则表达式</span>
                     </a>
                     
-                    <a href="./tags/AST/" target="_blank">
+                    <a href="/blog/tags/AST/" target="_blank">
                         <span class="chip bg-color">AST</span>
                     </a>
                     
@@ -732,7 +732,7 @@
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -788,7 +788,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -814,5 +814,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

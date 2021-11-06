@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,15 +310,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./tags/实习记录/" target="_blank">
+                            <a href="/blog/tags/实习记录/" target="_blank">
                                 <span class="chip bg-color">实习记录</span>
                             </a>
                         
-                            <a href="./tags/组件实现/" target="_blank">
+                            <a href="/blog/tags/组件实现/" target="_blank">
                                 <span class="chip bg-color">组件实现</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/组件实现/" class="post-category" target="_blank">
+                            <a href="/blog/categories/组件实现/" class="post-category" target="_blank">
                                 组件实现
                             </a>
                         
@@ -367,7 +367,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求：大致是要展示一个列表信息，但每次接口只返回 20 条数据，当用户滑动到到页面底部并继续上拉页面时再继续调接口获取更多的数据（相当于分页）。这里就需要使用到一个上拉加载更多的功能，实现的效果可以<a href="https://broltes.github.io/react-touch-loader/" target="_blank" rel="noopener">看这里</a>。考虑到项目时间比较紧而且可靠性问题，就没有自己去造轮子了，而是在 Github 上找<a href="https://github.com/Broltes/react-touch-loader" target="_blank" rel="noopener">现成的工具</a> 来用。这个库实现的功能主要有两个，一是上拉加载更多，另一个是下拉刷新。它提供的功能也算齐全，不过还是有几个小问题：</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求：大致是要展示一个列表信息，但每次接口只返回 20 条数据，当用户滑动到到页面底部并继续上拉页面时再继续调接口获取更多的数据（相当于分页）。这里就需要使用到一个上拉加载更多的功能，实现的效果可以<a href="https://broltes.github.io/react-touch-loader/" target="_blank" rel="noopener">看这里</a>。考虑到项目时间比较紧而且可靠性问题，就没有自己去造轮子了，而是在 Github 上找<a href="https://github.com/Broltes/react-touch-loader" target="_blank" rel="noopener">现成的工具</a> 来用。这个库实现的功能主要有两个，一是上拉加载更多，另一个是下拉刷新。它提供的功能也算齐全，不过还是有几个小问题：</p>
 <ol>
 <li><p>它的文案是写死在 Less 中的，要修改文案的话只能去修改 Less，并且也只能写死在里面。如果要做国际化文案的话会比较麻烦，可能需要去手动操作下 DOM 修改内容了。</p>
 </li>
@@ -386,7 +386,7 @@
 <h3 id="上拉加载更多"><a href="#上拉加载更多" class="headerlink" title="上拉加载更多"></a>上拉加载更多</h3><p>基本原理：监听 <code>scroll</code> 事件，判断页面是否达到底部，是的话则调用加载函数获取后面的数据，并将新拿到的数据拼接到现有的列表数组后面（一个列表信息通常都是使用一个数组来装的）。</p>
 <p>这里需要解决的问题是：</p>
 <h4 id="1-判断页面是否已经到达底部"><a href="#1-判断页面是否已经到达底部" class="headerlink" title="1.判断页面是否已经到达底部"></a>1.判断页面是否已经到达底部</h4><p>判断页面是否到达底部有一个专门的公式：<code>element.scrollHeight &lt;= element.scrollTop + element.clientHeight</code>，如果结果为 <code>true</code> 的话说明已经滚动到页面底部了。其中 <code>scrollHeight</code> 表示元素的全部高度，包含了因超出而隐藏部分的高度。取值上等于 <code>height</code> + <code>padding</code> + 被隐藏的内容高度，元素没有隐藏内容时等同于 <code>clientHeight</code>。<code>scrollTop</code> 表示元素已经滚动的距离。<code>clientHeight</code> 表示元素可见区域的高度，取值上等于 <code>height</code> + <code>padding</code>。</p>
-<p><img src="/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/./1.png" alt></p>
+<p><img src="/2020/03/11/上拉刷新下拉加载更多的实现原理/./1.png" alt></p>
 <p>有时候我们不会等到页面滚动到底部才去加载更多数据，这样会给用户带来等待加载更多数据的时间。所以我们会使用一个变量，比如说是 <code>distance</code> 来表示距离底部还有多远时就开始加载更多数据，此时判断页面是否达到底部的公式就变成了 <code>element.scrollHeight - distance &lt;= element.scrollTop + element.clientHeight</code>。</p>
 <h4 id="2-在加载完成后如何改变加载状态"><a href="#2-在加载完成后如何改变加载状态" class="headerlink" title="2.在加载完成后如何改变加载状态"></a>2.在加载完成后如何改变加载状态</h4><p>当滚动到页面底部时，组件内部调用加载函数 <code>handleMore</code>，并将修改状态的代码写成函数作为 <code>handleMore</code> 的参数。父组件在加载完成数据后调用该函数，就可以在加载完成后修改一些状态变量，从而改变页面的文案显示。</p>
 <pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 子组件</span>
@@ -415,7 +415,7 @@
 <h4 id="2-判断页面此时是否位于顶部"><a href="#2-判断页面此时是否位于顶部" class="headerlink" title="2.判断页面此时是否位于顶部"></a>2.判断页面此时是否位于顶部</h4><p>如果 <code>curScrollTop ≤ 0</code>，则说明此时没有页面滚动，是处于顶部的。</p>
 <h4 id="3-拖动列表下拉移动的距离"><a href="#3-拖动列表下拉移动的距离" class="headerlink" title="3.拖动列表下拉移动的距离"></a>3.拖动列表下拉移动的距离</h4><p>当满足上述两个条件后，下拉页面就可以拖拽列表向下移动，此时需要计算列表移动的距离，需要移动的距离 = 手指在屏幕上移动的距离 - <code>touchStart</code> 时页面滚动的距离。用上面的变量来写成公式就是 <code>distance = (curClientY - startClientY) - startScrollTop</code>。</p>
 <p>详情可见下图，左图表示 <code>touchStart</code> 时的状态，右图表示 <code>touchEnd</code> 时的状态，圆圈表示当时手指所在的屏幕位置。<code>touchStart</code> 时有个列表，它的上面既滚动了一部分，下边也有因超出而隐藏的部分。随着手指慢慢向下移动，到了右图 <code>touchEnd</code> 的状态。此时随着手指移动，列表页也会向下移，其中 <code>distance</code> 就表示列表向下移动的距离。</p>
-<p><img src="/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/2.png" alt></p>
+<p><img src="/2020/03/11/上拉刷新下拉加载更多的实现原理/2.png" alt></p>
 <p>在这里父组件还可以传递一个 <code>distancePullDownRefresh</code> 参数过来，表示列表向下移动了多大距离后，释放时就调用刷新函数。所以需要在 <code>touchMove</code> 中计算出 <code>distance</code> 后判断两者的大小关系，如果 <code>distance</code> 大于 <code>distancePullDownRefresh</code> 的话，则将状态变量标记为释放刷新。在 <code>touchEnd</code> 中再判断该状态变量的值，决定是否要调用刷新函数。</p>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
 <li>为什么下拉刷新和上拉加载更多是监听不同的事件？</li>
@@ -447,9 +447,9 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2020/03/11/上拉刷新下拉加载更多的实现原理/" class="b-link-green">下拉刷新上拉加载更多的实现原理</a>
+                    <a href="/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/" class="b-link-green">下拉刷新上拉加载更多的实现原理</a>
                 </p>
             </div>
         </div>
@@ -470,7 +470,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/';
+        this.page.url = 'https://dangosky.github.io/2020/03/11/上拉刷新下拉加载更多的实现原理/';
         this.page.identifier = '/2020/03/11/上拉刷新下拉加载更多的实现原理/';
         this.page.title = '下拉刷新上拉加载更多的实现原理';
     };
@@ -499,7 +499,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2020/04/11/颜色规范校验-lint/">
+                <a href="/blog/2020/04/11/颜色规范校验-lint/">
                     <div class="card-image">
                         
                         
@@ -518,7 +518,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/实习记录/" class="post-category" target="_blank">
+                            <a href="/blog/categories/实习记录/" class="post-category" target="_blank">
                                     实习记录
                                 </a>
                             
@@ -529,19 +529,19 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/实习记录/" target="_blank">
+                    <a href="/blog/tags/实习记录/" target="_blank">
                         <span class="chip bg-color">实习记录</span>
                     </a>
                     
-                    <a href="./tags/Node/" target="_blank">
+                    <a href="/blog/tags/Node/" target="_blank">
                         <span class="chip bg-color">Node</span>
                     </a>
                     
-                    <a href="./tags/正则表达式/" target="_blank">
+                    <a href="/blog/tags/正则表达式/" target="_blank">
                         <span class="chip bg-color">正则表达式</span>
                     </a>
                     
-                    <a href="./tags/AST/" target="_blank">
+                    <a href="/blog/tags/AST/" target="_blank">
                         <span class="chip bg-color">AST</span>
                     </a>
                     
@@ -556,7 +556,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2020/01/10/跨域解决方案实践/">
+                <a href="/blog/2020/01/10/跨域解决方案实践/">
                     <div class="card-image">
                         
                         
@@ -581,7 +581,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/前端基础/" class="post-category" target="_blank">
+                            <a href="/blog/categories/前端基础/" class="post-category" target="_blank">
                                     前端基础
                                 </a>
                             
@@ -592,11 +592,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/前端基础/" target="_blank">
+                    <a href="/blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
-                    <a href="./tags/Node/" target="_blank">
+                    <a href="/blog/tags/Node/" target="_blank">
                         <span class="chip bg-color">Node</span>
                     </a>
                     
@@ -735,7 +735,7 @@
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -791,7 +791,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -817,5 +817,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

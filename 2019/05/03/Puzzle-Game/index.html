@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,15 +310,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./tags/Web-Project/" target="_blank">
+                            <a href="/blog/tags/Web-Project/" target="_blank">
                                 <span class="chip bg-color">Web Project</span>
                             </a>
                         
-                            <a href="./tags/Vue/" target="_blank">
+                            <a href="/blog/tags/Vue/" target="_blank">
                                 <span class="chip bg-color">Vue</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="/blog/categories/Web-Project/" class="post-category" target="_blank">
                                 Web Project
                             </a>
                         
@@ -367,12 +367,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;会做这个 <strong>Puzzle Game</strong>，还是应前几天 lightyears 的一次提议，模仿的是鹰脚网络首页左下角那个<a href="https://www.hypergryph.com/#/" target="_blank" rel="noopener">拼图小游戏</a>。那天晚上睡觉的时候在床上想了一下，大致 get 到了它内部实现的原理，于是就干脆动手实践一番，现在也顺道写一篇博客记录下实现思路和中间遇到的一些问题。</p>
-<p><img src="/blog/2019/05/03/Puzzle-Game/1.png" alt></p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;会做这个 <strong>Puzzle Game</strong>，还是应前几天 lightyears 的一次提议，模仿的是鹰脚网络首页左下角那个<a href="https://www.hypergryph.com/#/" target="_blank" rel="noopener">拼图小游戏</a>。那天晚上睡觉的时候在床上想了一下，大致 get 到了它内部实现的原理，于是就干脆动手实践一番，现在也顺道写一篇博客记录下实现思路和中间遇到的一些问题。</p>
+<p><img src="/2019/05/03/Puzzle-Game/1.png" alt></p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>&emsp;&emsp;<strong>Puzzle Game</strong> 的游戏过程为：用户上传图片后选择要分割的碎片数量，一颗星代表 2 * 2 = 4 个碎片， 两颗星代表 3 * 3 = 9 个碎片，以此类推八颗星则是 81 个碎片。通过拖拽碎片进行拼图，当每个碎片和其相邻的碎片间隔都不超过阈值时，则提示拼图成功。</p>
 <p>&emsp;&emsp;<a href="http://dangosky.com/puzzle-game/index.html" target="_blank" rel="noopener">传送门</a>, Go to play?<br>&emsp;&emsp;<a href="https://github.com/DangoSky/puzzle-game" target="_blank" rel="noopener">GitHub</a>，喜欢的话就给个 star 鼓励鼓励吧😊。</p>
-<p><img src="/blog/2019/05/03/Puzzle-Game/2.gif" alt></p>
-<p><img src="/blog/2019/05/03/Puzzle-Game/3.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/2.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/3.gif" alt></p>
 <h2 id="首先要解决的两个难点"><a href="#首先要解决的两个难点" class="headerlink" title="首先要解决的两个难点"></a>首先要解决的两个难点</h2><p>&emsp;&emsp;<strong>Puzzle Game</strong> 的难点主要是两个：一是如何对上传的图片进行切割成各个碎片，二是如何判断是否拼图成功。鹰脚网络那个拼图因为是固定的，就只有那一张图片和四个图片碎片，所以大可以事先把图片分割成 4 块碎片再写进代码里。但 <strong>Puzzle Game</strong> 使用的图片和碎片数量取决于用户选择，所以就得另辟蹊径了。</p>
 <p>&emsp;&emsp;这里我利用到的是<strong>精灵图</strong>，根据用户选择的碎片数量，生成 N 个<code>&lt;div&gt;</code>（代表每一个碎片），将用户上传的图片设置为每一个<code>&lt;div&gt;</code>的背景图片，再使用<code>background-position</code>把每一个碎片都定位到图片相应的位置，这样就可以实现把图片切割成各个碎片啦。<strong>Puzzle Game</strong> 还是挺简单的，每一个碎片都是等大的，而且是 n * n 的碎片数量，相对容易实现很多。不过即使是 n * m 也是一样的，只要改变一下碎片的宽高和<code>background-position</code>的定位就可以了，问题不大。但如果每一个碎片都不等大的话就麻烦了，目前没想到实现思路。</p>
 <p>&emsp;&emsp;至于判断拼图是否成功，我想到的办法是：先设置好一个阈值，<strong>在每次拖拽完毕后就遍历每一个碎片，判断它和相邻碎片（上下左右四个碎片，对于边界碎片再行判断）之间的间隔是否不超过这个阈值</strong>。如果每一个碎片都不超过，则拼图成功；若有一个碎片和相邻某一个碎片之间的间隔超过了阈值，则直接结束判断过程。此处判断碎片间的距离使用的是<code>element.getBoundingClientRect()</code>，四个属性值<code>left</code>、<code>right</code>、<code>top</code>、<code>bottom</code>统一是相对于浏览器视口来计算的。（具体代码实现可以看<a href="https://github.com/DangoSky/puzzle-game/blob/master/index.html" target="_blank" rel="noopener">这里</a>）</p>
@@ -394,23 +394,23 @@
 <p>&emsp;&emsp;但使用方法二算出来的 x 和 y 是相对于浏览器视口左上角而言的，和<code>left</code>和<code>top</code>的参照物可能不一样，所以使用方法二有时候就会出现拖拽图片但图片却偏离到右下角去了的情况。因此要准确地<strong>使用方法二是有个前提条件的，就是碎片的父元素必须得是相对于浏览器左上角定位的</strong>。这和父元素是否设置了定位无关，因为如果父元素没有设置定位，那么父元素自然是相对于浏览器左上角来定位的（即使父元素前面已经有其他的元素了）。而如果父元素设置了定位，只要父元素位于浏览器左上角从而让碎片还是相对于浏览器左上角定位那也是可以的，比如父元素设置了定位但<code>left</code>和<code>top</code>为 0 并且前面没有其他的元素，或者父元素前面的元素都脱离了文档流。只有满足这几个条件，才能正确使用方法二，否则拖拽后图片的位置会出现异常，例如下面图三所示。</p>
 <p>&emsp;&emsp;接下来我们先用代码和结果图进一步验证，看客可以<a href="https://jsfiddle.net/8x014ewm/2/" target="_blank" rel="noopener">戳这里</a>查看具体代码自行验证，这里就只放效果图不放代码啦。</p>
 <ul>
-<li><p>父元素没有设置定位<br><img src="/blog/2019/05/03/Puzzle-Game/4.gif" alt></p>
+<li><p>父元素没有设置定位<br><img src="/2019/05/03/Puzzle-Game/4.gif" alt></p>
 </li>
 <li><p>父元素设置了定位（<code>relative</code> / <code>absolute</code> / <code>fixed</code> 定位都行），但父元素位于浏览器左上角的位置（<code>left</code>和<code>top</code>为 0 且前面没有元素，或是前面的元素都脱离了文档流）。</p>
 </li>
 </ul>
-<p><img src="/blog/2019/05/03/Puzzle-Game/5.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/5.gif" alt></p>
 <ul>
 <li>父元素设置了定位，但设置了非零的<code>left</code>和<code>top</code>，或是前面已有在文档流中占位的元素。</li>
 </ul>
-<p><img src="/blog/2019/05/03/Puzzle-Game/6.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/6.gif" alt></p>
 <p>&emsp;&emsp;考虑到使用方法二会有一些限制条件，所以还是推荐使用方法一的好，比较健壮适应性也好。如果使用方法二的话，则要注意上述的这些坑点，免得跳坑里了。（咦，如果不跳一次坑哪来的这篇博客？？）</p>
 <h3 id="拖拽速度过快"><a href="#拖拽速度过快" class="headerlink" title="拖拽速度过快"></a>拖拽速度过快</h3><p>&emsp;&emsp;在监听事件的时候，我们通常都是把监听函数绑定到相应的目标元素上的，很少把监听函数绑定到<code>document</code>或<code>body</code>上（监听页面滚动和利用事件委托等除外）。所以当我把<code>mousedown</code>、<code>mousemove</code>、<code>mouseup</code>这三个监听函数绑定到碎片上时，<code>mousedown</code>没什么问题，问题就出在了<code>mousemove</code>和<code>mouseup</code>上。<strong>如果点击碎片后拖拽的速度过大，就会造成鼠标移动过快而碎片来不及响应移动</strong>。要知道，<code>mousemove</code>触发频率是很高的，相应的监听函数也会被高频率调用。这很容易造成碎片的移动速度跟不上鼠标的移动速度，<strong>结果就是鼠标移出了碎片后，即使鼠标没有松开但因为监听函数失去了目标所以碎片也不会再跟着移动。而因为鼠标松开后也没能触发相应的监听函数，所以此时标记鼠标移动是否开始的变量还是为<code>true</code>，又造成了当鼠标移动到碎片上时即使没有按住鼠标碎片也还是可以跟着鼠标移动</strong>。具体代码和效果可以<a href="https://jsfiddle.net/8x014ewm/1/" target="_blank" rel="noopener">戳这里</a>。</p>
 <p>&emsp;&emsp;我使用的解决办法很简单，直接把<code>mousemove</code>和<code>mouseup</code>这两个监听函数绑定到<code>document</code>或者<code>body</code>上就行了。这样即使鼠标移动速度过快离开了碎片，也还是能触发到相应的监听函数让碎片也跟着移动。这里还有一个注意点，计算得到 x 和 y 的值要修改碎片的<code>left</code>和<code>top</code>属性时，不能使用<code>e.target</code>来获取碎片自身了。因为鼠标移动过快离开碎片后此时的<code>e.target</code>便成<code>document</code>了，所以<strong>需要事先使用一个变量来缓存<code>e.target</code></strong>才行。</p>
 <p>&emsp;&emsp;接下来再说说把<code>mousemove</code>和<code>mouseup</code>这两个监听函数绑定到<code>document</code>和<code>body</code>的区别。<code>document</code>包括了整个浏览器视图，而<code>body</code>只包括了网页正文（脱离文档流的元素还不算在<code>body</code>的宽高上）。所以如果<code>body</code>没有达到整个浏览器视图的大小，那把监听函数绑定到<code>body</code>上和原先绑定在碎片上没有啥区别。如果<code>body</code>的宽高已经和浏览器视图一样大小了，比如手动设置为<code>100vw</code>和<code>100vh</code>，此时绑定到<code>document</code>或<code>body</code>上的区别在于两者对边界情况的处理不同。<strong>绑定到<code>document</code>上时即使鼠标移到了页面正文外（比如浏览器的工具栏和桌面的任务栏）碎片也还是能跟着继续移动，而绑定到<code>body</code>上如果鼠标移出了页面正文碎片就不会跟着移动了，只有鼠标再移回页面正文碎片的位置才会继续跟着响应</strong>。（若绑定到<code>window</code>或者<code>html</code>上则跟绑定到<code>document</code>上是一样的。）</p>
 <p>&emsp;&emsp;看效果图会更直观点，下图一是<code>mousemove</code>和<code>mouseup</code>监听函数绑定在<code>document</code>上，下图二是绑定在<code>body</code>上（当然代码中可不能直接写<code>body</code>，得写成<code>document.body</code>才行）。</p>
-<p><img src="/blog/2019/05/03/Puzzle-Game/7.gif" alt></p>
-<p><img src="/blog/2019/05/03/Puzzle-Game/8.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/7.gif" alt></p>
+<p><img src="/2019/05/03/Puzzle-Game/8.gif" alt></p>
 <p>&emsp;&emsp;不知道看客有没有想到一个问题，把<code>mousemove</code>和<code>mouseup</code>的监听函数绑定到<code>document</code>上会不会造成事件触发频率过高的问题？毕竟监听对象从原来的几个碎片扩大成了整个<code>document</code>啊。不可避免地事件触发频率会高很多，但没办法，我想不出其他的解决方案啊，只能去尽量避免过多触发到监听函数了。比如把<code>mousemove</code>和<code>mouseup</code>的监听写在<code>mousedown</code>的监听函数里，这和前面使用一个变量标记鼠标移动是否开始差不多。但主要的是<strong>在<code>mouseup</code>的监听函数里把<code>document</code>上的<code>mousemove</code>和<code>mouseup</code>监听事件清除掉</strong>。比如<code>document.onmousemove = null; document.onmouseup = null;</code>。这样只有在点击碎片的时候才会监听事件并且点击完毕后就马上清除掉了，触发监听函数的次数少了很多。</p>
 <h3 id="上传的图片过大"><a href="#上传的图片过大" class="headerlink" title="上传的图片过大"></a>上传的图片过大</h3><p>&emsp;&emsp;如果用户上传的图片过大，甚至超过了浏览器视窗大小，那必然得对图片进行压缩后，否则图片都铺满了整个浏览器视窗还怎么进行拼图。这里我采用的方法也很简单，上传完图片后对图片的大小进行判断，如果超过了限定值（我设置的是浏览器宽度的一半）则将图片的宽度缩小为这个限定值，再根据原始的宽高比例和压缩后的图片宽度计算出压缩后的图片高度就行了。这里我还遇到两个小问题。</p>
 <ol>
@@ -444,9 +444,9 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2019/05/03/Puzzle-Game/" class="b-link-green">Puzzle Game</a>
+                    <a href="/blog/2019/05/03/Puzzle-Game/" class="b-link-green">Puzzle Game</a>
                 </p>
             </div>
         </div>
@@ -467,7 +467,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/blog/2019/05/03/Puzzle-Game/';
+        this.page.url = 'https://dangosky.github.io/2019/05/03/Puzzle-Game/';
         this.page.identifier = '/2019/05/03/Puzzle-Game/';
         this.page.title = 'Puzzle Game';
     };
@@ -496,7 +496,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2019/05/10/Leetcode：刷完31道链表题的一点总结/">
+                <a href="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/">
                     <div class="card-image">
                         
                         
@@ -515,7 +515,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/数据结构/" class="post-category" target="_blank">
+                            <a href="/blog/categories/数据结构/" class="post-category" target="_blank">
                                     数据结构
                                 </a>
                             
@@ -526,16 +526,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/blog/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="./tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/blog/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
                 </div>
@@ -549,7 +549,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2019/04/19/从浏览器的渲染机制谈起/">
+                <a href="/blog/2019/04/19/从浏览器的渲染机制谈起/">
                     <div class="card-image">
                         
                         
@@ -568,7 +568,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -579,11 +579,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/性能优化/" target="_blank">
+                    <a href="/blog/tags/性能优化/" target="_blank">
                         <span class="chip bg-color">性能优化</span>
                     </a>
                     
@@ -722,7 +722,7 @@
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -778,7 +778,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -804,5 +804,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

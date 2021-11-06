@@ -16,18 +16,18 @@
     <title>盒模型和负margin | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -212,7 +212,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -363,7 +363,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>&emsp;&emsp;每一个HTML标签元素都是由四个部分组成的，分别是内容(content)、内边距(padding)、边框(border)、外边距(margin)。其中盒子的大小只由 content + padding + border 决定，margin影响的不是盒子大小，而是盒子占据的位置。这一部分比较简单，所以这里就不多做叙述了。<br><img src="/2019/03/12/CSS负边距/box.png" alt></p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>&emsp;&emsp;每一个HTML标签元素都是由四个部分组成的，分别是内容(content)、内边距(padding)、边框(border)、外边距(margin)。其中盒子的大小只由 content + padding + border 决定，margin影响的不是盒子大小，而是盒子占据的位置。这一部分比较简单，所以这里就不多做叙述了。<br><img src="/2019/03/12/CSS负边距/box.png" alt></p>
 <h2 id="标准盒模型和IE盒模型"><a href="#标准盒模型和IE盒模型" class="headerlink" title="标准盒模型和IE盒模型"></a>标准盒模型和IE盒模型</h2><p>&emsp;&emsp;关于盒模型需要着重注意的是标准盒模型和IE盒模型的差异。W3C标准盒模型下，content 的宽高只由其自身的宽高决定，而在IE盒模型下，content 的宽高还包括了 border 和 padding（也就是怪异模式）。我们可以在页面开头声明 DOCTYPE 的类型，来指定浏览器统一使用 W3C 标准盒模型，否则在 IE 浏览器中会将盒模型解释为 IE 盒模型。声明 DOCTYPE 时推荐使用<code>&lt;!DOCTYPE html&gt;</code>，会指示浏览器使用 HTML5 规范（要使用 HTML4 则会有三种 &lt;!DOCTYPE&gt; 声明方式）。</p>
 <h2 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h2><p>&emsp;&emsp;在 IE8+ 及 chrome 等浏览器中还可以通过 CSS 的<code>box-sizing</code>属性来定义如何计算一个元素的宽高。对于默认值<code>box-sizing: content-box</code>，页面计算时会使用 W3C 标准盒模型，给元素的宽高赋值相当于对 content 赋值，而整个盒子的大小还得再算上 border 和 padding。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
@@ -896,7 +896,7 @@
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -1070,18 +1070,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

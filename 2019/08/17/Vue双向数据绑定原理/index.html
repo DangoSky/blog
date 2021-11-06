@@ -17,18 +17,18 @@
     <title>Vue双向数据绑定原理 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -213,7 +213,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -364,7 +364,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="Vue双向数据绑定原理"><a href="#Vue双向数据绑定原理" class="headerlink" title="Vue双向数据绑定原理"></a>Vue双向数据绑定原理</h1><p>完整的实现代码<a href="https://github.com/DangoSky/MVVM" target="_blank" rel="noopener">戳这里</a>。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="Vue双向数据绑定原理"><a href="#Vue双向数据绑定原理" class="headerlink" title="Vue双向数据绑定原理"></a>Vue双向数据绑定原理</h1><p>完整的实现代码<a href="https://github.com/DangoSky/MVVM" target="_blank" rel="noopener">戳这里</a>。</p>
 <h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>Vue 通过数据劫持来实现数据绑定，使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty()</a> 来劫持各个数据的 <code>get</code> 和 <code>set</code> 方法。当使用到某一个数据时会触发该数据的 <code>get</code> 方法，所以我们可以在 <code>get</code> 方法中将使用到该数据的指令收集起来（这些就是该数据的依赖）；当修改到这个数据的值时会触发该数据的 <code>set</code> 方法，我们再在 <code>set</code> 方法中去逐个触发这些依赖的更新函数，从而就可以达到 model / view 双向更新的效果。</p>
 <p>理解了实现思路后，我们再从这个思路出发，想想实现过程中会遇到什么问题：</p>
 <ul>
@@ -686,7 +686,7 @@
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -860,18 +860,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

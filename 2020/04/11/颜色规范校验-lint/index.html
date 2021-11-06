@@ -16,18 +16,18 @@
     <title>颜色规范校验 Lint | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -212,7 +212,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -371,7 +371,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求，要做的工作是编写一个校验脚本，在代码提 commit 的时候去校验提交的样式文件里有没有不符合规范的色值。项目里会有一个统一的 <code>normal-colors.less</code> 文件，样式文件里使用到的色值都必须使用这个 <code>normal-colors.less</code> 里的色值变量。对于不在规范里的色值，比如指定的十六进制、rgb、rgba、hsl、hsla 以及颜色名，都要检查出来并查找在 <code>normal-colors.less</code> 里有没有对应的色值变量，有的话则自动替换，没有则打印出所有不规范的色值。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求，要做的工作是编写一个校验脚本，在代码提 commit 的时候去校验提交的样式文件里有没有不符合规范的色值。项目里会有一个统一的 <code>normal-colors.less</code> 文件，样式文件里使用到的色值都必须使用这个 <code>normal-colors.less</code> 里的色值变量。对于不在规范里的色值，比如指定的十六进制、rgb、rgba、hsl、hsla 以及颜色名，都要检查出来并查找在 <code>normal-colors.less</code> 里有没有对应的色值变量，有的话则自动替换，没有则打印出所有不规范的色值。</p>
 <h2 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h2><h4 id="1-提取-commit-的样式文件"><a href="#1-提取-commit-的样式文件" class="headerlink" title="1. 提取 commit 的样式文件"></a>1. 提取 commit 的样式文件</h4><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> execSync <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'child_process'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>execSync<span class="token punctuation">;</span>
 <span class="token keyword">const</span> files <span class="token operator">=</span> <span class="token function">execSync</span><span class="token punctuation">(</span><span class="token string">'git diff HEAD --name-only'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
   encoding<span class="token punctuation">:</span> <span class="token string">'utf8'</span>
@@ -756,7 +756,7 @@ less<span class="token punctuation">.</span><span class="token function">render<
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -930,18 +930,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

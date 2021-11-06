@@ -16,18 +16,18 @@
     <title>下拉刷新上拉加载更多的实现原理 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -212,7 +212,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -367,7 +367,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求：大致是要展示一个列表信息，但每次接口只返回 20 条数据，当用户滑动到到页面底部并继续上拉页面时再继续调接口获取更多的数据（相当于分页）。这里就需要使用到一个上拉加载更多的功能，实现的效果可以<a href="https://broltes.github.io/react-touch-loader/" target="_blank" rel="noopener">看这里</a>。考虑到项目时间比较紧而且可靠性问题，就没有自己去造轮子了，而是在 Github 上找<a href="https://github.com/Broltes/react-touch-loader" target="_blank" rel="noopener">现成的工具</a> 来用。这个库实现的功能主要有两个，一是上拉加载更多，另一个是下拉刷新。它提供的功能也算齐全，不过还是有几个小问题：</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近有一个需求：大致是要展示一个列表信息，但每次接口只返回 20 条数据，当用户滑动到到页面底部并继续上拉页面时再继续调接口获取更多的数据（相当于分页）。这里就需要使用到一个上拉加载更多的功能，实现的效果可以<a href="https://broltes.github.io/react-touch-loader/" target="_blank" rel="noopener">看这里</a>。考虑到项目时间比较紧而且可靠性问题，就没有自己去造轮子了，而是在 Github 上找<a href="https://github.com/Broltes/react-touch-loader" target="_blank" rel="noopener">现成的工具</a> 来用。这个库实现的功能主要有两个，一是上拉加载更多，另一个是下拉刷新。它提供的功能也算齐全，不过还是有几个小问题：</p>
 <ol>
 <li><p>它的文案是写死在 Less 中的，要修改文案的话只能去修改 Less，并且也只能写死在里面。如果要做国际化文案的话会比较麻烦，可能需要去手动操作下 DOM 修改内容了。</p>
 </li>
@@ -628,7 +628,7 @@
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -802,18 +802,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

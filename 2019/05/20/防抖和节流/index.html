@@ -16,18 +16,18 @@
     <title>防抖和节流 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -212,7 +212,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -367,7 +367,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;常常听到防抖和节流这两个名词，但一直只是有个粗浅的认识而已，现在终于腾出时间来一探这两者的究竟啦。先用一句话概括这两者：防抖和节流都是为了<strong>限制函数的执行频率，以优化函数触发频率过高导致的响应速度跟不上触发频率，出现页面延迟、假死或卡顿的现象</strong>。主要应用于一些会被频繁触发的事件中，例如<code>input</code>输入框的监听，<code>resize</code>，<code>scroll</code>，<code>mousemove</code>，<code>keyup</code>等。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;常常听到防抖和节流这两个名词，但一直只是有个粗浅的认识而已，现在终于腾出时间来一探这两者的究竟啦。先用一句话概括这两者：防抖和节流都是为了<strong>限制函数的执行频率，以优化函数触发频率过高导致的响应速度跟不上触发频率，出现页面延迟、假死或卡顿的现象</strong>。主要应用于一些会被频繁触发的事件中，例如<code>input</code>输入框的监听，<code>resize</code>，<code>scroll</code>，<code>mousemove</code>，<code>keyup</code>等。</p>
 <p>&emsp;&emsp;下面分别介绍防抖和节流的异同和实现方式，其中的函数实现主要参照<code>underscore</code>，再根据自己的一些理解写成的，诸位看官可以翻读<a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank" rel="noopener">underscore</a>的源码。</p>
 <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><p>&emsp;&emsp;防抖其实就是当触发一个事件后，如果在指定时间 n 内再次触发该事件，则以新的触发时间为准重新计算执行时间，保证每次触发都会等到 n 秒后才执行并且不会累计触发（持续触发的情况下只会执行一次）。</p>
 <p>&emsp;&emsp;举个栗子，我们常常会给输入框绑定一个<code>input</code>监听函数，根据用户的输入内容来发送<code>Ajax</code>请求实时显示搜索结果。但这样有个问题，每次用户敲一下键盘都会触发到监听函数，造成监听函数被频繁地触发到了（尤其是输入中文的时候），如果监听函数是发送<code>Ajax</code>请求的话那简直就是场灾难。这时候防抖就可以派上用场了，我们设置一个定时器<code>setTimeout</code>让监听函数在指定的延迟时间比如 1s 后才执行，如果在定时器计时的这 1s 内再次触发了事件，则清除之前的定时器重新开始计时，保证监听函数一定会在每次触发的 1s 后才执行。这样监听<code>input</code>事件时就不会频繁地触发到监听函数了，大大优化了页面性能。其他的监听事件如<code>scroll</code>和<code>mousemove</code>也是如此。</p>
@@ -721,7 +721,7 @@
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -895,18 +895,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

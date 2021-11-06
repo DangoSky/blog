@@ -16,18 +16,18 @@
     <title>移动端点击的300ms延迟 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
 <link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -212,7 +212,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -359,7 +359,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="有300ms延迟的原因"><a href="#有300ms延迟的原因" class="headerlink" title="有300ms延迟的原因"></a>有300ms延迟的原因</h1><p>&emsp;&emsp;之所以移动端click会有300ms的延迟，主要是为了让用户在双击屏幕时可以对视图进行放大缩小，而这300ms就是用于判断在这时间范围之内是否有第二次点击，有则双击，否则就是单击。若每次单击屏幕都会延迟300ms才触发事件，很明显这对于用户体验来说是极其不友好的。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="有300ms延迟的原因"><a href="#有300ms延迟的原因" class="headerlink" title="有300ms延迟的原因"></a>有300ms延迟的原因</h1><p>&emsp;&emsp;之所以移动端click会有300ms的延迟，主要是为了让用户在双击屏幕时可以对视图进行放大缩小，而这300ms就是用于判断在这时间范围之内是否有第二次点击，有则双击，否则就是单击。若每次单击屏幕都会延迟300ms才触发事件，很明显这对于用户体验来说是极其不友好的。</p>
 <h1 id="解决300ms延迟的办法"><a href="#解决300ms延迟的办法" class="headerlink" title="解决300ms延迟的办法"></a>解决300ms延迟的办法</h1><h2 id="zepto-js"><a href="#zepto-js" class="headerlink" title="zepto.js"></a>zepto.js</h2><p>&emsp;&emsp;在zepto.js这个JavaScript库里，使用touch事件封装了tap事件，模仿了click的实现，并且不会有300ms的延迟。实现思路是：给目标元素添加touch监听事件，只要满足touch的时间不超过规定的超时时间(防止长按)，并且touch过程不发生移动则在touchend时触发tap事件。(touchend事件是冒泡到document时才触发目标元素绑定的tap事件的)</p>
 <p> <img src="/2019/03/03/移动端点击的300ms延迟/2.png" alt> </p>
 <h3 id="zepto-js的穿透bug"><a href="#zepto-js的穿透bug" class="headerlink" title="zepto.js的穿透bug"></a>zepto.js的穿透bug</h3><p>&emsp;&emsp;zepto.js虽然使用tap事件模拟click避开了300ms延迟，但存在一个bug，即点击穿透。这里需要先说明的是，当用户手指触摸到屏幕的时候，系统会生成两个事件，一个是touch，另一个是click，<strong>执行顺序依次为：touchstart、touchmove、touchend、click</strong>。其中touch事件会优先处理，经过捕获、处理,、冒泡一系列流程完成后才回去触发click事件。</p>
@@ -559,7 +559,7 @@
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -733,18 +733,18 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 

@@ -31,7 +31,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -40,7 +40,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -313,11 +313,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/Vue/" target="_blank">
+                            <a href="/tags/Vue/" target="_blank">
                                 <span class="chip bg-color">Vue</span>
                             </a>
                         
-                            <a href="/blog/tags/源码解析/" target="_blank">
+                            <a href="/tags/源码解析/" target="_blank">
                                 <span class="chip bg-color">源码解析</span>
                             </a>
                         
@@ -329,7 +329,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/源码解析/" class="post-category" target="_blank">
+                            <a href="/categories/源码解析/" class="post-category" target="_blank">
                                 源码解析
                             </a>
                         
@@ -366,7 +366,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\blog\assets\js\APlayer.min.js"> </script><blockquote>
+                <script src="\assets\js\APlayer.min.js"> </script><blockquote>
 <p>文章中涉及到的 Vue 代码特指版本 2.6.11。</p>
 </blockquote>
 <h1 id="虚拟-DOM"><a href="#虚拟-DOM" class="headerlink" title="虚拟 DOM"></a>虚拟 DOM</h1><h2 id="什么是虚拟-DOM"><a href="#什么是虚拟-DOM" class="headerlink" title="什么是虚拟 DOM"></a>什么是虚拟 DOM</h2><p>要理解 Diff 算法，就得先理解好虚拟 DOM。虚拟 DOM 说白了其实就只是一个 JavaScript 对象，它抽象地描述了一个真实的 DOM 结构。我们可以从 Chrome 的 DevTools 中看到，一个 DOM 结构无非是由很多个 HTML 标签根据父子、兄弟等关系组织起来的，而每个 HTML 标签又包含了各种属性，比如 <code>style</code>、<code>class</code>、<code>src</code> 等。所以只要知道了真实 DOM 的结构，我们就可以把它抽象成一个对象的形式来描述，这个对象就是虚拟 DOM。我们可以通过递归的方式将一个 DOM 结构解析成一个虚拟 DOM，也可以通过 <code>document.createElement</code> 把一个虚拟 DOM 还原成一个真实 DOM。</p>
@@ -768,7 +768,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                     </span>
                     <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2020/05/07/Vue2-的-Diff-算法/" class="b-link-green">Vue2 的 Diff 算法</a>
+                    <a href="/2020/05/07/Vue2-的-Diff-算法/" class="b-link-green">Vue2 的 Diff 算法</a>
                 </p>
             </div>
         </div>
@@ -818,7 +818,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2020/05/22/春招面试总结/">
+                <a href="/2020/05/22/春招面试总结/">
                     <div class="card-image">
                         
                         
@@ -837,7 +837,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/面试/" class="post-category" target="_blank">
+                            <a href="/categories/面试/" class="post-category" target="_blank">
                                     面试
                                 </a>
                             
@@ -848,7 +848,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/面试/" target="_blank">
+                    <a href="/tags/面试/" target="_blank">
                         <span class="chip bg-color">面试</span>
                     </a>
                     
@@ -863,7 +863,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2020/04/30/组件库开发小结/">
+                <a href="/2020/04/30/组件库开发小结/">
                     <div class="card-image">
                         
                         
@@ -883,7 +883,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/实习记录/" class="post-category" target="_blank">
+                            <a href="/categories/实习记录/" class="post-category" target="_blank">
                                     实习记录
                                 </a>
                             
@@ -894,15 +894,15 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/实习记录/" target="_blank">
+                    <a href="/tags/实习记录/" target="_blank">
                         <span class="chip bg-color">实习记录</span>
                     </a>
                     
-                    <a href="/blog/tags/组件库/" target="_blank">
+                    <a href="/tags/组件库/" target="_blank">
                         <span class="chip bg-color">组件库</span>
                     </a>
                     
-                    <a href="/blog/tags/Antd/" target="_blank">
+                    <a href="/tags/Antd/" target="_blank">
                         <span class="chip bg-color">Antd</span>
                     </a>
                     
@@ -1041,7 +1041,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -1097,7 +1097,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -1123,5 +1123,5 @@ $(function () {
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

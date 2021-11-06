@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,11 +310,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/JavaScript/" target="_blank">
+                            <a href="/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="/blog/tags/性能优化/" target="_blank">
+                            <a href="/tags/性能优化/" target="_blank">
                                 <span class="chip bg-color">性能优化</span>
                             </a>
                         
@@ -326,7 +326,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -363,7 +363,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;大家应该都知道在前端有一道极其著名的题目：<strong>从输入 url 到页面加载完成的过程中发生了什么？</strong>不得不说这的确是一道覆盖面很广的题目，从计算机网络到浏览器缓存和渲染等内容几乎都包括在其内，更别提还可以引申出去再谈谈性能优化了，估计单单这一道题，从广度和深度挖下去就足以撑起一场面试了。不过本文只涉及到浏览器渲染方面的内容，从服务器返回响应开始讲起，而此前的内容等以后我理清楚了再分别写几篇博客谈谈。</p>
+                <script src="\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;大家应该都知道在前端有一道极其著名的题目：<strong>从输入 url 到页面加载完成的过程中发生了什么？</strong>不得不说这的确是一道覆盖面很广的题目，从计算机网络到浏览器缓存和渲染等内容几乎都包括在其内，更别提还可以引申出去再谈谈性能优化了，估计单单这一道题，从广度和深度挖下去就足以撑起一场面试了。不过本文只涉及到浏览器渲染方面的内容，从服务器返回响应开始讲起，而此前的内容等以后我理清楚了再分别写几篇博客谈谈。</p>
 <h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><h2 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h2><p>&emsp;&emsp;在计算机网络中传输的内容都是以字节的形式传输的，当浏览器接受到（或者从本地磁盘读取到）这些字节数据（也就是HTML文档）时，会先根据指定的编码方式（如 utf-8）把它们解码成字符串。然后通过<a href="https://zh.wikipedia.org/wiki/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90" target="_blank" rel="noopener">词法分析</a>把字符串识别成一个个词语（此处词法分析会识别并跳过空格和换行等无关的字符），再利用这些词语生成节点，而这些节点根据原本的文档结构便构建成了一颗 DOM 树。</p>
 <p>&emsp;&emsp;其中词法分析是按一定的语言规则将字符串转化成一个个浏览器可以识别的词语（即 <strong>token</strong>），每一个 token 会标识出当前的 token 是“开始标签”、“结束标签”还是“文本”等信息。对于词法分析的过程，我猜可能是利用到正则表达式 + 栈来实现的，类似于 <a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">Leetcode</a> 上一道算法题，匹配括号判断字符串是否有效，也可能是我想的太简单了。（对于 HTML 字符串如何解析成词语和节点，本文就不深入探讨了，看客有兴趣可以参考《<strong>WebKit技术内幕</strong>》这本书的 5.2 章。难道我会告诉你其实我也不是很清楚吗？还是等之后我深入理解了后再补充这部分的知识点吧，在这里立个 flag）</p>
 <p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/1.png" alt></p>
@@ -512,7 +512,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                     </span>
                     <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2019/04/19/从浏览器的渲染机制谈起/" class="b-link-green">从浏览器的渲染机制谈起</a>
+                    <a href="/2019/04/19/从浏览器的渲染机制谈起/" class="b-link-green">从浏览器的渲染机制谈起</a>
                 </p>
             </div>
         </div>
@@ -562,7 +562,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2019/05/03/Puzzle-Game/">
+                <a href="/2019/05/03/Puzzle-Game/">
                     <div class="card-image">
                         
                         
@@ -581,7 +581,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="/categories/Web-Project/" class="post-category" target="_blank">
                                     Web Project
                                 </a>
                             
@@ -592,15 +592,15 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/Web-Project/" target="_blank">
+                    <a href="/tags/Web-Project/" target="_blank">
                         <span class="chip bg-color">Web Project</span>
                     </a>
                     
-                    <a href="/blog/tags/Vue/" target="_blank">
+                    <a href="/tags/Vue/" target="_blank">
                         <span class="chip bg-color">Vue</span>
                     </a>
                     
@@ -615,7 +615,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2019/04/12/事件模型和事件委托/">
+                <a href="/2019/04/12/事件模型和事件委托/">
                     <div class="card-image">
                         
                         
@@ -635,7 +635,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -646,11 +646,11 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/前端基础/" target="_blank">
+                    <a href="/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -789,7 +789,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -845,7 +845,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -871,5 +871,5 @@ $(function () {
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

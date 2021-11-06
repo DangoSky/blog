@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,7 +310,7 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/JavaScript/" target="_blank">
+                            <a href="/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
@@ -322,7 +322,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -359,7 +359,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="JavaScript是单线程的"><a href="#JavaScript是单线程的" class="headerlink" title="JavaScript是单线程的"></a>JavaScript是单线程的</h1><p>&emsp;&emsp;JavaScript 从出生以来就是单线程的，这可能和 JavaScript 一切从简有关，毕竟是人家只花了10天就开发出的语言。也可能是受限于 JavaScript 的用途，JavaScript 作为脚本语言控制着页面的行为，如果有多个线程同时对页面的某一个元素进行操作，比如对同一个 DOM 元素进行增删操作，那浏览器要听哪个线程的？所以如果是多线程的话，浏览器在响应时就会变得很复杂了。（难道要像多进程那样引入锁？？）</p>
+                <script src="\assets\js\APlayer.min.js"> </script><h1 id="JavaScript是单线程的"><a href="#JavaScript是单线程的" class="headerlink" title="JavaScript是单线程的"></a>JavaScript是单线程的</h1><p>&emsp;&emsp;JavaScript 从出生以来就是单线程的，这可能和 JavaScript 一切从简有关，毕竟是人家只花了10天就开发出的语言。也可能是受限于 JavaScript 的用途，JavaScript 作为脚本语言控制着页面的行为，如果有多个线程同时对页面的某一个元素进行操作，比如对同一个 DOM 元素进行增删操作，那浏览器要听哪个线程的？所以如果是多线程的话，浏览器在响应时就会变得很复杂了。（难道要像多进程那样引入锁？？）</p>
 <p>&emsp;&emsp;而单线程意味着主线程只能一次执行一个任务，不能同时执行多个，这就导致了像 http 请求等耗时长的任务很可能会长时间占用着主线程，堵塞了执行栈中其他任务的执行。互联网上有一个八秒准则（当然这个八秒也只是一个虚数而已），即用户在执行操作后如果页面在 8s 之内没有得到响应，进入假死状态，则用户会失去耐心直接关闭页面（不知道你们会不会这样，反正我就是这样的，不过可能我耐心好一点所以我会等上个十几秒）。所以考虑到主线程堵塞的问题，JavaScript 异步操作就应运而生了。异步任务不会在执行期间长时间占用主线程，而是会先被主线程挂起，等达到一定条件比如 http 请求得到响应或到了代码指定的延迟时间后，通过调用回调函数的方式来回头完成代码的执行，而在这段时间内主线程就可以去执行其他的任务了，这样即使 http 请求花费了很长时间甚至是一直没有响应也不会堵塞到其他任务的执行。</p>
 <h1 id="事件队列"><a href="#事件队列" class="headerlink" title="事件队列"></a>事件队列</h1><p>&emsp;&emsp;当程序在执行过程中遇到异步任务时会先把异步任务挂起，交由其他相关的浏览器线程处理。注意，这里指的是浏览器线程，<a href="https://imweb.io/topic/58e3bfa845e5c13468f567d5" target="_blank" rel="noopener">引用一下相关的描述</a>：</p>
 <blockquote>
@@ -515,7 +515,7 @@ process<span class="token punctuation">.</span><span class="token function">next
                     </span>
                     <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2019/04/07/事件队列和事件循环/" class="b-link-green">事件队列和事件循环</a>
+                    <a href="/2019/04/07/事件队列和事件循环/" class="b-link-green">事件队列和事件循环</a>
                 </p>
             </div>
         </div>
@@ -565,7 +565,7 @@ process<span class="token punctuation">.</span><span class="token function">next
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2019/04/12/事件模型和事件委托/">
+                <a href="/2019/04/12/事件模型和事件委托/">
                     <div class="card-image">
                         
                         
@@ -585,7 +585,7 @@ process<span class="token punctuation">.</span><span class="token function">next
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -596,11 +596,11 @@ process<span class="token punctuation">.</span><span class="token function">next
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/前端基础/" target="_blank">
+                    <a href="/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -615,7 +615,7 @@ process<span class="token punctuation">.</span><span class="token function">next
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2019/04/01/深拷贝实现/">
+                <a href="/2019/04/01/深拷贝实现/">
                     <div class="card-image">
                         
                         
@@ -634,7 +634,7 @@ process<span class="token punctuation">.</span><span class="token function">next
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -645,7 +645,7 @@ process<span class="token punctuation">.</span><span class="token function">next
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
@@ -784,7 +784,7 @@ process<span class="token punctuation">.</span><span class="token function">next
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -840,7 +840,7 @@ process<span class="token punctuation">.</span><span class="token function">next
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -866,5 +866,5 @@ $(function () {
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

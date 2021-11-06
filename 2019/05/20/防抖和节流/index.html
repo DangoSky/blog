@@ -372,7 +372,7 @@
 <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><p>&emsp;&emsp;防抖其实就是当触发一个事件后，如果在指定时间 n 内再次触发该事件，则以新的触发时间为准重新计算执行时间，保证每次触发都会等到 n 秒后才执行并且不会累计触发（持续触发的情况下只会执行一次）。</p>
 <p>&emsp;&emsp;举个栗子，我们常常会给输入框绑定一个<code>input</code>监听函数，根据用户的输入内容来发送<code>Ajax</code>请求实时显示搜索结果。但这样有个问题，每次用户敲一下键盘都会触发到监听函数，造成监听函数被频繁地触发到了（尤其是输入中文的时候），如果监听函数是发送<code>Ajax</code>请求的话那简直就是场灾难。这时候防抖就可以派上用场了，我们设置一个定时器<code>setTimeout</code>让监听函数在指定的延迟时间比如 1s 后才执行，如果在定时器计时的这 1s 内再次触发了事件，则清除之前的定时器重新开始计时，保证监听函数一定会在每次触发的 1s 后才执行。这样监听<code>input</code>事件时就不会频繁地触发到监听函数了，大大优化了页面性能。其他的监听事件如<code>scroll</code>和<code>mousemove</code>也是如此。</p>
 <p>&emsp;&emsp;我们先来看看普通的<code>input</code>监听函数的执行情况，从下图中可以看到我只是输入短短的 “世界很温柔” 五个字，监听函数却执行了多达 17 次。可以<a href="https://jsfiddle.net/DangoSky/4dyn1pv0/12/" target="_blank" rel="noopener">戳这里进行实验</a>。</p>
-<p><img src="/2019/05/20/防抖和节流/1.gif" alt></p>
+<p><img src="/blog/2019/05/20/防抖和节流/1.gif" alt></p>
 <p>&emsp;&emsp;下面我们先来实现一个简单版的防抖，抓住每次触发事件时都会先清除掉之前的定时器再开始计时，我们不难写出下面这几行代码。需要注意的是要使用<code>apply</code>或<code>call</code>来显示绑定监听函数（以下简称<code>fn</code>）的 this 为当前绑定监听函数的 DOM 对象，否则<code>fn</code>里的 this 会指向 window。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> wait<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
@@ -546,7 +546,7 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/blog/2019/05/20/防抖和节流/" class="b-link-green">防抖和节流</a>
                 </p>
@@ -569,7 +569,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2019/05/20/防抖和节流/';
+        this.page.url = 'https://dangosky.github.io/blog/2019/05/20/防抖和节流/';
         this.page.identifier = '/2019/05/20/防抖和节流/';
         this.page.title = '防抖和节流';
     };

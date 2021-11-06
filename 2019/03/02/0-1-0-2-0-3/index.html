@@ -366,7 +366,7 @@
                 <script src="\blog\assets\js\APlayer.min.js"> </script><p>&emsp;&emsp;众所周知的是，计算机中对十进制数字的运算是先把十进制数字转换为二进制再进行运算的（至于为什么，呃，如果我没记错的话，大致是因为早期计算机只支持二进制？正如之前看到的一句话，二进制是世界的本源）。对于二进制浮点数的转换而言，还牵扯到了一个<strong>IEEE754</strong>(<a href="https://zh.wikipedia.org/wiki/IEEE_754" target="_blank" rel="noopener">二进制浮点数算术标准</a>)。   </p>
 <p>&emsp;&emsp;十进制小数转化为二进制小数的具体做法是，将十进制小数乘以 2，得到积后将取出整数部分，再将剩余的小数部分继续乘以 2，反复循环上述过程(<strong>乘二取整</strong>)，直至小数部分为零或达到所要求的精度为止。举个例子，0.5 转换为二进制是 0.1，刚刚好可以既快且准地表示出来。而 0.1 转换为二进制后为 0.0001100110011…，是一个无限循环的二进制小数。又由于位数的限制（ JS 使用的是 64 位双精度浮点数编码，最多只有 52 位有效数字，见下图），所以从第 53 位后的位数会被舍掉（如果是 1 就向前一位进 1，如果是 0 就舍弃），造成了浮点数精确度损失。因此<strong>一部分</strong>二进制小数是不等于原来的十进制小数的！</p>
 <p>&emsp;&emsp;至于解决办法，最好的自然是避免对浮点数进行比较操作，不然的话也可以界定浮点数的精确度，使用 <code>toFixed()</code> 保留小数点前几位，或者直接借用第三方库（刚才看了下有好几个这类库，虽然我没用过）。</p>
-<p> <img src="/2019/03/02/0-1-0-2-0-3/1.png" alt>  </p>
+<p> <img src="/blog/2019/03/02/0-1-0-2-0-3/1.png" alt>  </p>
 <p>&emsp;&emsp;这里还有一个问题，<code>0.1 + 0.1</code> 是等于 0.2 的，很奇怪，这时候就没有精度损失了？Segmentfault 上有人说是:</p>
 <blockquote>
 <p>两个有舍入误差的值在求和时，相互抵消了，但这种“负负得正，相互抵消”不一定是可靠的，当这两个数字是用不同长度数位来表示的浮点数时，舍入误差可能不会相互抵消。  </p>
@@ -394,7 +394,7 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/blog/2019/03/02/0-1-0-2-0-3/" class="b-link-green">0.1 + 0.2 !== 0.3</a>
                 </p>
@@ -417,7 +417,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2019/03/02/0-1-0-2-0-3/';
+        this.page.url = 'https://dangosky.github.io/blog/2019/03/02/0-1-0-2-0-3/';
         this.page.identifier = '/2019/03/02/0-1-0-2-0-3/';
         this.page.title = '0.1 + 0.2 !== 0.3';
     };

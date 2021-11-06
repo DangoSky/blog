@@ -6,7 +6,7 @@
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><p>&emsp;&emsp;众所周知的是，计算机中对十进制数字的运算是先把十进制数字转换为二进制再进行运算的（至于为什么，呃，如果我没记错的话，大致是因为早期计算机只支持二进制？正如之前看到的一句话，二进制是世界的本源）。对于二进制浮点数的转换而言，还牵扯到了一个<strong>IEEE754</strong>(<a href="https://zh.wikipedia.org/wiki/IEEE_754" target="_blank" rel="noopener">二进制浮点数算术标准</a>)。   </p>
 <p>&emsp;&emsp;十进制小数转化为二进制小数的具体做法是，将十进制小数乘以 2，得到积后将取出整数部分，再将剩余的小数部分继续乘以 2，反复循环上述过程(<strong>乘二取整</strong>)，直至小数部分为零或达到所要求的精度为止。举个例子，0.5 转换为二进制是 0.1，刚刚好可以既快且准地表示出来。而 0.1 转换为二进制后为 0.0001100110011…，是一个无限循环的二进制小数。又由于位数的限制（ JS 使用的是 64 位双精度浮点数编码，最多只有 52 位有效数字，见下图），所以从第 53 位后的位数会被舍掉（如果是 1 就向前一位进 1，如果是 0 就舍弃），造成了浮点数精确度损失。因此<strong>一部分</strong>二进制小数是不等于原来的十进制小数的！</p>
 <p>&emsp;&emsp;至于解决办法，最好的自然是避免对浮点数进行比较操作，不然的话也可以界定浮点数的精确度，使用 <code>toFixed()</code> 保留小数点前几位，或者直接借用第三方库（刚才看了下有好几个这类库，虽然我没用过）。</p>
-<p> <img src="/2019/03/02/0-1-0-2-0-3/1.png" alt>  </p>
+<p> <img src="/blog/2019/03/02/0-1-0-2-0-3/1.png" alt>  </p>
 <p>&emsp;&emsp;这里还有一个问题，<code>0.1 + 0.1</code> 是等于 0.2 的，很奇怪，这时候就没有精度损失了？Segmentfault 上有人说是:</p>
 <blockquote>
 <p>两个有舍入误差的值在求和时，相互抵消了，但这种“负负得正，相互抵消”不一定是可靠的，当这两个数字是用不同长度数位来表示的浮点数时，舍入误差可能不会相互抵消。  </p>
@@ -20,6 +20,224 @@
       <tags>
         <tag>JavaScript</tag>
         <tag>前端基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS制作各种图形</title>
+    <url>/blog/2018/12/25/CSS%E5%88%B6%E4%BD%9C%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp;有时候代码和效果图可以比文字更清楚地表达我们想说明的意思，所以我们先上一段样式再看看效果。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="square">&lt;/div>  
+
+<span class="token class">.square</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/0.png" alt><br>&emsp;&emsp;从图中我们好像并没有发现什么异常，这不就是普普通通地给一个div设置边框吗？这和三角形有什么关系？这样看确实是很平常，那是因为我们设置border都是左右上下四条边框都是同一种颜色的，如果我们把它们设置为四种不同的颜色呢？现在我们把<code>border-color: red</code>换为<code>border-color: yellow blue pink green</code>再来看看效果。<br><img src="/blog/2018/12/25/CSS制作三角形/1.png" alt><br>&emsp;&emsp;现在有没有发现什么问题了？四条边框都是显示为等腰梯形的，并不是长方形！刚才我们看到的那个红色边框其实也是由四个等腰梯形拼成的，只是它们都是同一种颜色所以我们看不出来而已。我猜想之所以如此是为了让四条边框都可以等大而且分布在各自的位置上不至于混乱（想象一下如果四条都是长方形的话要怎么才能做到等大且均匀分布在上下左右）。现在我们再把这个div的宽高都调为 0 看看有什么变化。<br><img src="/blog/2018/12/25/CSS制作三角形/2.png" alt><br>&emsp;&emsp;因为div的宽高为 0，且又存在着边框，所以原本是等腰梯形的四条边框会从开始延伸，在中心交为一点，于是就成了四个三角形。但我们只是要一个三角形而已，要怎么去掉其余三个呢？答案是我们可以给其余几条边框设置为透明色来隐藏掉它们。我们再把边框样式更换为<code>border-color: transparent transparent red transparent</code>试试看。（边框设置为透明不等于不设置边框，详见下文的注意点。）<br><img src="/blog/2018/12/25/CSS制作三角形/3.png" alt><br>&emsp;&emsp;于是乎，一个三角形就出来了！理解了上述制造三角形的原理后，我们自然就可以随心所欲去变化三角形的指向和样式了。通过指定不同方向上的边框为透明色来改变三角形的方向，比如我们要得到一个指向左边的三角形，就应该把上下左边框都设置为透明色，即<code>border-color: transparent pink transparent transparent</code>。（想象一下三角形是由原本方位上的等腰梯形延伸而成的就行了）<br><img src="/blog/2018/12/25/CSS制作三角形/4.png" alt><br>&emsp;&emsp;如果我们要得到指向西北的三角形呢？（见下图）我们可以把它进行拆分，即由一个指向下和一个指向右的三角形组合而成（想象一下），所以只需要把边框样式改为<code>border-color: pink transparent  transparent pink</code>就成了，其他的同理。<br><img src="/blog/2018/12/25/CSS制作三角形/5.png" alt></p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>&emsp;&emsp;<strong>如果没有设置全部四条边框，可能会出现断层效果。</strong></p>
+<ol>
+<li>只设置两条边框</li>
+</ol>
+<ul>
+<li>该两条边框相邻时</li>
+</ul>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/8.png" alt><br>&emsp;&emsp;可以看到，因为没有设置左边框和下边框，所以上边框和右边框的部分也没有显示出来。（从中可以得到：<strong>四个顶角处的那部分边框是属于相邻两个边框的，只要其中一个边框没有设置，顶角处的那部分边框就不会显示</strong>。）<br>&emsp;&emsp;现在我们把宽高都设为0再看看效果。从下图可以发现，当div的宽高都为0时，原本延伸的那部分边框会收缩回去，最后两个三角形拼成了正方形。<br><img src="/blog/2018/12/25/CSS制作三角形/9.png" alt></p>
+<ul>
+<li>该两条边框不相邻时</li>
+</ul>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/10.png" alt><br>&emsp;&emsp;原因同上，因为左右边框都没有设置，所以上下边框和左右边框相交的那部分也就不会显示了。和相邻边框不同的是，如果把宽高都设为0，则上下两个边框也会收缩回去，但最后直接收缩没了。<strong>相邻边框收缩后拼成了一个正方形是因为那是由边框自己的大小拼凑而成的</strong>，不依赖于div的宽高。而<strong>不相邻的边框（即上下边框或左右边框）依赖于div的宽高</strong>，它们中间那正方形的部分是随div的宽高来延长的（想象一下那画面就成了）。</p>
+<ol start="2">
+<li>设置三条边框<br>设置三条边框和设置不相邻的两条边框的情况是一样的，这里就只贴图和代码不解释了。</li>
+</ol>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
+  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/11.png" alt></p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/12.png" alt></p>
+<h1 id="圆"><a href="#圆" class="headerlink" title="圆"></a>圆</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> lightgreen<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">// 或者通过边框来撑起圆的大小
+<span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid lightgreen<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/14.png" alt></p>
+<p>&emsp;&emsp;或者使用 <strong>canvas</strong> 来画圆。</p>
+<pre class=" language-css"><code class="language-css">&lt;canvas id=<span class="token string">"canvas"</span> width=<span class="token string">"300"</span> height=<span class="token string">"300"</span>>&lt;/canvas>
+&lt;script>
+  let canvas = document<span class="token number">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  let context = canvas<span class="token number">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token string">"2d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  context<span class="token number">.</span><span class="token function">beginPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  context<span class="token number">.</span><span class="token function">arc</span><span class="token punctuation">(</span><span class="token number">100</span>, <span class="token number">100</span>, <span class="token number">50</span>, <span class="token number">0</span>, Math<span class="token number">.</span>PI * <span class="token number">2</span>, true<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+  context<span class="token number">.</span>fillStyle = <span class="token string">"red"</span><span class="token punctuation">;</span>
+  context<span class="token number">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+&lt;/script>
+</code></pre>
+<h1 id="半圆"><a href="#半圆" class="headerlink" title="半圆"></a>半圆</h1><p>&emsp;&emsp;设置半圆的时候宽高比是一比二或二比一（取决于半圆的方向）。而边框圆角，我们需要知道的是，设置<code>border-raidus</code>时是可以分开来设置四个方位的圆角的，依次顺序分别是左上，右上，右下，左下，所以半圆我们只需要设置相应的相邻两个边框圆角就行了。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.semicircle</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100</span>px <span class="token number">100</span>px <span class="token number">0</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/* 还可以如下分开设置 */</span>
+  <span class="token comment" spellcheck="true">/* border-top-left-radius: 100px;
+  border-top-right-radius: 100px; */</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/6.png" alt></p>
+<p>&emsp;&emsp;通过设置不同边框的样式，我们还可以设置出这么一个东西来，破了壳的蛋？食人花？如果想象力足够，CSS真的能够做出很多不可思议的玩样出来，比如人家IE的logo。Orz…</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.pac-man</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">60</span>px solid<span class="token punctuation">;</span> 
+  <span class="token property">border-color</span><span class="token punctuation">:</span> red transparent red red <span class="token punctuation">;</span> 
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/15.png" alt></p>
+<h1 id="椭圆形"><a href="#椭圆形" class="headerlink" title="椭圆形"></a>椭圆形</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.oval</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/18.png" alt></p>
+<h1 id="扇形"><a href="#扇形" class="headerlink" title="扇形"></a>扇形</h1><p>&emsp;&emsp;扇形和半圆其实是同一个道理，只是扇形的宽高要相等，并且只需要设置一个边框圆角就行了。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.fan-shaped</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> pink<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/7.png" alt></p>
+<h1 id="平行四边形"><a href="#平行四边形" class="headerlink" title="平行四边形"></a>平行四边形</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.parallelogram</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> pink<span class="token punctuation">;</span>
+  <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">skew</span><span class="token punctuation">(</span><span class="token number">45</span>deg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/19.png" alt></p>
+<h1 id="六角星"><a href="#六角星" class="headerlink" title="六角星"></a>六角星</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.sixStar</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">100</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
+  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.sixStar</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">100</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
+  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> -<span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> -<span class="token number">135</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/13.png" alt><br>&emsp;&emsp;说白了，六角星就是由两个指向相反的三角形组合成的，只不过其中一个是通过伪元素来设置的，并使用绝对定位把它移动到合适的位置上去而已。需要注意的是，要调整好边框的大小，否则得到的六角星会达不到效果。</p>
+<h1 id="聊天框气泡"><a href="#聊天框气泡" class="headerlink" title="聊天框气泡"></a>聊天框气泡</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.talkBubble</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">120</span>px<span class="token punctuation">;</span> 
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> lightgreen<span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.talkBubble</span><span class="token pseudo-element">::before</span> </span><span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">right</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">25%</span><span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">10</span>px solid transparent<span class="token punctuation">;</span>
+  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid lightgreen<span class="token punctuation">;</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">10</span>px solid transparent<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/16.png" alt><br>&emsp;&emsp;说白了，就是一个长方形和一个三角形，其中三角形通过伪元素设置再绝对定位移动到左边而已，瞅着倒是挺好看的。</p>
+<h1 id="阴阳图"><a href="#阴阳图" class="headerlink" title="阴阳图"></a>阴阳图</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token number">2</span>px <span class="token number">2</span>px <span class="token number">50</span>px <span class="token number">2</span>px<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.box</span><span class="token pseudo-element">::before</span> </span><span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid red<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.box</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="/blog/2018/12/25/CSS制作三角形/17.png" alt><br>&emsp;&emsp;这个阴阳图的制作很巧妙，之所以这么说是因为代码对borde运用地很灵活。整体的圆形其实并不只是一个圆形，它的上半部分是一个椭圆形，下半部分是由border来撑开的，这样就做到了上下两半是两种颜色。而中间那两个小圆也利用到了border，伪元素自身的宽高用来制作小圆，同时还设置了border来制作小圆外层的圆形，这样就达到了那弧形效果，最后还是绝对定位修改一下位置就大功告成了。</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -45,10 +263,10 @@
 <li>转化为字符串： 先调用toString(),如果没有toString方法或返回的不是一个原始值，则再调用valueOf()。若得到一个原始值则返回，否则抛出异常。   </li>
 <li>转化为数字： 先调用valueOf(),如果没有valueOf方法或返回的不是一个原始值，则再调用toString()。若得到一个原始值则返回，否则抛出异常。</li>
 <li><p>默认的valueOf方法简单地返回对象本身,数组、函数和正则表达式使用默认的valueOf方法，所以valueOf([])放回一个空字符串。</p>
-<p><img src="/2019/02/28/==中的类型转换/1.png" alt>  </p>
+<p><img src="/blog/2019/02/28/==中的类型转换/1.png" alt>  </p>
 </li>
 </ol>
-<p>&emsp;&emsp;同理可得其他的运算结果，要注意的是:<br><code>![]=={}   //false</code>    和  <code>{}==![]   //VM1896:1 Uncaught SyntaxError: Unexpected token</code>。刚开始看的时候我也是觉得很奇怪，就左右互换了个位置而已，咋就报错了呢？我没想到的是，在<code>{}==![]</code>里{}被当作是代码块来处理了，所以自然就报错了。根据StackOverflow里某位daolao的回复，就是如果代码是以 { 开头以 } 结尾，就会被解析成表达式，否则就是代码块了，而以!开头的都会被认为是表达式。详情见下图：<br> <img src="/2019/02/28/==中的类型转换/2.png" alt>  </p>
+<p>&emsp;&emsp;同理可得其他的运算结果，要注意的是:<br><code>![]=={}   //false</code>    和  <code>{}==![]   //VM1896:1 Uncaught SyntaxError: Unexpected token</code>。刚开始看的时候我也是觉得很奇怪，就左右互换了个位置而已，咋就报错了呢？我没想到的是，在<code>{}==![]</code>里{}被当作是代码块来处理了，所以自然就报错了。根据StackOverflow里某位daolao的回复，就是如果代码是以 { 开头以 } 结尾，就会被解析成表达式，否则就是代码块了，而以!开头的都会被认为是表达式。详情见下图：<br> <img src="/blog/2019/02/28/==中的类型转换/2.png" alt>  </p>
 <hr>
 <p>本节完，如果有后续再另行补充。</p>
 ]]></content>
@@ -61,9 +279,104 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello Hexo</title>
+    <url>/blog/2018/10/03/Hello%20hexo/</url>
+    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><p>&emsp;&emsp;2018.10.3，DangoSky的博客终于搭建好了，也还只是出了个大概而已，还差了许多:(    </p>
+<p>&emsp;&emsp;有些坎坷，_config.yml文件里冒号和属性值之间需要有一个空格才可以，然而一开始看的那两篇博客都没着重提到，这个坑让我掉了一个多小时。。。我。。。认栽了orz。搭个博客觉得还是选择主题麻烦，看了这个觉得这个好，看到那个又觉得那个好，选择纠结症。。。  </p>
+<p>&emsp;&emsp;好像搭个博客就只是为了玩玩，体验体验搭建博客是个啥过程，小白一枚的我写不了啥技术文，也好像没啥精力和时间去写些心路历程的(如果没有那个写的冲动的话),而且说实话，真要写些自己的心事的话不是还有公众号？？所以这个博客估计得凉凉的，周更？月更？但觉得博客对于程序员来说就像公众号对于自媒体，哦不，我这样说把GitHub置于何地了？？   </p>
+<p>&emsp;&emsp;好吧，其实我也不知道要写什么，在这第一篇博客文里。也因为这两天回家后心情不太好，有些闷闷不乐没啥好事的。就这样了，以上。</p>
+]]></content>
+      <categories>
+        <category>生活日记</category>
+      </categories>
+      <tags>
+        <tag>生活日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git常用命令</title>
+    <url>/blog/2019/09/03/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><p>在头条实习的这八周里，刚开始没少因为我对 Git 掌握严重不足而挨 mentor 训过，所以在这里记录一些比较常用的 Git 操作。</p>
+<h1 id="合并多个commit"><a href="#合并多个commit" class="headerlink" title="合并多个commit"></a>合并多个commit</h1><p>假如我们现在在本地仓库提了3个 commit，就像这样：</p>
+<p><img src="/blog/2019/09/03/Git常用命令/1.png" alt></p>
+<p>如果我们直接这样 push 的话，会产生三个提交记录，但在工作中我们都会把同一个 feature 的 commit 合并成一个再 push 到远端，所以这时候我们就需要把 test：one、test：two、test：three 这三个提交合并成一个了。具体操作是：</p>
+<ol>
+<li><code>git rebase -i cbd7376f88cab83c2913a4e5cf6fa3066ac973b9</code></li>
+</ol>
+<p>这里的 commitID 是指我们想要开始合并的前一个 commit（不参与到本次的合并操作中）。</p>
+<ol start="2">
+<li>接着进入到命令模式:</li>
+</ol>
+<p><img src="/blog/2019/09/03/Git常用命令/2.png" alt></p>
+<p>前面几行是我们要进行合并的 commit 信息，以 # 开头则表示是注释。这里我们只需要使用到两个命令：</p>
+<ul>
+<li><code>pick</code>：表示这个 commit 将会被提交。</li>
+<li><code>squash</code>：表示这个 commit 会被合并到前一个 commit 中去。</li>
+</ul>
+<p>在修改之前，得先按 <strong>i 键</strong> 进入到编辑模式，根据需要修改要合并的 commit 前面的命令即可。修改完成后按 <strong>esc</strong> 键回到命令模式，输入 <strong>:wq</strong> 保存并退出。</p>
+<ol start="3">
+<li>最后会进入到 commit message 的编辑界面：</li>
+</ol>
+<p><img src="/blog/2019/09/03/Git常用命令/3.png" alt></p>
+<p>默认情况下，新生成的 commit message 包含了要合并的 commit 的 commit message，如果不想这样的话可以进入到编辑模式修改，之后再保存退出即可。操作完毕后再使用 git log 查看你就可以发现这三个 commit 已经被合并成一个了！</p>
+<p><img src="/blog/2019/09/03/Git常用命令/4.png" alt></p>
+<h1 id="查看操作日志"><a href="#查看操作日志" class="headerlink" title="查看操作日志"></a>查看操作日志</h1><p><code>git reflog</code> 和 <code>git log</code> 都可以用来查看日志，但各有侧重。git log 更多是用来查看我们的提交记录，比如提交日期、commit message 等。而 <code>git reflog</code> 更多是用来查看操作记录，记录我们使用了什么命令做了什么事，借此可以查看已经被删除的 commit 记录和 reset 的操作。假如我们想撤销之前的某次操作，我们就可以通过 <code>git reflog</code> 找到那次操作的 commitId，再使用 <code>git reset</code> 回退回去。</p>
+<p><img src="/blog/2019/09/03/Git常用命令/5.png" alt></p>
+<h1 id="暂存修改"><a href="#暂存修改" class="headerlink" title="暂存修改"></a>暂存修改</h1><p>在每次 commit 和 push 之前我们都需要先 <code>git pull</code> 以防后续的提交和远端仓库产生冲突，但这时候会报 <code>error: cannot pull with rebase: You have unstaged changes</code> 的错误，它会提示我们在拉取代码之前需要先 commit 或者 stash 代码。这时候我们就需要先暂存一下代码了，执行 <code>git stash</code> 让其回到上次 commit 时的状态，等拉取完成后再恢复我们刚才暂存的代码 <code>git stash pop</code>。我们可以暂存多次代码，所以我们也可以通过 <code>git stash list</code> 查看暂存区的暂存情况，并由 <code>git stash apply stash@{该次暂存对应的标号}</code> 来取出特定的暂存内容。（有时候我们开发到一半需要紧急开发另一个 feature 或是修某个 bug，也可以 <code>git stash</code> 暂存目前写一半的代码，等紧急情况处理完成后再恢复暂存继续开发）</p>
+<h1 id="撤销更改"><a href="#撤销更改" class="headerlink" title="撤销更改"></a>撤销更改</h1><p>有时候我们把代码改乱了，想要直接恢复到之前的状态的话，就可以使用 <code>git checkout -- &lt;文件名&gt;</code> 来删除某个文件中的更改内容，使其回到上一次提交时的状态。但这只适用于我们还没有把代码提交到暂存区（也就是还没有 <code>git add</code>）的情况。如果我们已经把代码提交到了暂存区的话，就需要先使用 <code>git reset HEAD &lt;文件名&gt;</code> 撤销该文件的暂存，再执行 <code>git checkout -- &lt;文件名&gt;</code> 命令。</p>
+<h1 id="撤销提交"><a href="#撤销提交" class="headerlink" title="撤销提交"></a>撤销提交</h1><ul>
+<li><p>如果只是提了 commit 还没有 push 的话，我们只需要 <code>git reset &lt;版本号&gt;</code> 回到提交前的状态就可以了。但默认下 <code>git reset</code> 只是撤销了这次提交记录而已，如果我们还需要在 IDE 中也删除该次提交的代码，就要使用到 <code>git reset --hard &lt;版本号&gt;</code> 了。</p>
+</li>
+<li><p>如果该 commit 也 push 到了远端仓库的话，我们先 <code>git reset --hard &lt;版本号&gt;</code> 撤销了本地的提交后，还需要撤销远端的提交。我们可能会直接使用 <code>git push origin &lt;分支名&gt;</code> 来覆盖掉远端的提交记录，但这样会提示本地的版本落后于远端的版本而无法成功 push，所以就需要 <code>git push origin &lt;分支名&gt; --force</code> 来强制 push，完成后就可以看到远端的该次提交和相关的代码修改都已经被撤销了。</p>
+</li>
+</ul>
+<h1 id="补充提交"><a href="#补充提交" class="headerlink" title="补充提交"></a>补充提交</h1><p>如果使用 Gerrit 的话，我们在提交代码后往往都会让其他人 review，确认没有问题后才把提交合进 master，如果有问题的话则要继续修改代码。当我们修改完代码后常常是使用 <code>git commit --amend</code> 把修改的内容追加在之前的提交上，最后形成一个完整的提交就可以了。如果提 <code>commit --amend</code> 时不需要修改 commit message 的话，可以直接 <code>git commit --amend --no-edit</code> 来跳过后续修改 commit message 的过程。除此之外，我们还可以通过 <code>commit --amend</code> 来修改提交的 commit message，即 <code>git commit --amend -m “新提交消息”</code>。</p>
+<h1 id="提取提交"><a href="#提取提交" class="headerlink" title="提取提交"></a>提取提交</h1><p>在团队合作中，通常每一个 feature / bug 都需要新开一个分支，各个分支相互独立互不相干。然而有一次我把两个 feature 都 commit 在了同一个分支上，这时候就需要先撤销提交再重新创建分支提交了。撤销提交的操作在上面已经说到了，接着我们就需要把旧分支上的提交提取到新分支上。虽然旧分支上的提交已经被我们删除掉了，但我们可以通过 <code>git reflog</code> 找到它的 commitId，之后在新分支上执行 <code>git cherry-pick &lt;commitId&gt;</code> 就可以把对应的提交提取到该分支上了。</p>
+<h1 id="其他一些常用命令"><a href="#其他一些常用命令" class="headerlink" title="其他一些常用命令"></a>其他一些常用命令</h1><ul>
+<li><p>分支</p>
+<ul>
+<li>创建本地分支: <code>git branch 分支名</code></li>
+<li>查看本地分支: <code>git branch</code></li>
+<li>查看远端分支: <code>git branch -a</code></li>
+<li>切换分支: <code>git checkout 分支名</code></li>
+<li>创建并切换分支: <code>git checkout -b branchName</code></li>
+<li>删除本地分支: <code>git branch -d 分支名</code></li>
+<li>合并本地分支: <code>git merge 分支名（将该分支合并到当前分支）</code></li>
+<li>本地分支重命名: <code>git branch -m oldName newName</code></li>
+<li>将本地分支推送到远端分支: <code>git push &lt;远端仓库&gt; &lt;本地分支&gt;:&lt;远端分支&gt;</code></li>
+</ul>
+</li>
+<li><p>pull</p>
+<ul>
+<li>将远端指定分支 拉取到 本地指定分支上: <code>git pull origin &lt;远端分支名&gt;:&lt;本地分支名&gt;</code></li>
+<li>将与本地当前分支同名的远端分支 拉取到 本地当前分支上(需先关联远端分支): <code>git pull origin</code></li>
+</ul>
+</li>
+<li><p>push</p>
+<ul>
+<li>将本地当前分支 推送到 远端指定分支上: <code>git push origin &lt;本地分支名&gt;:&lt;远端分支名&gt;</code></li>
+<li>将本地当前分支 推送到 与本地当前分支同名的远端分支上(需先关联远端分支): <code>git push origin</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果要 pull / push 的本地分支和远端分支同名的话，可以简写为 <code>git pull/push origin &lt;分支名&gt;</code></p>
+</blockquote>
+<hr>
+<p>未完待续。</p>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>实习记录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>盒模型和负margin</title>
     <url>/blog/2019/03/12/CSS%E8%B4%9F%E8%BE%B9%E8%B7%9D/</url>
-    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>&emsp;&emsp;每一个HTML标签元素都是由四个部分组成的，分别是内容(content)、内边距(padding)、边框(border)、外边距(margin)。其中盒子的大小只由 content + padding + border 决定，margin影响的不是盒子大小，而是盒子占据的位置。这一部分比较简单，所以这里就不多做叙述了。<br><img src="/2019/03/12/CSS负边距/box.png" alt></p>
+    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>&emsp;&emsp;每一个HTML标签元素都是由四个部分组成的，分别是内容(content)、内边距(padding)、边框(border)、外边距(margin)。其中盒子的大小只由 content + padding + border 决定，margin影响的不是盒子大小，而是盒子占据的位置。这一部分比较简单，所以这里就不多做叙述了。<br><img src="/blog/2019/03/12/CSS负边距/box.png" alt></p>
 <h2 id="标准盒模型和IE盒模型"><a href="#标准盒模型和IE盒模型" class="headerlink" title="标准盒模型和IE盒模型"></a>标准盒模型和IE盒模型</h2><p>&emsp;&emsp;关于盒模型需要着重注意的是标准盒模型和IE盒模型的差异。W3C标准盒模型下，content 的宽高只由其自身的宽高决定，而在IE盒模型下，content 的宽高还包括了 border 和 padding（也就是怪异模式）。我们可以在页面开头声明 DOCTYPE 的类型，来指定浏览器统一使用 W3C 标准盒模型，否则在 IE 浏览器中会将盒模型解释为 IE 盒模型。声明 DOCTYPE 时推荐使用<code>&lt;!DOCTYPE html&gt;</code>，会指示浏览器使用 HTML5 规范（要使用 HTML4 则会有三种 &lt;!DOCTYPE&gt; 声明方式）。</p>
 <h2 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h2><p>&emsp;&emsp;在 IE8+ 及 chrome 等浏览器中还可以通过 CSS 的<code>box-sizing</code>属性来定义如何计算一个元素的宽高。对于默认值<code>box-sizing: content-box</code>，页面计算时会使用 W3C 标准盒模型，给元素的宽高赋值相当于对 content 赋值，而整个盒子的大小还得再算上 border 和 padding。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
@@ -72,7 +385,7 @@
   <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box1.png" alt><br>&emsp;&emsp;若设置<code>box-sizing: border-box</code>，则会使用IE盒模型，给元素的宽高赋值相当于是设置content+padding+border的总宽高。我们使用padding时很多时候都需要再设置<code>box-sizing: border-box</code>，以免元素超出容器范围。比如当我们设置一个列表或输入框的时候，通常左边或右边会有一个icon图标，我们可以采用设置背景图片的方式来显示图标，再设置padding-left或padding-right来间隔开图标和文字。这时候我们就需要再设置<code>box-sizing: border-box</code>了，否则设置的padding会加宽盒子的宽高使得列表或输入框超出容器造成页面在水平方向可以拖动。</p>
+<p><img src="/blog/2019/03/12/CSS负边距/box1.png" alt><br>&emsp;&emsp;若设置<code>box-sizing: border-box</code>，则会使用IE盒模型，给元素的宽高赋值相当于是设置content+padding+border的总宽高。我们使用padding时很多时候都需要再设置<code>box-sizing: border-box</code>，以免元素超出容器范围。比如当我们设置一个列表或输入框的时候，通常左边或右边会有一个icon图标，我们可以采用设置背景图片的方式来显示图标，再设置padding-left或padding-right来间隔开图标和文字。这时候我们就需要再设置<code>box-sizing: border-box</code>了，否则设置的padding会加宽盒子的宽高使得列表或输入框超出容器造成页面在水平方向可以拖动。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
   <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
   <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
@@ -80,7 +393,7 @@
   <span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box2.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/box2.png" alt></p>
 <h1 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h1><h2 id="margin-left、margin-right和width"><a href="#margin-left、margin-right和width" class="headerlink" title="margin-left、margin-right和width"></a>margin-left、margin-right和width</h2><p>&emsp;&emsp;margin-left、margin-right和width设置为auto时的影响。</p>
 <h3 id="三者都设置为auto"><a href="#三者都设置为auto" class="headerlink" title="三者都设置为auto"></a>三者都设置为auto</h3><p>&emsp;&emsp;margin-left和margin-right会失效，都被设置为0，width尽可能大(即父元素宽度减去左右border和左右padding)。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="parent"> 
@@ -99,7 +412,7 @@
   <span class="token property">width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box3.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/box3.png" alt></p>
 <h3 id="其中一个设置为auto"><a href="#其中一个设置为auto" class="headerlink" title="其中一个设置为auto"></a>其中一个设置为auto</h3><p>&emsp;&emsp;设置为auto的元素会自动调整自身宽度，使得三者的总宽度等于父元素的宽度。若是margin-left和right设为定值且没有指定width，也会默认width为auto。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
   <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#ffd800</span><span class="token punctuation">;</span>
@@ -109,7 +422,7 @@
   <span class="token property">width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box4.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/box4.png" alt></p>
 <h3 id="其中两个设置为auto"><a href="#其中两个设置为auto" class="headerlink" title="其中两个设置为auto"></a>其中两个设置为auto</h3><ul>
 <li>margin-lef和margin-right为auto：此时margin-left和margin-right相等，平分剩下的空间，达到水平居中的效果。</li>
 </ul>
@@ -121,7 +434,7 @@
   <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box5.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/box5.png" alt></p>
 <ul>
 <li>width和其中一个margin为auto： 被设置为auto的那个margin变为0，width尽可能大。</li>
 </ul>
@@ -133,17 +446,17 @@
   <span class="token property">width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/box6.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/box6.png" alt></p>
 <h2 id="负margin"><a href="#负margin" class="headerlink" title="负margin"></a>负margin</h2><p>&emsp;&emsp;负margin同样可以使文档流中元素的位置发生偏移，和相对定位偏移的区别在于，相对定位的元素偏移后，仍然霸占着原先的位置，使文档流中其他元素无法占据该空间。而通过负margin偏移的元素，<strong>虽然元素大小不变，但会使文档流向左流或向上流(文档流只能往这两个方向移动)，造成了后面的元素可以占据这部分空间，会使得两个元素重叠</strong>(下文会详细说明)。</p>
 <p>&emsp;&emsp;（我还有另一种理解，通过负margin偏移的元素，虽然元素大小不变，但会<strong>减小该元素在文档流中占据的空间</strong>，自然也会使文档流向左流或向上流，导致后面的元素移动。我觉得以这种观点去理解的话，这整篇文章所涉及的内容也都可以说得通，甚至可以更好的解释清楚。但我谷歌了一下，发现并没有关于 元素在文档流中占据的空间可不可以被减小 的相关文章，所以这里只当作一种个人的理解方式仅供参考）</p>
-<h3 id="对static定位而且没有浮动的元素使用负margin"><a href="#对static定位而且没有浮动的元素使用负margin" class="headerlink" title="对static定位而且没有浮动的元素使用负margin"></a>对static定位而且没有浮动的元素使用负margin</h3><p><img src="/2019/03/12/CSS负边距/negative-margin.jpg" alt></p>
+<h3 id="对static定位而且没有浮动的元素使用负margin"><a href="#对static定位而且没有浮动的元素使用负margin" class="headerlink" title="对static定位而且没有浮动的元素使用负margin"></a>对static定位而且没有浮动的元素使用负margin</h3><p><img src="/blog/2019/03/12/CSS负边距/negative-margin.jpg" alt></p>
 <ol>
 <li><p>margin-top或margin-left为负值时，元素被拉向指定的方向(见上图)，即和设置margin-top和margin-left为正值时移动的方向相反。</p>
 </li>
 <li><p>margin-bottom或margin-right为负值时，元素本身不会偏移，但因为文档流向左/上移动了，所以后续的元素也会随之向左/上移动，和原来的元素重叠在一起。</p>
 </li>
 </ol>
-<p><img src="/2019/03/12/CSS负边距/no-margin-bottom.png" alt><br><img src="/2019/03/12/CSS负边距/use-margin-bottom.png" alt>    </p>
+<p><img src="/blog/2019/03/12/CSS负边距/no-margin-bottom.png" alt><br><img src="/blog/2019/03/12/CSS负边距/use-margin-bottom.png" alt>    </p>
 <ol start="3">
 <li>如果元素没有设置width或width为auto时，设置负的margin-left或margin-right，会增大元素的宽度，类似于padding。若是负的margin-left的话，则还会向左移动。</li>
 </ol>
@@ -161,7 +474,7 @@
   <span class="token property">margin-right</span><span class="token punctuation">:</span> -<span class="token number">50</span>px<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/margin-right.png" alt>    </p>
+<p><img src="/blog/2019/03/12/CSS负边距/margin-right.png" alt>    </p>
 <ol start="4">
 <li>这里单独再说一下负margin-bottom，负的margin-bottom不仅有上述第二点的影响外，更重要而且实用的一点是会<strong>减少元素框的高度</strong>。我在其他几个博客里看到有人把这说成是<strong>减少自身的供css读取的高度</strong>，但他们都没有解释什么叫做 “减少自身的供css读取的高度”，我谷歌了一下也没有发现什么解释，所以这里按照我个人的理解，使用 “减少元素框的高度” 这概念来解释。我们先来看几句代码和效果图：</li>
 </ol>
@@ -175,8 +488,8 @@
   <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/1.png" alt></p>
-<p>&emsp;&emsp;现在我们再给该元素设置<code>margin-bottom: -50px;</code>再来看看效果<br><img src="/2019/03/12/CSS负边距/2.png" alt><br>&emsp;&emsp;从图中我们可以发现，虽然控制台显示该元素的高度还是100px并且也全部都渲染出来了，但图中的橙色部分(貌似代表的是margin，但为了方便理解所以我把它当成<strong>元素框</strong>, 或者说是元素在文档流中占据的空间)缩小了一半。而CSS中的<code>overflow</code>属性判断元素是否溢出，不是根据我们给它设置好的height，而是根据元素框(图中的橙色框框)来判断的。只要元素内容超出这个元素框，给父容器设置了<code>overflow: hidden</code>后超出部分就会被隐藏，即使元素的高度是100px足够容纳元素内容。有图有真相：<br><img src="/2019/03/12/CSS负边距/3.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/1.png" alt></p>
+<p>&emsp;&emsp;现在我们再给该元素设置<code>margin-bottom: -50px;</code>再来看看效果<br><img src="/blog/2019/03/12/CSS负边距/2.png" alt><br>&emsp;&emsp;从图中我们可以发现，虽然控制台显示该元素的高度还是100px并且也全部都渲染出来了，但图中的橙色部分(貌似代表的是margin，但为了方便理解所以我把它当成<strong>元素框</strong>, 或者说是元素在文档流中占据的空间)缩小了一半。而CSS中的<code>overflow</code>属性判断元素是否溢出，不是根据我们给它设置好的height，而是根据元素框(图中的橙色框框)来判断的。只要元素内容超出这个元素框，给父容器设置了<code>overflow: hidden</code>后超出部分就会被隐藏，即使元素的高度是100px足够容纳元素内容。有图有真相：<br><img src="/blog/2019/03/12/CSS负边距/3.png" alt></p>
 <p>&emsp;&emsp;借助负margin-bottom这个特性我们就可以实现很多功能了，包括常见的两栏等高布局，栗子见下文。</p>
 <h3 id="对浮动元素使用负margin"><a href="#对浮动元素使用负margin" class="headerlink" title="对浮动元素使用负margin"></a>对浮动元素使用负margin</h3><p>&emsp;&emsp;先看没有设置负margin时的原始样式和表现</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="fa">&lt;/div>
@@ -202,8 +515,8 @@
   <span class="token property">background-color</span><span class="token punctuation">:</span> pink<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/float.png" alt></p>
-<p>&emsp;&emsp;现在给每一个元素都设置<code>margin-right: -50px</code>，效果如下：<br><img src="/2019/03/12/CSS负边距/margin-right1.png" alt><br><img src="/2019/03/12/CSS负边距/margin-right2.png" alt><br>&emsp;&emsp;通过检查我们可以发现，三个元素的宽高并没有改变，还都是100px，那为什么fa，fb会被覆盖住呢？前面已经说过，通过负margin偏移后，元素在文档流中减小的那部分空间会被后面的元素占据上(这里是文档流左移了)，而自身的宽高不变。以fa为例(红色的方格)，本来fa占据了100px的空间，后面的元素只能紧挨着fa从100px后开始占位置，但现在给fa设置了<code>margin-right: -50px</code>，fa虽然宽还是100px，但fa在文档流中占据的空间减小了50px，所以这50px被后面的fb填充了，也就是图中的效果，fb重叠到了fa上面。至于fc和fb也是同样的道理。理解了这一点，下面这个也就懂了。</p>
+<p><img src="/blog/2019/03/12/CSS负边距/float.png" alt></p>
+<p>&emsp;&emsp;现在给每一个元素都设置<code>margin-right: -50px</code>，效果如下：<br><img src="/blog/2019/03/12/CSS负边距/margin-right1.png" alt><br><img src="/blog/2019/03/12/CSS负边距/margin-right2.png" alt><br>&emsp;&emsp;通过检查我们可以发现，三个元素的宽高并没有改变，还都是100px，那为什么fa，fb会被覆盖住呢？前面已经说过，通过负margin偏移后，元素在文档流中减小的那部分空间会被后面的元素占据上(这里是文档流左移了)，而自身的宽高不变。以fa为例(红色的方格)，本来fa占据了100px的空间，后面的元素只能紧挨着fa从100px后开始占位置，但现在给fa设置了<code>margin-right: -50px</code>，fa虽然宽还是100px，但fa在文档流中占据的空间减小了50px，所以这50px被后面的fb填充了，也就是图中的效果，fb重叠到了fa上面。至于fc和fb也是同样的道理。理解了这一点，下面这个也就懂了。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="left">左浮动&lt;/div>
 &lt;div class="right">也是左浮动&lt;/div>
 
@@ -219,7 +532,7 @@
 <span class="token punctuation">}</span>
 
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/float1.png" alt><br>&emsp;&emsp;当给第一个元素添加<code>margin-bottom: -200px</code>时，就成了<br><img src="/2019/03/12/CSS负边距/float2.png" alt><br><img src="/2019/03/12/CSS负边距/float3.png" alt><br>&emsp;&emsp;其中第一个元素并没有消失，宽高也没有改变，只是被第二个元素挡住了而已，原因同上。</p>
+<p><img src="/blog/2019/03/12/CSS负边距/float1.png" alt><br>&emsp;&emsp;当给第一个元素添加<code>margin-bottom: -200px</code>时，就成了<br><img src="/blog/2019/03/12/CSS负边距/float2.png" alt><br><img src="/blog/2019/03/12/CSS负边距/float3.png" alt><br>&emsp;&emsp;其中第一个元素并没有消失，宽高也没有改变，只是被第二个元素挡住了而已，原因同上。</p>
 <h2 id="负边距的应用"><a href="#负边距的应用" class="headerlink" title="负边距的应用"></a>负边距的应用</h2><h3 id="去除最后一个li的border-bottom"><a href="#去除最后一个li的border-bottom" class="headerlink" title="去除最后一个li的border-bottom"></a>去除最后一个li的border-bottom</h3><p>&emsp;&emsp;在一个列表中，我们经常会给每一个li设置border-bottom，并且外层的父元素也会设置border，代码和效果图如下：</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="box">
   &lt;ul>
@@ -242,7 +555,7 @@
   <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/4.png" alt><br>&emsp;&emsp;很明显最后一个li的border-bottom和父元素的border靠在一起了，视觉效果很不美观。我在开发IOS仿网易云音乐的时候就经常遇到这个问题，不过我是把border-bottom的样式单独写在一个class里，如果不是最后一个li就给它绑定这个类，当然这是可行的，但这样终究麻烦了一点，现在我使用负margin实验了一下发现也可以达到同样的效果。只需要给li增加一句<code>margin-bottom: -1px</code>就可以了，<br><img src="/2019/03/12/CSS负边距/5.png" alt><br>&emsp;&emsp;这要怎么理解呢？前面也说过，<strong>使用负margin后会使元素框的高度减小，造成后面的元素上移</strong>。没错，除却第一个li外其余几个li都上移了，只是1px比较小看起来不是很明显而已，如果你调成-5px效果就很明显了，这里就不贴图了(有个小问题，为什么第一个li不会上移呢？因为虽然第一个li的元素框高度减小了，但影响到的是它后面的元素，对其自身是没什么影响的)。那为什么后面几个li上移了最后一个border-bottom就不会重叠了呢？代码中我们并没有给ul指定高度，所以ul会由子元素li撑起来，li的元素框高度减小后整个ul的高度也会随着减小(这里是减小了5px)，ul的border-bottom自然也会随着上移5px，而最后一个li是上移了4px。算上最后一个li自身border-bottom的1px，所以ul的border-bottom和最后一个li的border-bottom会重叠在一起！一开始我也不太理解，重叠在一起不是也会加粗了边框吗？后来实践得知，两个边框重叠和靠在一起是不同的概念的！两个边框靠在一起才会看起来像是加粗了，重叠在一起是不会有这种视觉效果的。想象一下，你正对着千手观音时，你觉得那是一个人还是N个人？这里我还是贴一下图说明吧。</p>
+<p><img src="/blog/2019/03/12/CSS负边距/4.png" alt><br>&emsp;&emsp;很明显最后一个li的border-bottom和父元素的border靠在一起了，视觉效果很不美观。我在开发IOS仿网易云音乐的时候就经常遇到这个问题，不过我是把border-bottom的样式单独写在一个class里，如果不是最后一个li就给它绑定这个类，当然这是可行的，但这样终究麻烦了一点，现在我使用负margin实验了一下发现也可以达到同样的效果。只需要给li增加一句<code>margin-bottom: -1px</code>就可以了，<br><img src="/blog/2019/03/12/CSS负边距/5.png" alt><br>&emsp;&emsp;这要怎么理解呢？前面也说过，<strong>使用负margin后会使元素框的高度减小，造成后面的元素上移</strong>。没错，除却第一个li外其余几个li都上移了，只是1px比较小看起来不是很明显而已，如果你调成-5px效果就很明显了，这里就不贴图了(有个小问题，为什么第一个li不会上移呢？因为虽然第一个li的元素框高度减小了，但影响到的是它后面的元素，对其自身是没什么影响的)。那为什么后面几个li上移了最后一个border-bottom就不会重叠了呢？代码中我们并没有给ul指定高度，所以ul会由子元素li撑起来，li的元素框高度减小后整个ul的高度也会随着减小(这里是减小了5px)，ul的border-bottom自然也会随着上移5px，而最后一个li是上移了4px。算上最后一个li自身border-bottom的1px，所以ul的border-bottom和最后一个li的border-bottom会重叠在一起！一开始我也不太理解，重叠在一起不是也会加粗了边框吗？后来实践得知，两个边框重叠和靠在一起是不同的概念的！两个边框靠在一起才会看起来像是加粗了，重叠在一起是不会有这种视觉效果的。想象一下，你正对着千手观音时，你觉得那是一个人还是N个人？这里我还是贴一下图说明吧。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="test">&lt;/div>
 &lt;div class="test">&lt;/div>
 
@@ -252,7 +565,7 @@
   <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/6.png" alt><br>&emsp;&emsp;上图两条边框靠在了一起，当我给下面的方格添加<code>margin-top: -1px</code>后，,两个边框便重叠起来了，效果是<br><img src="/2019/03/12/CSS负边距/7.png" alt><br>&emsp;&emsp;以上，就是我对使用负margin消除最后一个li的border-bottom的理解了。所以啊，以后就不要用class动态绑定啦，开始用负margin吧。</p>
+<p><img src="/blog/2019/03/12/CSS负边距/6.png" alt><br>&emsp;&emsp;上图两条边框靠在了一起，当我给下面的方格添加<code>margin-top: -1px</code>后，,两个边框便重叠起来了，效果是<br><img src="/blog/2019/03/12/CSS负边距/7.png" alt><br>&emsp;&emsp;以上，就是我对使用负margin消除最后一个li的border-bottom的理解了。所以啊，以后就不要用class动态绑定啦，开始用负margin吧。</p>
 <h3 id="实现两栏布局"><a href="#实现两栏布局" class="headerlink" title="实现两栏布局"></a>实现两栏布局</h3><p>&emsp;&emsp;利用浮动和负边距可以很神奇地实现两栏布局，即一栏作为侧边栏固定宽度，一栏宽度为100%自适应。先一步步来：</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div>
   &lt;div class="slider">
@@ -276,7 +589,7 @@
   <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/example1.png" alt><br>&emsp;&emsp;在上图中因为content是100%宽度而且slider已经占据了100px，所以content被挤了下去，而要实现两栏布局我们首先要做的就是将slider和content放到同一行去。但两者挤不下要怎么办？我们可以想到使slider在文档流中不占据位置，这样就可以让content也占据slider原本的位置从而使两者同行排列，而方法自然是给slider绝对定位了。这是一种方法，但我们也还可以使用负margin。前面提到过，使用<strong>负margin偏移后会造成该元素在文档流中占据的空间减小</strong>，原先content需要在文档流中占据100%的宽度，现在我们给content添加<code>margin-right: -100px; // slider的宽度</code>，就可以使content在文档流中只需要占据100%-100px的宽度空间就够了。为了防止造成页面水平拖动，所以给最外层的div加上<code>overflow: hidden</code>。效果如下：<br><img src="/2019/03/12/CSS负边距/example2.png" alt><br>&emsp;&emsp;这里还有一个问题，我们虽然隐藏了content超出外层div的内容，但那一部分空间还是存在的，conten的内容还是会分布在那一部分位置上。所以我们还需要给content的子元素加上<code>.content p {margin-right: 100px}</code>，这样就大功告成了，最终效果如下：<br><img src="/2019/03/12/CSS负边距/example3.gif" alt><br>完整代码：</p>
+<p><img src="/blog/2019/03/12/CSS负边距/example1.png" alt><br>&emsp;&emsp;在上图中因为content是100%宽度而且slider已经占据了100px，所以content被挤了下去，而要实现两栏布局我们首先要做的就是将slider和content放到同一行去。但两者挤不下要怎么办？我们可以想到使slider在文档流中不占据位置，这样就可以让content也占据slider原本的位置从而使两者同行排列，而方法自然是给slider绝对定位了。这是一种方法，但我们也还可以使用负margin。前面提到过，使用<strong>负margin偏移后会造成该元素在文档流中占据的空间减小</strong>，原先content需要在文档流中占据100%的宽度，现在我们给content添加<code>margin-right: -100px; // slider的宽度</code>，就可以使content在文档流中只需要占据100%-100px的宽度空间就够了。为了防止造成页面水平拖动，所以给最外层的div加上<code>overflow: hidden</code>。效果如下：<br><img src="/blog/2019/03/12/CSS负边距/example2.png" alt><br>&emsp;&emsp;这里还有一个问题，我们虽然隐藏了content超出外层div的内容，但那一部分空间还是存在的，conten的内容还是会分布在那一部分位置上。所以我们还需要给content的子元素加上<code>.content p {margin-right: 100px}</code>，这样就大功告成了，最终效果如下：<br><img src="/blog/2019/03/12/CSS负边距/example3.gif" alt><br>完整代码：</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div style="overflow: hidden">
   &lt;div class="slider">
     &lt;p>slider&lt;/p>
@@ -332,7 +645,7 @@
   <span class="token property">margin-top</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/10.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/10.png" alt></p>
 <p>&emsp;&emsp;在上面的测试代码中，我们给两个兄弟 div 各设置了 50px 和 100px 的外边距。依我们原先的预期，这两个 div 在垂直方向上应该会相距 150px 才对，但从上图中我们可以发现它们只相距了 100px 而已，这就是在同一个 BFC 区域内（这里是 body），垂直方向上的 margin 会合并。具体的合并规则是：</p>
 <ul>
 <li>如果两个外边距都为正数，则最终的外边距为两者的最大值。</li>
@@ -357,9 +670,9 @@
   <span class="token property">margin-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/11.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/11.png" alt></p>
 <p>&emsp;&emsp;通过上面这段代码，我们预期中是想让子元素 b 距离父元素 a 顶部 50px 距离的，但结果却是子元素带着父元素一起偏离顶部 50px 了，它们的相对距离并没有改变，也就是子元素的 margin-top 带跑了父元素。解决办法也是利用 BFC 来使外层的 body 不影响到 div.a 和 div.b，同样给父元素添加 <code>overflow: hidden</code> 来触发 BFC。</p>
-<p><img src="/2019/03/12/CSS负边距/16.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/16.png" alt></p>
 <p>&emsp;&emsp;但需要注意的是，得子元素和父元素<strong>直接相接触</strong>才会导致 margin 塌陷，也就是说得满足几个条件：</p>
 <ul>
 <li>父元素没有设置 border 和 padding-top。</li>
@@ -382,9 +695,9 @@
   <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/12.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/12.png" alt></p>
 <p>&emsp;&emsp;平时写页面的时候常常会遇到上图这种情况，一个浮动元素会覆盖在它后面的元素上。以前我都是直接给后面的元素设置一个外边距来间隔开它们。但其实利用 BFC 可以更方便得达成目的，也就是触发 div.b 的 BFC，使外层 body 的 BFC 不影响到 div.b。</p>
-<p><img src="/2019/03/12/CSS负边距/15.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/15.png" alt></p>
 <h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h2><pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="a">
   &lt;div class="b">&lt;/div>
 &lt;/div>
@@ -399,9 +712,9 @@
   <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/12/CSS负边距/13.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/13.png" alt></p>
 <p>&emsp;&emsp;我们知道，设置了浮动的元素不会将高度计算进父元素中，也就无法撑高父元素。如上图，父元素 a 只剩下 2px 的边框高度了。但往往我们需要把浮动元素的高度也计算进父元素中，之前写仿网易云音乐时就没少遇到这个需求。但当时还不知道 BFC，只会撒撒地再给父元素设置一个高度，然而弊端就在于需要事先知道这个高度才行，这就很硬核了… 如果使用 BFC 的话，就可以清除子元素的浮动，从而使得浮动中的子元素也可以撑起父元素。还是照旧，给父元素添加 <code>overflow: hidden</code> 即可。</p>
-<p><img src="/2019/03/12/CSS负边距/14.png" alt></p>
+<p><img src="/blog/2019/03/12/CSS负边距/14.png" alt></p>
 ]]></content>
       <categories>
         <category>CSS</category>
@@ -409,304 +722,6 @@
       <tags>
         <tag>前端基础</tag>
         <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSS制作各种图形</title>
-    <url>/blog/2018/12/25/CSS%E5%88%B6%E4%BD%9C%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
-    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>&emsp;&emsp;有时候代码和效果图可以比文字更清楚地表达我们想说明的意思，所以我们先上一段样式再看看效果。</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="square">&lt;/div>  
-
-<span class="token class">.square</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid<span class="token punctuation">;</span>
-  <span class="token property">border-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/0.png" alt><br>&emsp;&emsp;从图中我们好像并没有发现什么异常，这不就是普普通通地给一个div设置边框吗？这和三角形有什么关系？这样看确实是很平常，那是因为我们设置border都是左右上下四条边框都是同一种颜色的，如果我们把它们设置为四种不同的颜色呢？现在我们把<code>border-color: red</code>换为<code>border-color: yellow blue pink green</code>再来看看效果。<br><img src="/2018/12/25/CSS制作三角形/1.png" alt><br>&emsp;&emsp;现在有没有发现什么问题了？四条边框都是显示为等腰梯形的，并不是长方形！刚才我们看到的那个红色边框其实也是由四个等腰梯形拼成的，只是它们都是同一种颜色所以我们看不出来而已。我猜想之所以如此是为了让四条边框都可以等大而且分布在各自的位置上不至于混乱（想象一下如果四条都是长方形的话要怎么才能做到等大且均匀分布在上下左右）。现在我们再把这个div的宽高都调为 0 看看有什么变化。<br><img src="/2018/12/25/CSS制作三角形/2.png" alt><br>&emsp;&emsp;因为div的宽高为 0，且又存在着边框，所以原本是等腰梯形的四条边框会从开始延伸，在中心交为一点，于是就成了四个三角形。但我们只是要一个三角形而已，要怎么去掉其余三个呢？答案是我们可以给其余几条边框设置为透明色来隐藏掉它们。我们再把边框样式更换为<code>border-color: transparent transparent red transparent</code>试试看。（边框设置为透明不等于不设置边框，详见下文的注意点。）<br><img src="/2018/12/25/CSS制作三角形/3.png" alt><br>&emsp;&emsp;于是乎，一个三角形就出来了！理解了上述制造三角形的原理后，我们自然就可以随心所欲去变化三角形的指向和样式了。通过指定不同方向上的边框为透明色来改变三角形的方向，比如我们要得到一个指向左边的三角形，就应该把上下左边框都设置为透明色，即<code>border-color: transparent pink transparent transparent</code>。（想象一下三角形是由原本方位上的等腰梯形延伸而成的就行了）<br><img src="/2018/12/25/CSS制作三角形/4.png" alt><br>&emsp;&emsp;如果我们要得到指向西北的三角形呢？（见下图）我们可以把它进行拆分，即由一个指向下和一个指向右的三角形组合而成（想象一下），所以只需要把边框样式改为<code>border-color: pink transparent  transparent pink</code>就成了，其他的同理。<br><img src="/2018/12/25/CSS制作三角形/5.png" alt></p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>&emsp;&emsp;<strong>如果没有设置全部四条边框，可能会出现断层效果。</strong></p>
-<ol>
-<li>只设置两条边框</li>
-</ol>
-<ul>
-<li>该两条边框相邻时</li>
-</ul>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/8.png" alt><br>&emsp;&emsp;可以看到，因为没有设置左边框和下边框，所以上边框和右边框的部分也没有显示出来。（从中可以得到：<strong>四个顶角处的那部分边框是属于相邻两个边框的，只要其中一个边框没有设置，顶角处的那部分边框就不会显示</strong>。）<br>&emsp;&emsp;现在我们把宽高都设为0再看看效果。从下图可以发现，当div的宽高都为0时，原本延伸的那部分边框会收缩回去，最后两个三角形拼成了正方形。<br><img src="/2018/12/25/CSS制作三角形/9.png" alt></p>
-<ul>
-<li>该两条边框不相邻时</li>
-</ul>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/10.png" alt><br>&emsp;&emsp;原因同上，因为左右边框都没有设置，所以上下边框和左右边框相交的那部分也就不会显示了。和相邻边框不同的是，如果把宽高都设为0，则上下两个边框也会收缩回去，但最后直接收缩没了。<strong>相邻边框收缩后拼成了一个正方形是因为那是由边框自己的大小拼凑而成的</strong>，不依赖于div的宽高。而<strong>不相邻的边框（即上下边框或左右边框）依赖于div的宽高</strong>，它们中间那正方形的部分是随div的宽高来延长的（想象一下那画面就成了）。</p>
-<ol start="2">
-<li>设置三条边框<br>设置三条边框和设置不相邻的两条边框的情况是一样的，这里就只贴图和代码不解释了。</li>
-</ol>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
-  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/11.png" alt></p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid blue<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid yellow<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/12.png" alt></p>
-<h1 id="圆"><a href="#圆" class="headerlink" title="圆"></a>圆</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> lightgreen<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token selector">// 或者通过边框来撑起圆的大小
-<span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid lightgreen<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/14.png" alt></p>
-<p>&emsp;&emsp;或者使用 <strong>canvas</strong> 来画圆。</p>
-<pre class=" language-css"><code class="language-css">&lt;canvas id=<span class="token string">"canvas"</span> width=<span class="token string">"300"</span> height=<span class="token string">"300"</span>>&lt;/canvas>
-&lt;script>
-  let canvas = document<span class="token number">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  let context = canvas<span class="token number">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token string">"2d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  context<span class="token number">.</span><span class="token function">beginPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  context<span class="token number">.</span><span class="token function">arc</span><span class="token punctuation">(</span><span class="token number">100</span>, <span class="token number">100</span>, <span class="token number">50</span>, <span class="token number">0</span>, Math<span class="token number">.</span>PI * <span class="token number">2</span>, true<span class="token punctuation">)</span><span class="token punctuation">;</span> 
-  context<span class="token number">.</span>fillStyle = <span class="token string">"red"</span><span class="token punctuation">;</span>
-  context<span class="token number">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-&lt;/script>
-</code></pre>
-<h1 id="半圆"><a href="#半圆" class="headerlink" title="半圆"></a>半圆</h1><p>&emsp;&emsp;设置半圆的时候宽高比是一比二或二比一（取决于半圆的方向）。而边框圆角，我们需要知道的是，设置<code>border-raidus</code>时是可以分开来设置四个方位的圆角的，依次顺序分别是左上，右上，右下，左下，所以半圆我们只需要设置相应的相邻两个边框圆角就行了。</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.semicircle</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100</span>px <span class="token number">100</span>px <span class="token number">0</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token comment" spellcheck="true">/* 还可以如下分开设置 */</span>
-  <span class="token comment" spellcheck="true">/* border-top-left-radius: 100px;
-  border-top-right-radius: 100px; */</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/6.png" alt></p>
-<p>&emsp;&emsp;通过设置不同边框的样式，我们还可以设置出这么一个东西来，破了壳的蛋？食人花？如果想象力足够，CSS真的能够做出很多不可思议的玩样出来，比如人家IE的logo。Orz…</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.pac-man</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span>px<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">60</span>px solid<span class="token punctuation">;</span> 
-  <span class="token property">border-color</span><span class="token punctuation">:</span> red transparent red red <span class="token punctuation">;</span> 
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/15.png" alt></p>
-<h1 id="椭圆形"><a href="#椭圆形" class="headerlink" title="椭圆形"></a>椭圆形</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.oval</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span> 
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/18.png" alt></p>
-<h1 id="扇形"><a href="#扇形" class="headerlink" title="扇形"></a>扇形</h1><p>&emsp;&emsp;扇形和半圆其实是同一个道理，只是扇形的宽高要相等，并且只需要设置一个边框圆角就行了。</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.fan-shaped</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> pink<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/7.png" alt></p>
-<h1 id="平行四边形"><a href="#平行四边形" class="headerlink" title="平行四边形"></a>平行四边形</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.parallelogram</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> pink<span class="token punctuation">;</span>
-  <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">skew</span><span class="token punctuation">(</span><span class="token number">45</span>deg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/19.png" alt></p>
-<h1 id="六角星"><a href="#六角星" class="headerlink" title="六角星"></a>六角星</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.sixStar</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">100</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
-  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token selector"><span class="token class">.sixStar</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">100</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
-  <span class="token property">border-left</span><span class="token punctuation">:</span> <span class="token number">50</span>px solid transparent<span class="token punctuation">;</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
-  <span class="token property">left</span><span class="token punctuation">:</span> -<span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> -<span class="token number">135</span>px<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/13.png" alt><br>&emsp;&emsp;说白了，六角星就是由两个指向相反的三角形组合成的，只不过其中一个是通过伪元素来设置的，并使用绝对定位把它移动到合适的位置上去而已。需要注意的是，要调整好边框的大小，否则得到的六角星会达不到效果。</p>
-<h1 id="聊天框气泡"><a href="#聊天框气泡" class="headerlink" title="聊天框气泡"></a>聊天框气泡</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.talkBubble</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">120</span>px<span class="token punctuation">;</span> 
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> lightgreen<span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token selector"><span class="token class">.talkBubble</span><span class="token pseudo-element">::before</span> </span><span class="token punctuation">{</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
-  <span class="token property">right</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">25%</span><span class="token punctuation">;</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">10</span>px solid transparent<span class="token punctuation">;</span>
-  <span class="token property">border-right</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid lightgreen<span class="token punctuation">;</span>
-  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">10</span>px solid transparent<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/16.png" alt><br>&emsp;&emsp;说白了，就是一个长方形和一个三角形，其中三角形通过伪元素设置再绝对定位移动到左边而已，瞅着倒是挺好看的。</p>
-<h1 id="阴阳图"><a href="#阴阳图" class="headerlink" title="阴阳图"></a>阴阳图</h1><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span> </span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">50</span>px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
-  <span class="token property">border-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
-  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
-  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token number">2</span>px <span class="token number">2</span>px <span class="token number">50</span>px <span class="token number">2</span>px<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token selector"><span class="token class">.box</span><span class="token pseudo-element">::before</span> </span><span class="token punctuation">{</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid red<span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token selector"><span class="token class">.box</span><span class="token pseudo-element">::after</span> </span><span class="token punctuation">{</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">20</span>px solid <span class="token hexcode">#eee</span><span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><img src="/2018/12/25/CSS制作三角形/17.png" alt><br>&emsp;&emsp;这个阴阳图的制作很巧妙，之所以这么说是因为代码对borde运用地很灵活。整体的圆形其实并不只是一个圆形，它的上半部分是一个椭圆形，下半部分是由border来撑开的，这样就做到了上下两半是两种颜色。而中间那两个小圆也利用到了border，伪元素自身的宽高用来制作小圆，同时还设置了border来制作小圆外层的圆形，这样就达到了那弧形效果，最后还是绝对定位修改一下位置就大功告成了。</p>
-]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git常用命令</title>
-    <url>/blog/2019/09/03/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><p>在头条实习的这八周里，刚开始没少因为我对 Git 掌握严重不足而挨 mentor 训过，所以在这里记录一些比较常用的 Git 操作。</p>
-<h1 id="合并多个commit"><a href="#合并多个commit" class="headerlink" title="合并多个commit"></a>合并多个commit</h1><p>假如我们现在在本地仓库提了3个 commit，就像这样：</p>
-<p><img src="/2019/09/03/Git常用命令/1.png" alt></p>
-<p>如果我们直接这样 push 的话，会产生三个提交记录，但在工作中我们都会把同一个 feature 的 commit 合并成一个再 push 到远端，所以这时候我们就需要把 test：one、test：two、test：three 这三个提交合并成一个了。具体操作是：</p>
-<ol>
-<li><code>git rebase -i cbd7376f88cab83c2913a4e5cf6fa3066ac973b9</code></li>
-</ol>
-<p>这里的 commitID 是指我们想要开始合并的前一个 commit（不参与到本次的合并操作中）。</p>
-<ol start="2">
-<li>接着进入到命令模式:</li>
-</ol>
-<p><img src="/2019/09/03/Git常用命令/2.png" alt></p>
-<p>前面几行是我们要进行合并的 commit 信息，以 # 开头则表示是注释。这里我们只需要使用到两个命令：</p>
-<ul>
-<li><code>pick</code>：表示这个 commit 将会被提交。</li>
-<li><code>squash</code>：表示这个 commit 会被合并到前一个 commit 中去。</li>
-</ul>
-<p>在修改之前，得先按 <strong>i 键</strong> 进入到编辑模式，根据需要修改要合并的 commit 前面的命令即可。修改完成后按 <strong>esc</strong> 键回到命令模式，输入 <strong>:wq</strong> 保存并退出。</p>
-<ol start="3">
-<li>最后会进入到 commit message 的编辑界面：</li>
-</ol>
-<p><img src="/2019/09/03/Git常用命令/3.png" alt></p>
-<p>默认情况下，新生成的 commit message 包含了要合并的 commit 的 commit message，如果不想这样的话可以进入到编辑模式修改，之后再保存退出即可。操作完毕后再使用 git log 查看你就可以发现这三个 commit 已经被合并成一个了！</p>
-<p><img src="/2019/09/03/Git常用命令/4.png" alt></p>
-<h1 id="查看操作日志"><a href="#查看操作日志" class="headerlink" title="查看操作日志"></a>查看操作日志</h1><p><code>git reflog</code> 和 <code>git log</code> 都可以用来查看日志，但各有侧重。git log 更多是用来查看我们的提交记录，比如提交日期、commit message 等。而 <code>git reflog</code> 更多是用来查看操作记录，记录我们使用了什么命令做了什么事，借此可以查看已经被删除的 commit 记录和 reset 的操作。假如我们想撤销之前的某次操作，我们就可以通过 <code>git reflog</code> 找到那次操作的 commitId，再使用 <code>git reset</code> 回退回去。</p>
-<p><img src="/2019/09/03/Git常用命令/5.png" alt></p>
-<h1 id="暂存修改"><a href="#暂存修改" class="headerlink" title="暂存修改"></a>暂存修改</h1><p>在每次 commit 和 push 之前我们都需要先 <code>git pull</code> 以防后续的提交和远端仓库产生冲突，但这时候会报 <code>error: cannot pull with rebase: You have unstaged changes</code> 的错误，它会提示我们在拉取代码之前需要先 commit 或者 stash 代码。这时候我们就需要先暂存一下代码了，执行 <code>git stash</code> 让其回到上次 commit 时的状态，等拉取完成后再恢复我们刚才暂存的代码 <code>git stash pop</code>。我们可以暂存多次代码，所以我们也可以通过 <code>git stash list</code> 查看暂存区的暂存情况，并由 <code>git stash apply stash@{该次暂存对应的标号}</code> 来取出特定的暂存内容。（有时候我们开发到一半需要紧急开发另一个 feature 或是修某个 bug，也可以 <code>git stash</code> 暂存目前写一半的代码，等紧急情况处理完成后再恢复暂存继续开发）</p>
-<h1 id="撤销更改"><a href="#撤销更改" class="headerlink" title="撤销更改"></a>撤销更改</h1><p>有时候我们把代码改乱了，想要直接恢复到之前的状态的话，就可以使用 <code>git checkout -- &lt;文件名&gt;</code> 来删除某个文件中的更改内容，使其回到上一次提交时的状态。但这只适用于我们还没有把代码提交到暂存区（也就是还没有 <code>git add</code>）的情况。如果我们已经把代码提交到了暂存区的话，就需要先使用 <code>git reset HEAD &lt;文件名&gt;</code> 撤销该文件的暂存，再执行 <code>git checkout -- &lt;文件名&gt;</code> 命令。</p>
-<h1 id="撤销提交"><a href="#撤销提交" class="headerlink" title="撤销提交"></a>撤销提交</h1><ul>
-<li><p>如果只是提了 commit 还没有 push 的话，我们只需要 <code>git reset &lt;版本号&gt;</code> 回到提交前的状态就可以了。但默认下 <code>git reset</code> 只是撤销了这次提交记录而已，如果我们还需要在 IDE 中也删除该次提交的代码，就要使用到 <code>git reset --hard &lt;版本号&gt;</code> 了。</p>
-</li>
-<li><p>如果该 commit 也 push 到了远端仓库的话，我们先 <code>git reset --hard &lt;版本号&gt;</code> 撤销了本地的提交后，还需要撤销远端的提交。我们可能会直接使用 <code>git push origin &lt;分支名&gt;</code> 来覆盖掉远端的提交记录，但这样会提示本地的版本落后于远端的版本而无法成功 push，所以就需要 <code>git push origin &lt;分支名&gt; --force</code> 来强制 push，完成后就可以看到远端的该次提交和相关的代码修改都已经被撤销了。</p>
-</li>
-</ul>
-<h1 id="补充提交"><a href="#补充提交" class="headerlink" title="补充提交"></a>补充提交</h1><p>如果使用 Gerrit 的话，我们在提交代码后往往都会让其他人 review，确认没有问题后才把提交合进 master，如果有问题的话则要继续修改代码。当我们修改完代码后常常是使用 <code>git commit --amend</code> 把修改的内容追加在之前的提交上，最后形成一个完整的提交就可以了。如果提 <code>commit --amend</code> 时不需要修改 commit message 的话，可以直接 <code>git commit --amend --no-edit</code> 来跳过后续修改 commit message 的过程。除此之外，我们还可以通过 <code>commit --amend</code> 来修改提交的 commit message，即 <code>git commit --amend -m “新提交消息”</code>。</p>
-<h1 id="提取提交"><a href="#提取提交" class="headerlink" title="提取提交"></a>提取提交</h1><p>在团队合作中，通常每一个 feature / bug 都需要新开一个分支，各个分支相互独立互不相干。然而有一次我把两个 feature 都 commit 在了同一个分支上，这时候就需要先撤销提交再重新创建分支提交了。撤销提交的操作在上面已经说到了，接着我们就需要把旧分支上的提交提取到新分支上。虽然旧分支上的提交已经被我们删除掉了，但我们可以通过 <code>git reflog</code> 找到它的 commitId，之后在新分支上执行 <code>git cherry-pick &lt;commitId&gt;</code> 就可以把对应的提交提取到该分支上了。</p>
-<h1 id="其他一些常用命令"><a href="#其他一些常用命令" class="headerlink" title="其他一些常用命令"></a>其他一些常用命令</h1><ul>
-<li><p>分支</p>
-<ul>
-<li>创建本地分支: <code>git branch 分支名</code></li>
-<li>查看本地分支: <code>git branch</code></li>
-<li>查看远端分支: <code>git branch -a</code></li>
-<li>切换分支: <code>git checkout 分支名</code></li>
-<li>创建并切换分支: <code>git checkout -b branchName</code></li>
-<li>删除本地分支: <code>git branch -d 分支名</code></li>
-<li>合并本地分支: <code>git merge 分支名（将该分支合并到当前分支）</code></li>
-<li>本地分支重命名: <code>git branch -m oldName newName</code></li>
-<li>将本地分支推送到远端分支: <code>git push &lt;远端仓库&gt; &lt;本地分支&gt;:&lt;远端分支&gt;</code></li>
-</ul>
-</li>
-<li><p>pull</p>
-<ul>
-<li>将远端指定分支 拉取到 本地指定分支上: <code>git pull origin &lt;远端分支名&gt;:&lt;本地分支名&gt;</code></li>
-<li>将与本地当前分支同名的远端分支 拉取到 本地当前分支上(需先关联远端分支): <code>git pull origin</code></li>
-</ul>
-</li>
-<li><p>push</p>
-<ul>
-<li>将本地当前分支 推送到 远端指定分支上: <code>git push origin &lt;本地分支名&gt;:&lt;远端分支名&gt;</code></li>
-<li>将本地当前分支 推送到 与本地当前分支同名的远端分支上(需先关联远端分支): <code>git push origin</code></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>如果要 pull / push 的本地分支和远端分支同名的话，可以简写为 <code>git pull/push origin &lt;分支名&gt;</code></p>
-</blockquote>
-<hr>
-<p>未完待续。</p>
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>实习记录</tag>
       </tags>
   </entry>
   <entry>
@@ -758,7 +773,7 @@ Function<span class="token punctuation">.</span>__proto__ <span class="token ope
 obj<span class="token punctuation">.</span>constructor <span class="token operator">===</span> Fn     <span class="token comment" spellcheck="true">// true</span>
 </code></pre>
 <p>&emsp;&emsp;原型上的 constructor 属性也指向了构造函数，即该函数本身，<code>Fn.prototype.constructor === Fn)  // true</code>。不过说 constructor 属性，存在于所有数据类型上不是很严谨， 并不是那些基本数据类型上自己有 constructor 属性，我们对其使用 constructor 属性时，实际是到它们的原型上获取到 constructor 属性的。<br>&emsp;&emsp;我们用一张关系图来总结 <code>prototype</code> 、 <code>__proto__</code> 和 <code>constructor</code> 的关系。</p>
-<p><img src="/2019/03/20/JS之原型和原型链/1.jpg" alt></p>
+<p><img src="/blog/2019/03/20/JS之原型和原型链/1.jpg" alt></p>
 <h1 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h1><p>&emsp;&emsp;我们可以使用<code>instanceof</code>来判断一个对象的原型链上是否存在一个构造函数的原型。如 A instanceof B，即判断  B.prototype 是否在对象 A 的原型链上。在判定过程中会循着 A 的原型链上去查找，只要该对象出现在其原型链上的任一位置，就会判定为 true。当然也可以借此判断某一个数据的数据类型，不过这还是会有些不足，虽然判断一个数据是否为数组时<code>[] instanceof Array</code>会返回 true，但判定<code>[] instanceof Object</code>也还是会返回 true，所以判定数据类型的时候还是采用<code>Object.prototype.toString.call()</code>的好。现在我们再来看下面的几个等式。</p>
 <pre class=" language-js"><code class="language-js">Object <span class="token keyword">instanceof</span> <span class="token class-name">Function</span>
 Function <span class="token keyword">instanceof</span> <span class="token class-name">Function</span> 
@@ -912,21 +927,6 @@ Child<span class="token punctuation">.</span>prototype<span class="token punctua
       <tags>
         <tag>JavaScript</tag>
         <tag>前端基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello Hexo</title>
-    <url>/blog/2018/10/03/Hello%20hexo/</url>
-    <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><p>&emsp;&emsp;2018.10.3，DangoSky的博客终于搭建好了，也还只是出了个大概而已，还差了许多:(    </p>
-<p>&emsp;&emsp;有些坎坷，_config.yml文件里冒号和属性值之间需要有一个空格才可以，然而一开始看的那两篇博客都没着重提到，这个坑让我掉了一个多小时。。。我。。。认栽了orz。搭个博客觉得还是选择主题麻烦，看了这个觉得这个好，看到那个又觉得那个好，选择纠结症。。。  </p>
-<p>&emsp;&emsp;好像搭个博客就只是为了玩玩，体验体验搭建博客是个啥过程，小白一枚的我写不了啥技术文，也好像没啥精力和时间去写些心路历程的(如果没有那个写的冲动的话),而且说实话，真要写些自己的心事的话不是还有公众号？？所以这个博客估计得凉凉的，周更？月更？但觉得博客对于程序员来说就像公众号对于自媒体，哦不，我这样说把GitHub置于何地了？？   </p>
-<p>&emsp;&emsp;好吧，其实我也不知道要写什么，在这第一篇博客文里。也因为这两天回家后心情不太好，有些闷闷不乐没啥好事的。就这样了，以上。</p>
-]]></content>
-      <categories>
-        <category>生活日记</category>
-      </categories>
-      <tags>
-        <tag>生活日记</tag>
       </tags>
   </entry>
   <entry>
@@ -2165,7 +2165,7 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
     <title>Leetcode：刷完31道链表题的一点总结</title>
     <url>/blog/2019/05/10/Leetcode%EF%BC%9A%E5%88%B7%E5%AE%8C31%E9%81%93%E9%93%BE%E8%A1%A8%E9%A2%98%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;今天终于刷完了 Leetcode 上的<a href="https://leetcode-cn.com/tag/linked-list/" target="_blank" rel="noopener">链表专题</a>，虽然只有 31 道题（总共是 35 道，但有 4 道题加了锁）而已，但也陆陆续续做了两三个星期，严重跟不上原先计划啊。本来打算数据结构课程老师讲完一个专题，我就用 JS 在 Leetcode 做一个专题的。然而老师现在都讲到图了，而我连二叉树都还没刷 Orz（附上一张 AC 图，看着还是挺有成就感的嘛）。</p>
-<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/3.png" alt></p>
+<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/3.png" alt></p>
 <p>&emsp;&emsp;先写一篇博客总结一下这阵子刷链表题的收获吧，有输入也要有输出。这里就不花篇幅介绍链表的一些基本概念了，不清楚的看官就自行<a href="https://zh.wikipedia.org/wiki/%E9%93%BE%E8%A1%A8" target="_blank" rel="noopener">谷歌一下</a>吧，本文主要介绍一些常见的链表题和解题思路。文中提到的 Leetcode 题目都有给出题目链接以及相关解题代码，使用其他方法的解题代码，或者更多 Leetcode 题解可以访问我的<a href="https://github.com/DangoSky/algorithm/tree/master/LeetCode" target="_blank" rel="noopener">GitHub 仓库</a>。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>&emsp;&emsp;不得不说<strong>使用数组 / map 来缓存链表中结点的信息</strong>是解决链表题的一大杀器，覆盖问题的范围包括但不限于：在链表中插入 / 删除结点、反向输出链表、链表排序、翻转链表、合并链表等，Leetcode 上 31 道链表绝大部分都可以使用这种方法解题。具体实现思路是先使用一个数组或者 map 来存储链表中的结点信息，比如结点的数据值等，之后根据题目要求对数组进行相关操作后，再重新把数组元素做为每一个结点连接成链表返回即可。虽然<strong>使用缓存来解链表题很 dirty，有违链表题的本意</strong>，而且<strong>空间复杂度也达到了 O(n)</strong>（即使我们常常用空间来换时间，不过还是能避免就避免吧），但这种方法的确很简单易懂，看完题目后几乎就可以马上动手不加思考地敲代码一次 AC 了，不像常规操作那样需要去考虑到很多边界情况和结点指向问题。</p>
 <p>&emsp;&emsp;当然，并不是很提倡这种解法，这样就失去了做链表题的意义。如果只是一心想要解题 AC 的话那无妨。否则的话我建议可以使用数组缓存先 AC 一遍题，再使用常规方法解一次题，我个人就是这么刷链表题的。甚至使用常规方法的话，你还可以分别使用迭代和递归来解题，迭代写起来比较容易，而递归的难点在于把握递归边界和递归式，但只要理解清楚了的话，递归的代码写起来真的很少啊（后面会说到）。</p>
@@ -2195,7 +2195,7 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 </code></pre>
 <p>&emsp;&emsp;其他的题目例如链表排序、结点值交换等也是大致相同的代码，使用缓存解题就是这么简单。至于上面这题的常规解法，可以<a href="https://privatebin.net/?0f1f9e6d9b3152f1#3XxfN9PQzFFUy0M8ppCxTx9oMKEhVqWVnGcKO5bKUbA=" target="_blank" rel="noopener">戳这里查看</a>，我已经在代码中标注好解题思路了。</p>
 <p>&emsp;&emsp;使用缓存来解题的时候，我们可以使用数组来存储信息，也可以使用 map，通常情况下两者是可以通用的。但因为<strong>数组和对象的下标只能是字符串，而 map 的键名可以是任意数据类型</strong>，所以 map 有时候能做一些数组无法做到的事。比如当我们要存储的不是结点值，而是整个结点的时候，这时候使用数组就无能为力了。举个例子，<a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a>：判断一个链表中是否有环。先看一下环形链表长什么样。</p>
-<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/1.png" alt></p>
+<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/1.png" alt></p>
 <p>&emsp;&emsp;还是使用缓存的方法，我们在遍历链表的过程中可以把整个结点当作键名放入到 map 中，并把它标记为 true 代表这个结点已经出现过。同时边判断 map 中以这个结点为键名的值是否为 true，是的话说明这个结点重复出现了两次，即这个链表有环。在这道题中我们是没办法用数组来缓存结点的，因为当我们把整个结点（一个对象）当作下标放入数组时，这个对象会先自动转化成字符串<code>[object Object]</code>再作为下标，所以这时候只要链表结点数量大于等于 2 的话，判断结果都会为 true。使用 map 解题的具体实现代码见下。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> hasCycle <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2238,7 +2238,7 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&emsp;&emsp;除了判断链表中有没有环外，快慢指针还可以找出链表中环形的入口。假设 A 是链表的入口结点，B 是环形的入口结点，C 是快慢指针的相遇点，x 是 AB 的长度（也就是 AB 之间的结点数量），y 是 BC 的长度，z 是 CB 的长度。因为快指针移动的距离（x + y）是慢指针移动的距离（x + y + z + y）的两倍（当快慢指针相遇时，快指针比慢指针多移动了一圈），所以 z = x。因此，只要在快慢指针相遇的时候，再让一个新指针从头节点 A 开始移动，与此同时慢指针也继续从 C 点移动。但新指针和慢指针相遇的时候，也就是在链表环形的入口处 B。该题的三种实现代码可以<a href="https://github.com/DangoSky/algorithm/blob/master/LeetCode/142.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%20II.js" target="_blank" rel="noopener">戳这里查看</a>。</p>
-<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/2.png" alt></p>
+<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/2.png" alt></p>
 <p>&emsp;&emsp;如果我们把快指针的速度设置为 2，即每趟循环都指向当前结点的下下个结点。那么快慢指针在移动的过程中，<strong>快指针移动的距离都会是慢指针移动距离的两倍</strong>，利用这个性质我们可以很方便地得到链表的中间结点。只要让快慢指针同时从头节点开始移动，当快指针走到链表的最后一个结点（链表长度是奇数）或是倒数第二个结点（链表长度是偶数）的时候，慢指针就走到了链表中点。这里给出<a href="https://leetcode-cn.com/problems/middle-of-the-linked-list/" target="_blank" rel="noopener">题目链接</a>和实现代码。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> middleNode <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
@@ -2331,11 +2331,11 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
     <title>Puzzle Game</title>
     <url>/blog/2019/05/03/Puzzle-Game/</url>
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;会做这个 <strong>Puzzle Game</strong>，还是应前几天 lightyears 的一次提议，模仿的是鹰脚网络首页左下角那个<a href="https://www.hypergryph.com/#/" target="_blank" rel="noopener">拼图小游戏</a>。那天晚上睡觉的时候在床上想了一下，大致 get 到了它内部实现的原理，于是就干脆动手实践一番，现在也顺道写一篇博客记录下实现思路和中间遇到的一些问题。</p>
-<p><img src="/2019/05/03/Puzzle-Game/1.png" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/1.png" alt></p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>&emsp;&emsp;<strong>Puzzle Game</strong> 的游戏过程为：用户上传图片后选择要分割的碎片数量，一颗星代表 2 * 2 = 4 个碎片， 两颗星代表 3 * 3 = 9 个碎片，以此类推八颗星则是 81 个碎片。通过拖拽碎片进行拼图，当每个碎片和其相邻的碎片间隔都不超过阈值时，则提示拼图成功。</p>
 <p>&emsp;&emsp;<a href="http://dangosky.com/puzzle-game/index.html" target="_blank" rel="noopener">传送门</a>, Go to play?<br>&emsp;&emsp;<a href="https://github.com/DangoSky/puzzle-game" target="_blank" rel="noopener">GitHub</a>，喜欢的话就给个 star 鼓励鼓励吧😊。</p>
-<p><img src="/2019/05/03/Puzzle-Game/2.gif" alt></p>
-<p><img src="/2019/05/03/Puzzle-Game/3.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/2.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/3.gif" alt></p>
 <h2 id="首先要解决的两个难点"><a href="#首先要解决的两个难点" class="headerlink" title="首先要解决的两个难点"></a>首先要解决的两个难点</h2><p>&emsp;&emsp;<strong>Puzzle Game</strong> 的难点主要是两个：一是如何对上传的图片进行切割成各个碎片，二是如何判断是否拼图成功。鹰脚网络那个拼图因为是固定的，就只有那一张图片和四个图片碎片，所以大可以事先把图片分割成 4 块碎片再写进代码里。但 <strong>Puzzle Game</strong> 使用的图片和碎片数量取决于用户选择，所以就得另辟蹊径了。</p>
 <p>&emsp;&emsp;这里我利用到的是<strong>精灵图</strong>，根据用户选择的碎片数量，生成 N 个<code>&lt;div&gt;</code>（代表每一个碎片），将用户上传的图片设置为每一个<code>&lt;div&gt;</code>的背景图片，再使用<code>background-position</code>把每一个碎片都定位到图片相应的位置，这样就可以实现把图片切割成各个碎片啦。<strong>Puzzle Game</strong> 还是挺简单的，每一个碎片都是等大的，而且是 n * n 的碎片数量，相对容易实现很多。不过即使是 n * m 也是一样的，只要改变一下碎片的宽高和<code>background-position</code>的定位就可以了，问题不大。但如果每一个碎片都不等大的话就麻烦了，目前没想到实现思路。</p>
 <p>&emsp;&emsp;至于判断拼图是否成功，我想到的办法是：先设置好一个阈值，<strong>在每次拖拽完毕后就遍历每一个碎片，判断它和相邻碎片（上下左右四个碎片，对于边界碎片再行判断）之间的间隔是否不超过这个阈值</strong>。如果每一个碎片都不超过，则拼图成功；若有一个碎片和相邻某一个碎片之间的间隔超过了阈值，则直接结束判断过程。此处判断碎片间的距离使用的是<code>element.getBoundingClientRect()</code>，四个属性值<code>left</code>、<code>right</code>、<code>top</code>、<code>bottom</code>统一是相对于浏览器视口来计算的。（具体代码实现可以看<a href="https://github.com/DangoSky/puzzle-game/blob/master/index.html" target="_blank" rel="noopener">这里</a>）</p>
@@ -2357,23 +2357,23 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 <p>&emsp;&emsp;但使用方法二算出来的 x 和 y 是相对于浏览器视口左上角而言的，和<code>left</code>和<code>top</code>的参照物可能不一样，所以使用方法二有时候就会出现拖拽图片但图片却偏离到右下角去了的情况。因此要准确地<strong>使用方法二是有个前提条件的，就是碎片的父元素必须得是相对于浏览器左上角定位的</strong>。这和父元素是否设置了定位无关，因为如果父元素没有设置定位，那么父元素自然是相对于浏览器左上角来定位的（即使父元素前面已经有其他的元素了）。而如果父元素设置了定位，只要父元素位于浏览器左上角从而让碎片还是相对于浏览器左上角定位那也是可以的，比如父元素设置了定位但<code>left</code>和<code>top</code>为 0 并且前面没有其他的元素，或者父元素前面的元素都脱离了文档流。只有满足这几个条件，才能正确使用方法二，否则拖拽后图片的位置会出现异常，例如下面图三所示。</p>
 <p>&emsp;&emsp;接下来我们先用代码和结果图进一步验证，看客可以<a href="https://jsfiddle.net/8x014ewm/2/" target="_blank" rel="noopener">戳这里</a>查看具体代码自行验证，这里就只放效果图不放代码啦。</p>
 <ul>
-<li><p>父元素没有设置定位<br><img src="/2019/05/03/Puzzle-Game/4.gif" alt></p>
+<li><p>父元素没有设置定位<br><img src="/blog/2019/05/03/Puzzle-Game/4.gif" alt></p>
 </li>
 <li><p>父元素设置了定位（<code>relative</code> / <code>absolute</code> / <code>fixed</code> 定位都行），但父元素位于浏览器左上角的位置（<code>left</code>和<code>top</code>为 0 且前面没有元素，或是前面的元素都脱离了文档流）。</p>
 </li>
 </ul>
-<p><img src="/2019/05/03/Puzzle-Game/5.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/5.gif" alt></p>
 <ul>
 <li>父元素设置了定位，但设置了非零的<code>left</code>和<code>top</code>，或是前面已有在文档流中占位的元素。</li>
 </ul>
-<p><img src="/2019/05/03/Puzzle-Game/6.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/6.gif" alt></p>
 <p>&emsp;&emsp;考虑到使用方法二会有一些限制条件，所以还是推荐使用方法一的好，比较健壮适应性也好。如果使用方法二的话，则要注意上述的这些坑点，免得跳坑里了。（咦，如果不跳一次坑哪来的这篇博客？？）</p>
 <h3 id="拖拽速度过快"><a href="#拖拽速度过快" class="headerlink" title="拖拽速度过快"></a>拖拽速度过快</h3><p>&emsp;&emsp;在监听事件的时候，我们通常都是把监听函数绑定到相应的目标元素上的，很少把监听函数绑定到<code>document</code>或<code>body</code>上（监听页面滚动和利用事件委托等除外）。所以当我把<code>mousedown</code>、<code>mousemove</code>、<code>mouseup</code>这三个监听函数绑定到碎片上时，<code>mousedown</code>没什么问题，问题就出在了<code>mousemove</code>和<code>mouseup</code>上。<strong>如果点击碎片后拖拽的速度过大，就会造成鼠标移动过快而碎片来不及响应移动</strong>。要知道，<code>mousemove</code>触发频率是很高的，相应的监听函数也会被高频率调用。这很容易造成碎片的移动速度跟不上鼠标的移动速度，<strong>结果就是鼠标移出了碎片后，即使鼠标没有松开但因为监听函数失去了目标所以碎片也不会再跟着移动。而因为鼠标松开后也没能触发相应的监听函数，所以此时标记鼠标移动是否开始的变量还是为<code>true</code>，又造成了当鼠标移动到碎片上时即使没有按住鼠标碎片也还是可以跟着鼠标移动</strong>。具体代码和效果可以<a href="https://jsfiddle.net/8x014ewm/1/" target="_blank" rel="noopener">戳这里</a>。</p>
 <p>&emsp;&emsp;我使用的解决办法很简单，直接把<code>mousemove</code>和<code>mouseup</code>这两个监听函数绑定到<code>document</code>或者<code>body</code>上就行了。这样即使鼠标移动速度过快离开了碎片，也还是能触发到相应的监听函数让碎片也跟着移动。这里还有一个注意点，计算得到 x 和 y 的值要修改碎片的<code>left</code>和<code>top</code>属性时，不能使用<code>e.target</code>来获取碎片自身了。因为鼠标移动过快离开碎片后此时的<code>e.target</code>便成<code>document</code>了，所以<strong>需要事先使用一个变量来缓存<code>e.target</code></strong>才行。</p>
 <p>&emsp;&emsp;接下来再说说把<code>mousemove</code>和<code>mouseup</code>这两个监听函数绑定到<code>document</code>和<code>body</code>的区别。<code>document</code>包括了整个浏览器视图，而<code>body</code>只包括了网页正文（脱离文档流的元素还不算在<code>body</code>的宽高上）。所以如果<code>body</code>没有达到整个浏览器视图的大小，那把监听函数绑定到<code>body</code>上和原先绑定在碎片上没有啥区别。如果<code>body</code>的宽高已经和浏览器视图一样大小了，比如手动设置为<code>100vw</code>和<code>100vh</code>，此时绑定到<code>document</code>或<code>body</code>上的区别在于两者对边界情况的处理不同。<strong>绑定到<code>document</code>上时即使鼠标移到了页面正文外（比如浏览器的工具栏和桌面的任务栏）碎片也还是能跟着继续移动，而绑定到<code>body</code>上如果鼠标移出了页面正文碎片就不会跟着移动了，只有鼠标再移回页面正文碎片的位置才会继续跟着响应</strong>。（若绑定到<code>window</code>或者<code>html</code>上则跟绑定到<code>document</code>上是一样的。）</p>
 <p>&emsp;&emsp;看效果图会更直观点，下图一是<code>mousemove</code>和<code>mouseup</code>监听函数绑定在<code>document</code>上，下图二是绑定在<code>body</code>上（当然代码中可不能直接写<code>body</code>，得写成<code>document.body</code>才行）。</p>
-<p><img src="/2019/05/03/Puzzle-Game/7.gif" alt></p>
-<p><img src="/2019/05/03/Puzzle-Game/8.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/7.gif" alt></p>
+<p><img src="/blog/2019/05/03/Puzzle-Game/8.gif" alt></p>
 <p>&emsp;&emsp;不知道看客有没有想到一个问题，把<code>mousemove</code>和<code>mouseup</code>的监听函数绑定到<code>document</code>上会不会造成事件触发频率过高的问题？毕竟监听对象从原来的几个碎片扩大成了整个<code>document</code>啊。不可避免地事件触发频率会高很多，但没办法，我想不出其他的解决方案啊，只能去尽量避免过多触发到监听函数了。比如把<code>mousemove</code>和<code>mouseup</code>的监听写在<code>mousedown</code>的监听函数里，这和前面使用一个变量标记鼠标移动是否开始差不多。但主要的是<strong>在<code>mouseup</code>的监听函数里把<code>document</code>上的<code>mousemove</code>和<code>mouseup</code>监听事件清除掉</strong>。比如<code>document.onmousemove = null; document.onmouseup = null;</code>。这样只有在点击碎片的时候才会监听事件并且点击完毕后就马上清除掉了，触发监听函数的次数少了很多。</p>
 <h3 id="上传的图片过大"><a href="#上传的图片过大" class="headerlink" title="上传的图片过大"></a>上传的图片过大</h3><p>&emsp;&emsp;如果用户上传的图片过大，甚至超过了浏览器视窗大小，那必然得对图片进行压缩后，否则图片都铺满了整个浏览器视窗还怎么进行拼图。这里我采用的方法也很简单，上传完图片后对图片的大小进行判断，如果超过了限定值（我设置的是浏览器宽度的一半）则将图片的宽度缩小为这个限定值，再根据原始的宽高比例和压缩后的图片宽度计算出压缩后的图片高度就行了。这里我还遇到两个小问题。</p>
 <ol>
@@ -2618,9 +2618,9 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 <p>我们先通过图文来看 Vue 中的 Diff 流程，等理解了之后再来看源码，不然直接看源码的话容易懵 Orz。</p>
 <p>当对新旧两个虚拟 DOM 做 Diff 时，Vue 采用的思想是<strong>同级比较</strong>、<strong>深度递归</strong>、<strong>双端遍历</strong>。</p>
 <h3 id="同级比较"><a href="#同级比较" class="headerlink" title="同级比较"></a>同级比较</h3><p>同级比较指的是只比对两个相同层级的 VNode，如果两者不一样了，就不再去 Diff 它们的子节点，更不会去跨层级比较，而是直接更新它。这是因为在我们平时的操作，很少出现将一个 DOM 节点进行跨层级移动，比如将原来的父节点移动到它子节点的位置上。所以 Diff 算法就没有为这个极少数的情况专门去跨层级 Diff，毕竟为此得不偿失，这也是 Diff 算法时间复杂度能从 <code>O(n^3)</code> 优化到 <code>O(n)</code> 的原因之一。</p>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/1.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/1.png" alt></p>
 <h3 id="深度递归"><a href="#深度递归" class="headerlink" title="深度递归"></a>深度递归</h3><p>深度递归指的是比较两个虚拟 DOM 时采用深度优先的先序遍历策略，先比较完一个子节点后，就去比较这个子节点的子孙节点，都递归完后再来遍历它的兄弟节点。如下图的一个 DOM 结构，节点的编号就是它们的遍历顺序。</p>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/2.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/2.png" alt></p>
 <p>那么为什么要使用深度优先遍历，广度优先遍历不行么？我的理解是，深度优先遍历使用到的是栈结构，进行深度递归的时候，栈中保存的是当前节点的父元素和祖先元素，栈中存储的最大节点个数就是 DOM 树最大的层级数。而广度优先遍历使用的是队列结构，进行广度递归的时候，队列中保存的是下一层的节点，队列中存储的最大节点个数就是 DOM 树最大的层级节点数。而在通常情况下，一个 DOM 树的层级数是会少于它的层级节点数的（比如一个列表信息组件），所以使用深度优先遍历占用的空间和消耗会更小些。</p>
 <h3 id="双端比较"><a href="#双端比较" class="headerlink" title="双端比较"></a>双端比较</h3><p>双端比较指的是在 Diff 新旧子节点时，使用了四个指针分为四种比较方法（当然还有最后一种通过 key 比较的，这个待会再说）。这四个指针分别是：</p>
 <ul>
@@ -2644,24 +2644,24 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 </ol>
 <p>对于新旧子节点，只要旧子节点或是新子节点遍历完了，就会退出上述的比较过程。而剩下的子节点，已经没有能和它们比对的 VNode 了，要么是新增要么是删除。</p>
 <h2 id="图文模拟-Diff-流程"><a href="#图文模拟-Diff-流程" class="headerlink" title="图文模拟 Diff 流程"></a>图文模拟 Diff 流程</h2><p>现在我们用个栗子来模拟下这个过程 。如下图所示的新旧虚拟 DOM，假设旧 VNode 有 a、b、d、e 四个子节点，页面经过某次更新后，新 VNode 的子节点是 a、c、d、b。要说明的是，图中的节点编号为它们各自的 key，并且排列的顺序是按照它们在真实 DOM 中的顺序来的。</p>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/3.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/3.png" alt></p>
 <p>DOM 节点的变化无外乎是改变文本、改变节点属性、节点增删移动这几种情况。我们可以先通过上图来推测这次页面更新对该节点的操作：对 a 和 d 节点不做任何改动或是修改了文本或属性，移动了 b、删除了 e、新增了 c。详细比较过程如下：</p>
 <ol>
 <li>首首比较 a 和 a，发现两者值得比较后递归比较子节点，并移动两个指针后状态如下。</li>
 </ol>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/4.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/4.png" alt></p>
 <ol start="2">
 <li>首首比较 b 和 c 两者不匹配，接着尾尾比较 e 和 b 还是不匹配，再首尾比较 b 和 b 匹配上了，于是递归它们的子节点并移动两个指针后。由于新旧 VNode 上节点的位置发生了变化，所以需要在真实 DOM 上移动节点 b，即把它插入到 <code>oldEndIdx</code> 的位置上。现在的状态图如下（因为是移动真实 DOM 节点，所以虚拟 DOM 上节点的顺序还是不会改变）。</li>
 </ol>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/5.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/5.png" alt></p>
 <ol start="3">
 <li>首首比较 d 和 c 两者不匹配，再尾尾比较 e 和 d 还是不匹配，再首尾比较 d 和 d 匹配上了，还是照常递归子节点并移动指针位置。现在的状态图如下。</li>
 </ol>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/6.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/6.png" alt></p>
 <ol start="4">
 <li>首首比较 e 和 c、尾尾比较 e 和 c、首尾比较 e 和 c、尾首比较 e 和 c，两者都不匹配，于是进入到查找 key 的环节。这里查找 key 有两种方法，一是以旧子节点的 key 为键，它的索引下标为值建立一个映射对象，在该映射对象里直接查找是否存在 <code>newStartIdx</code> 也就是 c 节点的 key。找不到的话就再用第二种方法，即遍历旧子节点列表，去一个个判断 key 是和 c 节点的 key 相等。如果通过这两种方法能找到相等的 key 节点的话，则判断两者是否值得比较，是的话就递归比较两者的子节点并在真实 DOM 中移动节点。而在这个栗子中上述两种方法都没能在旧子节点列表里找到 key 为 c 的节点，于是创建节点 c 并插入到 <code>newStartIdx</code> 的位置上。因为在旧 VNode 中没有找到匹配的节点，所以旧 VNode 的指针不需要移动，只需要右移新 VNode 的指针。指针移动后现在的状态图如下。</li>
 </ol>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/7.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/7.png" alt></p>
 <ol start="5">
 <li>可以看到，在新 VNode 中 <code>newStartIdx</code> 已经大于 <code>newEndIdx</code>，也就是已经遍历完新 VNode 了。只要新 VNode 或是旧 VNode 遍历完了，就不能再比对新旧 VNode 了，而是要进行删除或增加操作。<ul>
 <li>如果是旧 VNode 先遍历完，也就意味着新 VNode 中还有几个节点没有在旧 VNode 中匹配到，说明这几个节点是新增加的。这时候需要将 <code>newStartIdx</code> 至 <code>newEndIdx</code> 之间的节点都创建出新节点，并插入到相应的位置上。</li>
@@ -2673,7 +2673,7 @@ Promise<span class="token punctuation">.</span>race <span class="token operator"
 <h5 id="疑惑一：双端比较中为什么要尾尾比较？"><a href="#疑惑一：双端比较中为什么要尾尾比较？" class="headerlink" title="疑惑一：双端比较中为什么要尾尾比较？"></a>疑惑一：双端比较中为什么要尾尾比较？</h5><p>我的理解是，<strong>尾尾比较是为了加速比对时的命中率，提高 Diff 效率</strong>。比如现在有旧子节点列表 a b c，新子节点列表 b a c（偷个懒，这里就不画图啦）。如果没有尾尾比较的话，那它的第一次 Diff 比较顺序是：a 和 b、a 和 c、c 和 b、通过 key 比较。可以看到，这第一次 Diff 得通过 key 才能找到两个匹配的 VNode。而有尾尾比较的话，第一次 Diff 的比较顺序就变成了：a 和 b、c 和 c，至此就可以找到匹配的节点了，包括之后的两次 Diff 都不需要通过 key 比较。所以通过尾尾比较是可以提高 Diff 命中率的。</p>
 <h5 id="疑惑二：双端比较中为什么要首尾比较和尾首比较？"><a href="#疑惑二：双端比较中为什么要首尾比较和尾首比较？" class="headerlink" title="疑惑二：双端比较中为什么要首尾比较和尾首比较？"></a>疑惑二：双端比较中为什么要首尾比较和尾首比较？</h5><p>我的理解是，<strong>首尾比较和尾首比较同样是为了提高 Diff 效率</strong>。比如现在有旧子节点列表 a b c，新子节点列表 b c a，在这里的更新操作只是把 a 节点移动到了尾部，其他的 b 和 c 节点都没有变动。如果没有首尾比较的话，它的 Diff 比较顺序是：a 和 b、c 和 a、c 和 b、通过 key 比较。还是一样得通过 key 比较才能匹配到，而且之后还需要两次 Diff 并且依旧是通过 key 才能完成本次更新的 Diff 过程。如果有首尾比较的话，它的比较顺序就成了 a 和 b、c 和 a、a 和 a，匹配上后移动指针，发现剩下的 b c 节点都是相同的，都不需要再有多余的比对操作了。这样是不是大大提高了 Diff 的效率？尾首比较也是同理。</p>
 <h5 id="疑惑三：使用-Vue-时我们常常会给节点赋予一个独一无二的-key，通过双端比较的过程能不能明白这是为什么？"><a href="#疑惑三：使用-Vue-时我们常常会给节点赋予一个独一无二的-key，通过双端比较的过程能不能明白这是为什么？" class="headerlink" title="疑惑三：使用 Vue 时我们常常会给节点赋予一个独一无二的 key，通过双端比较的过程能不能明白这是为什么？"></a>疑惑三：使用 Vue 时我们常常会给节点赋予一个独一无二的 key，通过双端比较的过程能不能明白这是为什么？</h5><p>我的理解是，如果我们编码时没有给节点一个 key 的话，它在上述五种比较方法都匹配不到后就会直接创建新的真实 DOM 节点并插入到相应位置。而创建一个真实 DOM 节点其实消耗是挺大的，看下图可以发现，我们创建一个 <code>div</code> 节点，它的初始属性都有 293 个。所以在能复用原 DOM 节点的时候就应该尽量复用，而不是重新创建。</p>
-<p><img src="/2020/05/07/Vue2-的-Diff-算法/8.png" alt></p>
+<p><img src="/blog/2020/05/07/Vue2-的-Diff-算法/8.png" alt></p>
 <p>Diff 过程的几种比较方法中，最好的是首首/尾尾/首尾/尾首比较，其次是通过 key 比较。那么为啥说首首比较这四种方法要优于通过 key 比较呢？不要忘了，通过 key 比较，不管是通过对象直接找到对应的 key，还是通过遍历一个个去找，它们都得先遍历一边旧子节点列表（第二种方法可能还不止遍历一次），而且通过对象直接找还得花费 <code>O(n)</code> 的空间复杂度。所以综合起来通过首首比较这四种方法进行比对，还是要优于通过 key 比对的。</p>
 <p>我们先通过上述图文的形式理解 Diff 流程（也就是那十二个字，<strong>同级比较</strong>、<strong>深度递归</strong>、<strong>双端比较</strong>），并且也明白其中的几个疑惑点后，下面再来看具体源码就很容易理解了~</p>
 <h2 id="如何调试-Vue-源码"><a href="#如何调试-Vue-源码" class="headerlink" title="如何调试 Vue 源码"></a>如何调试 Vue 源码</h2><p>看源码的时候，我们最好能够边看源码理清它的逻辑，边 debugger 源码验证我们的理解是否正确，所以这里先介绍下如何在 VScode 中调试 Vue 源码。</p>
@@ -3069,7 +3069,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
     <title>elementUI级联选择器踩坑</title>
     <url>/blog/2019/06/14/elementUI%E7%BA%A7%E8%81%94%E9%80%89%E6%8B%A9%E5%99%A8%E8%B8%A9%E5%9D%91/</url>
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h1><p>&emsp;&emsp;今天使用 <code>elementUI</code> 的时候踩到坑了，期望的效果如下图所示。每一栋教学楼都有 1-7 层，每一层的教室都为 03-22，以此来选择不同的教室。</p>
-<p><img src="/2019/06/14/elementUI级联选择器踩坑/1.png" alt></p>
+<p><img src="/blog/2019/06/14/elementUI级联选择器踩坑/1.png" alt></p>
 <p>&emsp;&emsp;参照<a href="https://element.eleme.io/#/zh-CN/component/cascader" target="_blank" rel="noopener">官方文档</a>，我写了如下的级联数据项。</p>
 <pre class=" language-html"><code class="language-html">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-cascader</span>
     <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form.address<span class="token punctuation">"</span></span>
@@ -3123,9 +3123,9 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&emsp;&emsp;从显示上看，上面的代码确实能够起到视角上的效果。但当我点击的时候，却发现不管我怎么选择，只有第三级的数据有显示变化，第一级和第二级的数据并不会随之改变。（下图使用的是我另外在 <a href="https://jsfiddle.net/DangoSky/7osfp265/1/" target="_blank" rel="noopener">jsfiddle</a> 测试时的数据图，所以和上面代码中的数据不一样）</p>
-<p><img src="/2019/06/14/elementUI级联选择器踩坑/2.gif" alt></p>
+<p><img src="/blog/2019/06/14/elementUI级联选择器踩坑/2.gif" alt></p>
 <p>&emsp;&emsp;在查错的时候，我发现更奇怪的现象，如果我给第三级数据加上一个参数（此处是第一级的数据），则第一级数据就会随之改变了，但第二级数据还是原样。</p>
-<p><img src="/2019/06/14/elementUI级联选择器踩坑/3.gif" alt></p>
+<p><img src="/blog/2019/06/14/elementUI级联选择器踩坑/3.gif" alt></p>
 <p>&emsp;&emsp;看着这么神奇的结果，我以为我发现了 <code>elementUI</code> 的 bug，所以我直接给它提了 <a href="https://github.com/ElemeFE/element/issues/16068" target="_blank" rel="noopener">issues</a>，不过还没有人解答。后来我又在 <a href="https://stackoverflow.com/questions/56594223/not-displayed-correctly-in-elementui-cascader" target="_blank" rel="noopener">StackOverflow</a> 提问，终于有人提出了猜想。我总结下就是：所以当我选择 Shanghai / 3 / 03 时，<strong>elementUI 会自上而下搜索 03 这个值所在的位置</strong>，而 03 在 Beijing / 1 中已经存在了，所以会直接显示为 Beijign / 1 / 03，而不会再继续向下搜索 Shanghai 这个数据项（如果 Beijing / 1 中没有 03 这个值，则以此向下搜索 Beijing / 2 、Beijing / 3，如果到最后一项 Beijing / 22 还没有找到的话，再搜索 Shanghai 中的数据）。读者可以在我上面给出的 jsfiddle 链接中测试。</p>
 <p>&emsp;&emsp;同理，当我给第三级数据加上一个参数比如第一级的数据时，现在我选择 Shanghai / 3 / 03Shanghai，<code>elementUI</code> 继续从上而下搜索 03Shanghai 这个值，在 Beijing 这个数据项中没有找到，就向下找 Shanghai 这个数据项中是否存在 03Shanghai 这个值。在 Shanghai / 1 中已经找到了 03Shanghai，所以就直接结束搜索，返回的结果就是 Shanghai / 1 / 03Shanghai。</p>
 <p>&emsp;&emsp;elementUI 官方文档中并没有注明<strong>级联选择器的搜索方式</strong>，而又刚好我使用的级联数据中第二级和第三级数据是一样的，所以这个坑就被我踩上了（下午谷歌了一个多小时貌似也没有发现遇到这个坑的人）。</p>
@@ -3151,7 +3151,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&emsp;&emsp;到这里上面所描述的 bug 就解决了，级联选择器的结果会随着选择的路径而动态改变。jsfiddle 测试链接<a href="https://jsfiddle.net/n365ecuk/" target="_blank" rel="noopener">在这里</a>。</p>
-<p><img src="/2019/06/14/elementUI级联选择器踩坑/4.gif" alt></p>
+<p><img src="/blog/2019/06/14/elementUI级联选择器踩坑/4.gif" alt></p>
 <p>&emsp;&emsp;接下来还需要解决的问题是，如何把所选择的数据项结果简化成我们想要的格式。我们得到的数据项是 <code>[&quot;理科南教学楼&quot;, &quot;理科南教学楼+6&quot;, &quot;理科南教学楼+6+06&quot;]</code>， 而我们想要的结果是理科南606。一开始我是直接使用 <code>substr</code> 进行字符串截取的，但这样有个问题，不同的教学楼名称长度不同，截取的开始点不能确定。所以我采用正则表达来截取字符串。</p>
 <pre class=" language-js"><code class="language-js"><span class="token function">formattingAddress</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> str <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
@@ -3232,7 +3232,7 @@ Vue<span class="token punctuation">.</span>prototype<span class="token punctuati
 </li>
 </ol>
 <p><strong>&emsp;&emsp;总结一下就是，在非严格模式下，arguments和形参会同步改变，一变则两者都变。若是严格模式，arguments和形参则不会同步改变。（类似于JS的按值访问和按引用访问）</strong></p>
-<p><img src="/2019/03/16/js之作用域和执行上下文/1.png" alt></p>
+<p><img src="/blog/2019/03/16/js之作用域和执行上下文/1.png" alt></p>
 <p>&emsp;&emsp;另外还有一点就是，如果形参是由 rest 接受的，或是设置了默认参数的，形参的改变就不会修改到 arguments 上。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   a <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
@@ -3410,7 +3410,7 @@ npm run build
 </code></pre><h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ol>
 <li><p>iOS上无法播放音乐，不论是用微信打开还是用safari、Firefox打开都没有声音，测试了一下是取得到音乐的url的。问题应该是audiod的paly方法失效了，原因未明，谷歌也未果，而且我看GitHub上别人的仿网易云貌似没有这个问题，未解。安卓的情况比较复杂，拿了几台手机测试，在微信上打开全部功能都正常运行。用浏览器则一些型号的手机可以，一些不可以，而且有的手机用UC打开无法播放，用系统自带的浏览器则可以播放。原因也未明，不过这倒是在意料之中，因为在代码中还没有做兼容性处理，等以后有时间再继续完善吧。</p>
 </li>
-<li><p>偶尔会出现疑似跨域资源共享的问题(见下图)，说疑似是因为这个报错只有小概率会出现，而且即使出现了只要过一会再刷新就不会报错了，不像是跨域的问题。因为api是别人写好的，也不知道是不是后端接口的问题，原因未接。在GitHub上有和一个也在做仿网易云的人交流过，他也偶尔会出现这个cors问题，但也不知道怎么解决。<br><img src="/2019/02/25/vue全家桶仿iOS版网易云音乐/cors.png" alt></p>
+<li><p>偶尔会出现疑似跨域资源共享的问题(见下图)，说疑似是因为这个报错只有小概率会出现，而且即使出现了只要过一会再刷新就不会报错了，不像是跨域的问题。因为api是别人写好的，也不知道是不是后端接口的问题，原因未接。在GitHub上有和一个也在做仿网易云的人交流过，他也偶尔会出现这个cors问题，但也不知道怎么解决。<br><img src="/blog/2019/02/25/vue全家桶仿iOS版网易云音乐/cors.png" alt></p>
 </li>
 <li><p>fixed定位的问题。网易云很多个界面上都有一个用于路由跳转的footer，并且是固定定位的。因为固定定位在文档流中不占据位置，所以会造成上面排版下来的元素会被footer覆盖住，设置z-index也不管用（如果footer有背景色的话，则footer无法被完全覆盖住）。我的解决办法是使用一个空的div或一个伪元素占位，把宽高设得和footer一样加上相对定位，这样就可以把fixed定位的空间补回来了。但我感觉这只是一种hack，并没有根本上解决问题，每次在一个页面中遇到这种问题都得手动再去新增一个伪元素和空div，而且这样一个空div不太符合语义化。但fixed定位本就规定了在文档流中不占据位置，貌似也没有更好的解决办法了。</p>
 </li>
@@ -3483,7 +3483,7 @@ npm run build
 <h3 id="上拉加载更多"><a href="#上拉加载更多" class="headerlink" title="上拉加载更多"></a>上拉加载更多</h3><p>基本原理：监听 <code>scroll</code> 事件，判断页面是否达到底部，是的话则调用加载函数获取后面的数据，并将新拿到的数据拼接到现有的列表数组后面（一个列表信息通常都是使用一个数组来装的）。</p>
 <p>这里需要解决的问题是：</p>
 <h4 id="1-判断页面是否已经到达底部"><a href="#1-判断页面是否已经到达底部" class="headerlink" title="1.判断页面是否已经到达底部"></a>1.判断页面是否已经到达底部</h4><p>判断页面是否到达底部有一个专门的公式：<code>element.scrollHeight &lt;= element.scrollTop + element.clientHeight</code>，如果结果为 <code>true</code> 的话说明已经滚动到页面底部了。其中 <code>scrollHeight</code> 表示元素的全部高度，包含了因超出而隐藏部分的高度。取值上等于 <code>height</code> + <code>padding</code> + 被隐藏的内容高度，元素没有隐藏内容时等同于 <code>clientHeight</code>。<code>scrollTop</code> 表示元素已经滚动的距离。<code>clientHeight</code> 表示元素可见区域的高度，取值上等于 <code>height</code> + <code>padding</code>。</p>
-<p><img src="/2020/03/11/上拉刷新下拉加载更多的实现原理/./1.png" alt></p>
+<p><img src="/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/./1.png" alt></p>
 <p>有时候我们不会等到页面滚动到底部才去加载更多数据，这样会给用户带来等待加载更多数据的时间。所以我们会使用一个变量，比如说是 <code>distance</code> 来表示距离底部还有多远时就开始加载更多数据，此时判断页面是否达到底部的公式就变成了 <code>element.scrollHeight - distance &lt;= element.scrollTop + element.clientHeight</code>。</p>
 <h4 id="2-在加载完成后如何改变加载状态"><a href="#2-在加载完成后如何改变加载状态" class="headerlink" title="2.在加载完成后如何改变加载状态"></a>2.在加载完成后如何改变加载状态</h4><p>当滚动到页面底部时，组件内部调用加载函数 <code>handleMore</code>，并将修改状态的代码写成函数作为 <code>handleMore</code> 的参数。父组件在加载完成数据后调用该函数，就可以在加载完成后修改一些状态变量，从而改变页面的文案显示。</p>
 <pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 子组件</span>
@@ -3512,7 +3512,7 @@ npm run build
 <h4 id="2-判断页面此时是否位于顶部"><a href="#2-判断页面此时是否位于顶部" class="headerlink" title="2.判断页面此时是否位于顶部"></a>2.判断页面此时是否位于顶部</h4><p>如果 <code>curScrollTop ≤ 0</code>，则说明此时没有页面滚动，是处于顶部的。</p>
 <h4 id="3-拖动列表下拉移动的距离"><a href="#3-拖动列表下拉移动的距离" class="headerlink" title="3.拖动列表下拉移动的距离"></a>3.拖动列表下拉移动的距离</h4><p>当满足上述两个条件后，下拉页面就可以拖拽列表向下移动，此时需要计算列表移动的距离，需要移动的距离 = 手指在屏幕上移动的距离 - <code>touchStart</code> 时页面滚动的距离。用上面的变量来写成公式就是 <code>distance = (curClientY - startClientY) - startScrollTop</code>。</p>
 <p>详情可见下图，左图表示 <code>touchStart</code> 时的状态，右图表示 <code>touchEnd</code> 时的状态，圆圈表示当时手指所在的屏幕位置。<code>touchStart</code> 时有个列表，它的上面既滚动了一部分，下边也有因超出而隐藏的部分。随着手指慢慢向下移动，到了右图 <code>touchEnd</code> 的状态。此时随着手指移动，列表页也会向下移，其中 <code>distance</code> 就表示列表向下移动的距离。</p>
-<p><img src="/2020/03/11/上拉刷新下拉加载更多的实现原理/2.png" alt></p>
+<p><img src="/blog/2020/03/11/上拉刷新下拉加载更多的实现原理/2.png" alt></p>
 <p>在这里父组件还可以传递一个 <code>distancePullDownRefresh</code> 参数过来，表示列表向下移动了多大距离后，释放时就调用刷新函数。所以需要在 <code>touchMove</code> 中计算出 <code>distance</code> 后判断两者的大小关系，如果 <code>distance</code> 大于 <code>distancePullDownRefresh</code> 的话，则将状态变量标记为释放刷新。在 <code>touchEnd</code> 中再判断该状态变量的值，决定是否要调用刷新函数。</p>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
 <li>为什么下拉刷新和上拉加载更多是监听不同的事件？</li>
@@ -3544,7 +3544,7 @@ npm run build
 <li>冒泡阶段：事件对象从目标节点经过目标节点的祖先节点到达window，若经过的结点中绑定有同类型事件的监听函数，则会被触发执行。</li>
 </ol>
 <p>&emsp;&emsp;在捕获阶段从 window 到目标节点经过的节点顺序为 window -&gt; document -&gt; html -&gt; body -&gt; 祖先节点 -&gt; 父亲节点 -&gt; 目标节点，冒泡阶段则反过来。</p>
-<p><img src="/2019/04/12/事件模型和事件委托/1.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/1.png" alt></p>
 <p>&emsp;&emsp;我们可以用代码验证一下：</p>
 <pre class=" language-html"><code class="language-html">// html 代码， css的样式代码就不贴了
 &lt;div id="parent>
@@ -3571,17 +3571,17 @@ document<span class="token punctuation">.</span><span class="token function">get
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"children"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/2019/04/12/事件模型和事件委托/2.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/2.png" alt></p>
 <p>&emsp;&emsp;上面结果是通过点击 children 节点得到的。 需要注意的是，addEventListener 函数的第三个参数表示是否在捕获阶段触发监听函数，默认为 false 即在冒泡阶段才触发，为 true 时则在捕获阶段触发。我们把上面代码的第三个参数都修改成 false 看看冒泡阶段的执行顺序。</p>
-<p><img src="/2019/04/12/事件模型和事件委托/3.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/3.png" alt></p>
 <p>&emsp;&emsp;可以看到，冒泡阶段的执行顺序确实是和捕获阶段相反的。当然如果你给某一个节点的捕获阶段和冒泡阶段都添加相应的事件监听函数，则在一次点击事件中两者都会触发到。我们把上面捕获阶段和冒泡阶段的代码放到一起执行来验证看看。</p>
-<p><img src="/2019/04/12/事件模型和事件委托/4.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/4.png" alt></p>
 <p>&emsp;&emsp;这里还有一个注意点，如果<strong>目标节点</strong>同时定义了同类型事件捕获阶段和冒泡阶段的监听函数，则<strong>哪个事件代码写在前面就先执行哪个</strong>，而对于非目标节点则都是先执行捕获后执行冒泡。这里就不贴图了，看客们可以自行验证。</p>
 <h1 id="Event-对象"><a href="#Event-对象" class="headerlink" title="Event 对象"></a>Event 对象</h1><p>&emsp;&emsp;关于 Event 对象，这里只介绍四个和事件模型相关的 api，其余部分看客们可直接查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Event" target="_blank" rel="noopener">MDN</a>。</p>
 <h2 id="event-stopPropagation"><a href="#event-stopPropagation" class="headerlink" title="event.stopPropagation()"></a>event.stopPropagation()</h2><p>&emsp;&emsp;如果要阻止事件继续向下捕获或向上冒泡的话，可以直接在相应的目标事件中使用<code>event.stopPropagation()</code>（但依旧会执行当前节点的监听函数）。如果是非目标节点的话，在执行完当前节点的相应事件后就会停止执行了。<strong>如果是目标节点的话，即使在捕获阶段阻止了也还是会执行目标节点的冒泡事件再停止执行</strong>。</p>
 <p>&emsp;&emsp;除了<code>event.stopPropagation()</code>，<code>event.cancelBubble = true</code>也可以达到同样的功能，不过<code>event.cancelBubble = true</code>主要是用于做 IE 兼容，而且已经 Web 标准中删除了。我试了下，发现不管是<code>event.stopPropagation()</code>，还是<code>event.cancelBubble = true</code>在 Chrome 和 IE11 中都起作用了。<code>event.cancelBubble = true</code>了解一下就好了，说不定以后哪天需要兼容到 IE 老古董的时候就可以派上用场。</p>
 <h2 id="event-composedPath"><a href="#event-composedPath" class="headerlink" title="event.composedPath()"></a>event.composedPath()</h2><p>&emsp;&emsp;<code>event.composedPath()</code>会返回一个数组，成员是目标节点最内层的子节点和依次冒泡经过的所有上层节点。还是使用上面的代码，我们在 children 节点的点击监听函数中使用<code>event.composedPath()</code>再点击验证看看。</p>
-<p><img src="/2019/04/12/事件模型和事件委托/6.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/6.png" alt></p>
 <h2 id="event-stopImmediatePropagation"><a href="#event-stopImmediatePropagation" class="headerlink" title="event.stopImmediatePropagation()"></a>event.stopImmediatePropagation()</h2><p>&emsp;&emsp;如果有多个相同类型事件的监听函数绑定到同一个元素上的话，则当触发事件时，会把这些事件按代码编写顺序都执行下去。若在某一个事件上增加<code>event.stopImmediatePropagation()</code>则可以阻止执行剩下的同类型监听函数。</p>
 <h2 id="event-preventDefault"><a href="#event-preventDefault" class="headerlink" title="event.preventDefault()"></a>event.preventDefault()</h2><p>&emsp;&emsp;<code>event.preventDefault()</code>顾名思义是用来阻止默认行为的，可以阻止浏览器给一些事件预先设置好的默认行为如 a 标签的页面跳转等。在 jQuery 中则可以直接使用<code>return false</code>来阻止默认行为，简单粗暴，然而现在这年头估计很少用 jQuery 了吧。</p>
 <p>&emsp;&emsp;之前我在做 <a href="https://github.com/DangoSky/2048" target="_blank" rel="noopener">2048</a> 的时候发现一个问题，在移动端如果一个页面的宽高都只是移动设备视图的百分之百即不会出现水平垂直滚动，但若页面中给某一个元素添加了 touch 监听事件，则在 touchmove 的时候是会触发浏览器的默认行为造成页面滑动的。当然这时候可以选择使用<code>event.preventDefault()</code>来阻止移动端页面的默认滑动行为，但这时候会报错<code>Unable to preventDefault inside passive event listener due to target being treated as passive</code>。</p>
@@ -3616,7 +3616,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
   ul<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/2019/04/12/事件模型和事件委托/6.png" alt></p>
+<p><img src="/blog/2019/04/12/事件模型和事件委托/6.png" alt></p>
 <p>&emsp;&emsp;上面的代码实现中涉及到一个问题，它对于每一个子元素的点击都会进行响应，但如果我们不想给其他子元素例如 p 和 span 等标签也添加事件监听那怎么办？其实这也可以办到，只要在监听函数里判断目标元素是不是 li 标签就可以了。</p>
 <pre><code>if(ele.tagName.toLowerCase() === &#39;li&#39;) {
   ele.style.color = &#39;red&#39;;
@@ -3781,21 +3781,21 @@ process<span class="token punctuation">.</span><span class="token function">next
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;大家应该都知道在前端有一道极其著名的题目：<strong>从输入 url 到页面加载完成的过程中发生了什么？</strong>不得不说这的确是一道覆盖面很广的题目，从计算机网络到浏览器缓存和渲染等内容几乎都包括在其内，更别提还可以引申出去再谈谈性能优化了，估计单单这一道题，从广度和深度挖下去就足以撑起一场面试了。不过本文只涉及到浏览器渲染方面的内容，从服务器返回响应开始讲起，而此前的内容等以后我理清楚了再分别写几篇博客谈谈。</p>
 <h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><h2 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h2><p>&emsp;&emsp;在计算机网络中传输的内容都是以字节的形式传输的，当浏览器接受到（或者从本地磁盘读取到）这些字节数据（也就是HTML文档）时，会先根据指定的编码方式（如 utf-8）把它们解码成字符串。然后通过<a href="https://zh.wikipedia.org/wiki/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90" target="_blank" rel="noopener">词法分析</a>把字符串识别成一个个词语（此处词法分析会识别并跳过空格和换行等无关的字符），再利用这些词语生成节点，而这些节点根据原本的文档结构便构建成了一颗 DOM 树。</p>
 <p>&emsp;&emsp;其中词法分析是按一定的语言规则将字符串转化成一个个浏览器可以识别的词语（即 <strong>token</strong>），每一个 token 会标识出当前的 token 是“开始标签”、“结束标签”还是“文本”等信息。对于词法分析的过程，我猜可能是利用到正则表达式 + 栈来实现的，类似于 <a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">Leetcode</a> 上一道算法题，匹配括号判断字符串是否有效，也可能是我想的太简单了。（对于 HTML 字符串如何解析成词语和节点，本文就不深入探讨了，看客有兴趣可以参考《<strong>WebKit技术内幕</strong>》这本书的 5.2 章。难道我会告诉你其实我也不是很清楚吗？还是等之后我深入理解了后再补充这部分的知识点吧，在这里立个 flag）</p>
-<p><img src="/2019/04/19/从浏览器的渲染机制谈起/1.png" alt></p>
+<p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/1.png" alt></p>
 <h2 id="构建-CSSOM-树"><a href="#构建-CSSOM-树" class="headerlink" title="构建 CSSOM 树"></a>构建 CSSOM 树</h2><p>&emsp;&emsp;CSSOM 树的构建过程和 DOM 树的构建过程很相似，先是解析 CSS 生成 token，再由这些 token 生成节点构建出 CSSOM 树。</p>
 <blockquote>
 <p>在这一过程中浏览器会确定每一个节点的样式到底是什么，而这一过程其实是很消耗时间的。因为样式可以自行设置给某个节点，也可以通过继承父节点获得。所以浏览器得递归 CSSOM 树，才能确定元素的具体样式。</p>
 </blockquote>
-<p><img src="/2019/04/19/从浏览器的渲染机制谈起/2.png" alt></p>
+<p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/2.png" alt></p>
 <p>&emsp;&emsp;需要注意的是，上图的 CSSOM 树并不是完整的 CSSOM 树，因为它只显示出了我们在样式表中给定的样式。但除此之外每一个浏览器都会为每一个标签提供默认的样式信息的，比如<code>font-size</code>和<code>margin</code>等，CSSOM 树中显示的只是我们用来替换默认样式的信息而已。</p>
 <p>&emsp;&emsp;不知道诸位看客从上图中有没有发现一个问题，上图的 CSSOM 树是由一个个标签名构建而成的，但往往我们的 CSS 样式表中是通过 class 和 id 来设置样式的，既然如此那 CSSOM 树要如何单单根据 class 和 id 就构建出有父子关系层层嵌套的树呢？（emmm，这个其实我也不知道Orz）</p>
 <p>&emsp;&emsp;既然说到了 CSSOM 树，就顺道提一下 CSS 匹配规则吧。我们知道 CSS 匹配节点样式时是从右往左的。举个例子，对于<code>.box div</code>这个 CSS 选择器会先去查找所有的 div 标签，再去匹配这些 div 标签的父元素是否有 box 这个类。所以根据这个匹配规则我们应该尽量使用 id 和 class 选择器，让 CSS 匹配可以更高效，避免使用标签选择器过度嵌套。当然这里面还牵涉到<strong>选择器优先级</strong>的问题，不过这里就不过多说这些题外话啦，有兴趣的看客就自行 Google 吧。</p>
 <h2 id="合成渲染树"><a href="#合成渲染树" class="headerlink" title="合成渲染树"></a>合成渲染树</h2><p>&emsp;&emsp;构建完 DOM 树和 CSSOM 树后就会合并两者，根据 DOM 上的节点及其对应的样式生成一颗渲染树（render tree）。在合并的过程中渲染树只会包含可见的节点，对于设置了<code>display: none</code>的节点和<code>&lt;head&gt;</code>、<code>&lt;script&gt;</code>这些节点是不会被渲染出来的。作为对比，设置<code>visible: hidden</code>的节点虽然不可见，但依旧会占据空间，还是会出现在渲染树中被渲染出来。</p>
-<p><img src="/2019/04/19/从浏览器的渲染机制谈起/3.png" alt></p>
+<p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/3.png" alt></p>
 <h2 id="布局（Layout）"><a href="#布局（Layout）" class="headerlink" title="布局（Layout）"></a>布局（Layout）</h2><p>&emsp;&emsp;有了渲染树就可以对应起每一个节点和相应的样式信息，但这时候每一个节点在文档中所处的位置还是不确定的。所以就需要根据渲染树中的节点及其样式在页面上<strong>自上而下，从左到右</strong>地计算各个节点所处的位置和大小，也就是布局（有没有联想到什么？每一个节点其实都代表了一个个盒模型啊）。</p>
 <h2 id="绘制（Painting）"><a href="#绘制（Painting）" class="headerlink" title="绘制（Painting）"></a>绘制（Painting）</h2><p>&emsp;&emsp;顾名思义，就是根据渲染树中的节点和对应的样式，以及计算得到的位置信息等将各个节点转换为页面上的实际像素并绘制出来。</p>
 <p>&emsp;&emsp;用一张图总结一下浏览器渲染的五个过程。</p>
-<p><img src="/2019/04/19/从浏览器的渲染机制谈起/4.png" alt></p>
+<p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/4.png" alt></p>
 <p>&emsp;&emsp;在以上的五个过程中有两个地方需要注意到。</p>
 <ol>
 <li><p>上述这五个步骤并不是同步的，而是逐步完成的。DOM 并不需要等 HTML 文档完全解析完再开始构建，而是<strong>边解析 HTML 边构建 DOM 树</strong>的。而且现在的浏览器为了达到更好的用户体验，渲染引擎会尽可能快的将内容渲染到屏幕上，它不会等到整个 HTML 文档都解析完成之后再去构建 render 树和布局渲染，而是同样解析完一部分内容就显示一部分内容（这是一个<strong>渐进</strong>的过程）。</p>
@@ -3803,7 +3803,7 @@ process<span class="token punctuation">.</span><span class="token function">next
 <li><p>现代一些浏览器在开始解析 HTML 的时候会有一个<strong>预解析</strong>的优化操作，即一开始就会<strong>并行</strong>去加载 HTML 文档中需要加载到的外部资源（JS 脚本、CSS 样式表以及图片等），而不必等 DOM 构建到它们相应的那个节点（我猜应该是通过正则表达式去匹配它们对应的标签名来实现的吧）。这样当 DOM 构建到相应的标签时，由于外部资源已经预加载好了，所以就可以立即执行而不用再等待资源加载从而避免进一步阻塞页面渲染（预解析并不改变 DOM 树）。</p>
 </li>
 </ol>
-<p><img src="/2019/04/19/从浏览器的渲染机制谈起/6.png" alt></p>
+<p><img src="/blog/2019/04/19/从浏览器的渲染机制谈起/6.png" alt></p>
 <h1 id="JS-和-CSS-对-DOM-的阻塞"><a href="#JS-和-CSS-对-DOM-的阻塞" class="headerlink" title="JS 和 CSS 对 DOM 的阻塞"></a>JS 和 CSS 对 DOM 的阻塞</h1><h2 id="JS-会阻塞-DOM-的解析和页面渲染"><a href="#JS-会阻塞-DOM-的解析和页面渲染" class="headerlink" title="JS 会阻塞 DOM 的解析和页面渲染"></a>JS 会阻塞 DOM 的解析和页面渲染</h2><p>&emsp;&emsp;在构建 DOM 树时，如果遇到了<code>&lt;script&gt;</code>加载 JS 脚本，那么 DOM 树会暂停构建，先执行 JS 代码。如果 JS 脚本是通过外部引入的，则是等待 JS 先下载再执行。为什么 JS 脚本会阻塞到 DOM 树的构建呢？看客应该都知道，JavaScript的一个强大之处在于它可以操纵页面中的每一个节点并对其进行增删改查操作，其中也包括修改节点对应的 CSS 样式信息。所以<strong>为了防止要执行的 JS 代码和正在构建的 DOM 树起冲突</strong>，DOM 树的构建是会先被挂起的，等到 JS 代码执行完毕才会继续构建 DOM 树。如果 JS 脚本加载时间很长，页面无法继续渲染下去就会造成浏览器失去响应处于假死状态。（不知道看客们有没有联想到什么？<a href="https://dangosky.github.io/blog/2019/04/07/%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">前面一篇讲事件循环的博客</a>里有提到浏览器的两个线程：<strong>GUI 线程</strong>和 <strong>JavaScript</strong> 引擎线程。这两个线程是互斥的，其中原因和 JS 代码阻塞 DOM 是一样的）。平时我们常说不要把 JS 文件放在<code>&lt;head&gt;</code>头部而要放到<code>&lt;body&gt;</code>尾部防止首屏加载时间过长，就是基于 JS 会阻塞 DOM 的解析和渲染这一个原因。JS 文件放到了<code>&lt;body&gt;</code>的尾部，这样即使 JS 代码长时间加载也不会影响到首屏显示，因为这时候页面已经渲染完毕了。如果有一些 JS 代码必须先行加载（放在<code>&lt;head&gt;</code>头部）的话，最好直接将代码写在页面中而不是以外联载入的形式，这样可以节省加载 JS 文件所消耗的时长（不过 JS 代码放在<code>&lt;body&gt;</code>前面好像没什么用处吧，这时候页面还没有渲染又不能获取到 DOM 节点，通过 CDN 加载第三方库除外）。</p>
 <p>&emsp;&emsp;如果页面中有多个<code>&lt;script&gt;</code>标签要加载 JS 文件，例如：</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"a.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
@@ -3814,7 +3814,7 @@ process<span class="token punctuation">.</span><span class="token function">next
 <p>&emsp;&emsp;如果遇到 JS 脚本时还有未加载完成的 CSS 样式文件，那 CSS 的加载还会阻塞到 JS 的执行。原因也同上面说的，JS 可以增删改查到 DOM 节点，自然也就能读取或修改到 DOM 节点的 CSS 样式信息。为了防止 JS 文件读取读取到不完整的 CSS 信息或是修改时和前面的 CSS 样式表起冲突，所以 JS 文件会等待前面的 CSS 资源加载完成才执行。而 JS 又会阻塞到后面 DOM 的解析和页面渲染，双重阻塞下页面就变得更卡顿了。这也是我们平时常说的不要把 JS 文件放在 CSS 样式表之后的原因。</p>
 <h1 id="异步加载-JS-脚本"><a href="#异步加载-JS-脚本" class="headerlink" title="异步加载 JS 脚本"></a>异步加载 JS 脚本</h1><p>  &emsp;&emsp;在<code>&lt;script&gt;</code>标签中可以设置两个属性，分别是<code>defer</code>和<code>async</code>，设置了<code>defer</code>和<code>async</code>的 JS 脚本相当于异步加载 JS 文件。在普通的<code>&lt;script&gt;</code>下，JS 的加载会暂停后续 DOM 的解析，而设置<code>defer</code>和<code>async</code>的<code>&lt;script&gt;</code>可以<strong>边加载 JS 文件，边进行 DOM 解析</strong>，这两个过程是并行发生的。需要注意的是，这两个属性只能作用于外部引入的脚本，对于内联脚本是不起作用的。</p>
 <p>  &emsp;&emsp;两者的区别在于，<code>defer</code>加载的 JS 脚本会延迟执行，等到该 JS 脚本加载完毕并且 DOM 也解析完成后才会执行该 JS 代码。而<code>async</code>则是一旦加载完成 JS 脚本就会马上执行，如果这时候 DOM 还没有解析完成也是会先暂停解析先等待 JS 执行完毕的（同样会阻塞）。如果使用<code>defer</code>加载多个 JS 脚本，那 JS 脚本会按照它们在代码中的先后顺序执行。而<code>async</code>因为是 JS 脚本一加载完成就马上执行，所以并不能保证 JS 脚本的执行顺序，这取决于哪个 JS 脚本先加载完成。下面这张图很直观地展示了三者的区别。</p>
-<p>  <img src="/2019/04/19/从浏览器的渲染机制谈起/5.jpg" alt></p>
+<p>  <img src="/blog/2019/04/19/从浏览器的渲染机制谈起/5.jpg" alt></p>
 <p>&emsp;&emsp;需要注意的是，<strong><code>defer</code>脚本会在<code>DOMContentLoaded</code>监听函数之前（相当于 jQuery 的 ready 事件）执行</strong>。而<a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/DOMContentLoaded" target="_blank" rel="noopener">什么是 DOMContentLoaded 事件</a>，用一句话概括就是，<code>DOMContentLoaded</code>会在 DOM 构建完毕后触发，此时<code>&lt;link&gt;</code>和<code>&lt;img&gt;</code>等外部资源可能还没有加载完成。和<code>DOMContentLoaded</code>相似的还有一个<code>load</code>事件，这个大家应该比较熟悉了。<code>load</code>事件不仅得等待 DOM 构建完成，还得等页面上其他的资源如图片音频和视频等都加载完后才触发，所以<code>load</code>事件是在<code>DOMContentLoaded</code>事件之后才触发的。至于<code>async</code>则情况会复杂一点，并不能确保<code>async</code>与<code>DOMContentLoaded</code>的执行先后顺序（但会在<code>load</code>之前执行）。这是因为<code>async</code>脚本一加载完毕就会马上执行，所以<code>async</code>与<code>DOMContentLoaded</code>的执行先后顺序取决于<code>async</code>脚本的加载完成时间。如果<code>async</code>脚本在 DOM 解析完成之前就加载完毕了，那么<code>async</code>脚本会先于<code>DOMContentLoaded</code>执行，反之则是<code>DOMContentLoaded</code>先于<code>async</code>脚本执行。（不知道看客们会不会有一个疑问，<code>defer</code>脚本不是构建完 DOM 才执行的吗，而<code>DOMContentLoaded</code>也是在构建完 DOM 完后就执行，那<code>defer</code>脚本怎么就一定会先于<code>DOMContentLoaded</code>执行呢？其实我也不知道，因为 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script#%E5%B1%9E%E6%80%A7" target="_blank" rel="noopener">MDN</a> 就是这么写的。）</p>
 <p>&emsp;&emsp;除了使用<code>defer</code>和<code>async</code>异步加载 JS 脚本外，我们还可以动态加载脚本，即在页面加载完成后才导入 JS 脚本，这样也可以避免阻塞页面渲染。</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>script<span class="token operator">></span>
@@ -3919,7 +3919,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h2 id="为什么要统计监控指标"><a href="#为什么要统计监控指标" class="headerlink" title="为什么要统计监控指标"></a>为什么要统计监控指标</h2><p>量化出一个页面的性能，根据不断阶段的耗时，找出其中的短板进行性能优化。</p>
 <h2 id="监控指标数据"><a href="#监控指标数据" class="headerlink" title="监控指标数据"></a>监控指标数据</h2><h3 id="window-performance-API"><a href="#window-performance-API" class="headerlink" title="window.performance API"></a>window.performance API</h3><p><a href="https://www.w3.org/TR/navigation-timing/" target="_blank" rel="noopener">W3C</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance" target="_blank" rel="noopener">MDN Performance</a></p>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./1.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./1.png" alt></p>
 <ul>
 <li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/%E5%86%85%E5%AD%98" target="_blank" rel="noopener">performance.memory</a> 表示内存使用情况。</p>
 </li>
@@ -3928,7 +3928,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceTiming" target="_blank" rel="noopener">performance.timing</a> 统计了页面从网页开始导航到加载完成的一些时间点，通过计算某些特定事件的时间差，从而获取中间过程的耗时，就可以得出一些用于页面性能监控的指标。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./7.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./7.png" alt></p>
 <ul>
 <li><p>navigationStart: 准备加载页面的时间点，相当于在地址栏输入地址后回车的那个时刻。</p>
 </li>
@@ -3965,7 +3965,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <li><p>loadEventStart、loadEventEnd 分别表示 onload 事件触发和结束的时间点。</p>
 </li>
 </ul>
-<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p><img src="/2020/07/18/前端性能监控指标介绍/./5.png" alt></p>
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p><img src="/blog/2020/07/18/前端性能监控指标介绍/./5.png" alt></p>
 <ul>
 <li>DNS 查询耗时 = domainLookupEnd - domainLookupStart</li>
 <li>TCP 连接耗时 = connectEnd - connectStart</li>
@@ -3977,7 +3977,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <li>onload 时间 = loadEventEnd - navigationStart</li>
 </ul>
 <h3 id="performance-getEntries"><a href="#performance-getEntries" class="headerlink" title="performance.getEntries"></a>performance.getEntries</h3><p>返回值是一个包含了所有静态资源的数组，包括请求资源的绝对路径、类型、耗时等信息。</p>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./8.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./8.png" alt></p>
 <h3 id="其他基于用户视觉反馈的性能指标"><a href="#其他基于用户视觉反馈的性能指标" class="headerlink" title="其他基于用户视觉反馈的性能指标"></a>其他基于用户视觉反馈的性能指标</h3><p>window.performance API 虽然提供了很多数据指标，但在某些方面依旧存在缺陷。比如：</p>
 <ol>
 <li><p>SPA 切换路由时，performance.timing 的数据不会更新，所以无法获得每一个路由所对应的页面性能指标。</p>
@@ -3991,7 +3991,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <li><p>获取：可以直接通过 <code>performance.getEntriesByType(&#39;paint&#39;)</code> 方法获取到。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./3.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./3.png" alt></p>
 <h4 id="FCP-First-Contentful-Paint"><a href="#FCP-First-Contentful-Paint" class="headerlink" title="FCP (First Contentful Paint)"></a>FCP (First Contentful Paint)</h4><ul>
 <li><p>含义：首次内容绘制的时间点，指浏览器第一次向屏幕绘制内容。只有首次绘制文本、图片/背景图、非白色的 canvas 或 SVG 时才算数。</p>
 </li>
@@ -4000,7 +4000,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <li><p>FP 和 FCP 的区别：FP 是当浏览器开始绘制内容到屏幕上的时候，只要在视觉上开始发生变化，无论是什么内容触发的视觉变化，这一个时间点就叫做 FP。而 FCP 指的是浏览器首次绘制来自 DOM 的内容例如文本、图片等。所以 FP 和 FCP 可能是相同的时间，也可能是先 FP 后 FCP。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./4.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./4.png" alt></p>
 <h4 id="FMP（First-Meaningful-Paint）"><a href="#FMP（First-Meaningful-Paint）" class="headerlink" title="FMP（First Meaningful Paint）"></a>FMP（First Meaningful Paint）</h4><p><a href="https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/view?hl=zh-cn#" target="_blank" rel="noopener">Time to First Meaningful Paint</a></p>
 <ul>
 <li><p>含义：首次有效绘制，指页面的主要内容开始出现在屏幕上的时间点。这里的主要内容通常等于页面渲染过中元素增量最大的点。</p>
@@ -4048,8 +4048,8 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <p>&emsp;&emsp;当event.keyCode=37时调用moveLeft()：</p>
 <p>&emsp;&emsp;1.首先得先判断是否可以向左移动，得满足两个格子之间存有空格或者中间的格子有与其相同数值的格子，才能进行向左移动。</p>
 <p>&emsp;&emsp;2.两个for循环遍历所有的行列，对于一个有数值的格子a，对其所在行的第一个格子到a自身进行遍历（如果是向右移动的话，则从所在行的最后一个格子到a自身进行遍历。向上向下移动亦是如此，这个顺序很关键），遍历过程出现以下三种情况则进行移动：</p>
-<p>&emsp;&emsp;（1）遍历到的格子b还没有数值（空格），而且两个格子之间没有障碍物（即有数值的格子）存在。则把a移动到b的位置（引用jQuery的animate函数，所以说已经有jQuery了为什么还要自己再去封装一个缓动动画函数呢？就当作是了解怎么用js原生态语句做缓动动画了，这就是原理？）<br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.1.png" alt="The requested content cannot be loaded."></p>
-<p>&emsp;&emsp;（2） 遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b已经是合并过了的，那a和b不合并，a移动到b的右手边相邻空格处。<br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.2.png" alt="The requested content cannot be loaded."><br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.3.png" alt="The requested content cannot be loaded."></p>
+<p>&emsp;&emsp;（1）遍历到的格子b还没有数值（空格），而且两个格子之间没有障碍物（即有数值的格子）存在。则把a移动到b的位置（引用jQuery的animate函数，所以说已经有jQuery了为什么还要自己再去封装一个缓动动画函数呢？就当作是了解怎么用js原生态语句做缓动动画了，这就是原理？）<br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.1.png" alt="The requested content cannot be loaded."></p>
+<p>&emsp;&emsp;（2） 遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b已经是合并过了的，那a和b不合并，a移动到b的右手边相邻空格处。<br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.2.png" alt="The requested content cannot be loaded."><br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.3.png" alt="The requested content cannot be loaded."></p>
 <p>&emsp;&emsp;如图，如果不去判断格子是否已经合并过了的话，结果则会是8 0 0 0，但是游戏规则是同一次移动中不能有合并</p>
 <p>&emsp;&emsp;（3）遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b还没有合并过，则a移动到b的位置，a和b合并，两者数值相加。因为遍历的顺序是从其所在行的第一个格子到a自身，所以左边的格子2会先左移到第一列，随后右边的格子2再左移与其合并。</p>
 <p>&emsp;&emsp;大致就这些了吧，其他的比如产生随机数、动态布局、缓动动画这些就纯js操作了，不是啥大问题，详情就戳<a href="https://github.com/DangoSky/2048" target="_blank" rel="noopener">Github</a>看源码吧。</p>
@@ -4086,7 +4086,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 <span class="token property">-webkit-box-orient</span><span class="token punctuation">:</span> vertical<span class="token punctuation">;</span>
 </code></pre>
 <p>之前在公司使用到多行截断，在 Chrome、Firefox 和 safari 上都可以得到良好的支持，但在 IE11 上就不行了。因为 IE 识别不了 <code>-webkit-line-clamp</code> 这个 css 属性（详情看<a href="https://caniuse.com/#search=-webkit-line-clamp" target="_blank" rel="noopener">这里</a>），所以只能通过其他方式来模拟一下多行截断了。</p>
-<p><img src="/2019/11/12/文本溢出截断的几种方案/1.png" alt></p>
+<p><img src="/blog/2019/11/12/文本溢出截断的几种方案/1.png" alt></p>
 <h3 id="伪元素-绝对定位"><a href="#伪元素-绝对定位" class="headerlink" title="伪元素 + 绝对定位"></a>伪元素 + 绝对定位</h3><p>通过伪元素 + 绝对定位来模拟多行截断原理其实很简单，就只是使用伪元素来表示省略号… ，并通过定位来将它放到文末就行了。但还需要固定文本框的高度来控制要显示的行数。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.ie-polyfills</span> </span><span class="token punctuation">{</span>
     <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">4.5</span>rem<span class="token punctuation">;</span>
@@ -4108,7 +4108,7 @@ ele<span class="token punctuation">.</span>style<span class="token punctuation">
 </code></pre>
 <p>使用这种方法来模拟多行截断缺点也很明显，就是因为是手动控制 … 的位置，所以文本和 … 之间的过渡就没有原生方法那么自然，文字可能还会漏出一点出来。并且无法识别文本的长短，无论文本是否溢出都会显示省略号。</p>
 <p>所以必须保证文本一定会溢出才行。</p>
-<p><img src="/2019/11/12/文本溢出截断的几种方案/2.png" alt></p>
+<p><img src="/blog/2019/11/12/文本溢出截断的几种方案/2.png" alt></p>
 <p>目前只发现在 IE 上无法识别 <code>-webkit-line-clamp</code>，所以我们大可不必只为了兼容 IE 就放弃原生的多行截断方法。我们可以判断当前用户使用的浏览器来选择使用哪种截断方式。如果是 IE 浏览器（<code>navigator.userAgent.indexOf(&#39;Trident&#39;) &gt; -1</code>) 的话，我们就采用模拟截断的 CSS 样式，否则就使用原生的截断方法。</p>
 <h3 id="伪元素-float"><a href="#伪元素-float" class="headerlink" title="伪元素 + float"></a>伪元素 + float</h3><p>利用浮动的特性，当文本高度不超过指定最大高度时，省略号（右浮动）会位于文本的下方，因为超出隐藏所以省略号不可见。但文本高度超过指定最大高度时，省略号向右浮动贴着文本的左边线，此时再通过定位把省略号拉到文本右边即可。通过这种方法的好处在于可以根据文本超出与否来控制是否显示省略号，缺点也是文本和省略号之间过渡不好。</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -4693,7 +4693,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <blockquote>
 <p>将下面任一种方法的css样式分别添加到上面的代码中，都能得到下图这个效果。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/center.png" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/center.png" alt></p>
 <h2 id="方法一：绝对定位-平移"><a href="#方法一：绝对定位-平移" class="headerlink" title="方法一：绝对定位 + 平移"></a>方法一：绝对定位 + 平移</h2><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.contaienr</span> </span><span class="token punctuation">{</span>
   <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -4754,7 +4754,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>使用 padding 有个问题是，因为给矩形设置了 height: 0，所以如果这个矩形有子元素并且设置了 height: 100% 的话，子元素的高度也会是 0 而不是预期的 100px。这时需要给子元素绝对定位，给矩形相对定位才可以让子元素的高度保持和矩形一致（此时子元素脱离了文档流，宽高就相对于父元素的宽高来了）。</p>
 <h2 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h2><p>使用 vw 来给矩形的宽高设置为成比例的 vw 值。这个方法的问题在于 vw 是相对于屏幕宽度而言，不同设备有不同的宽度，所以无法控制矩形具体的宽度值。</p>
 <h2 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h2><p>给 html 根元素设置一个 font-size 值，矩形通过 rem 单位设置宽高，这样它的宽高就是相对于根元素的字体大小而言的，再给矩形的宽高设置成比例的 rem 值就可以了。</p>
-<h1 id="两栏等高"><a href="#两栏等高" class="headerlink" title="两栏等高"></a>两栏等高</h1><p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/1.png" alt></p>
+<h1 id="两栏等高"><a href="#两栏等高" class="headerlink" title="两栏等高"></a>两栏等高</h1><p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/1.png" alt></p>
 <h2 id="padding内补偿法"><a href="#padding内补偿法" class="headerlink" title="padding内补偿法"></a>padding内补偿法</h2><pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="box">
   &lt;div class="left">
     &lt;p>左浮动&lt;/p>
@@ -4836,7 +4836,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h1 id="两栏布局"><a href="#两栏布局" class="headerlink" title="两栏布局"></a>两栏布局</h1><blockquote>
 <p>左栏固定宽度，右栏自适应。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/2.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/2.gif" alt></p>
 <h3 id="利用负margin"><a href="#利用负margin" class="headerlink" title="利用负margin"></a>利用负margin</h3><blockquote>
 <p>实现逻辑请看<a href="https://dangosky.github.io/blog/2019/03/12/CSS%E8%B4%9F%E8%BE%B9%E8%B7%9D/#toc-heading-14">盒模型和负margin</a>这篇文章里的解释。</p>
 </blockquote>
@@ -5082,11 +5082,11 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/3.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/3.gif" alt></p>
 <blockquote>
 <p>从效果图中可以看出，使用浮动实现三栏布局在中间栏容纳得下内容时是可以正常工作的，但内容一旦超出，中间栏就会向下扩展。如果给它们指定 height 的话自然就不存在这问题了，不过内容还是会溢出来的（见下图）。当然我们可以选择给外层容器box设置<code>overflow: hidden</code>来隐藏，但如果我们要显示全部内容的话要怎么办？答案是给左中右三个元素使用padding内补偿法，使它们三栏等高。（当浏览器宽度小于左右两栏的宽度和时，右栏会被挤下来，这时要也只能去给 body 设置<code>min-width</code>了，这点跟圣杯布局一样）。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/4.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/4.gif" alt></p>
 <h2 id="绝对定位-1"><a href="#绝对定位-1" class="headerlink" title="绝对定位"></a>绝对定位</h2><pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="box">
   &lt;div class="left">
     &lt;p>我是左导航栏我是左导航栏我是左导航栏&lt;/p>
@@ -5348,7 +5348,7 @@ body </span><span class="token punctuation">{</span>
 </ul>
 <p>&emsp;&emsp;flex布局和grid布局是新生的布局方式，功能强大对高度的适应性好，但对浏览器的兼容性不是很好。</p>
 <p>&emsp;&emsp;table布局适应性好，对浏览器的兼容性也好，但table布局好像一直受人诟病，似乎毛病很多？我没在项目里用到过，也不知道真假。</p>
-<h1 id="三栏布局之固定高度中间自适应"><a href="#三栏布局之固定高度中间自适应" class="headerlink" title="三栏布局之固定高度中间自适应"></a>三栏布局之固定高度中间自适应</h1><p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/5.gif" alt></p>
+<h1 id="三栏布局之固定高度中间自适应"><a href="#三栏布局之固定高度中间自适应" class="headerlink" title="三栏布局之固定高度中间自适应"></a>三栏布局之固定高度中间自适应</h1><p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/5.gif" alt></p>
 <blockquote>
 <p>上下固定高度，中间自适应。都需要使用<code>overflow: scroll</code>来使中间栏溢出的部分在内部滚动，否则中间栏会扩展自身高度把底栏挤出视图，这我也不知道有什么更好的解决办法了。</p>
 </blockquote>
@@ -5591,7 +5591,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// { date: Person { name: 'liai' } }   </span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj1<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// { date: { name: 'liai' } }</span>
 </code></pre>
-<p><img src="/2019/04/01/深拷贝实现/1.png" alt></p>
+<p><img src="/blog/2019/04/01/深拷贝实现/1.png" alt></p>
 <ol start="6">
 <li>如果对象中存在循环引用的情况也无法正确实现深拷贝。</li>
 </ol>
@@ -5873,12 +5873,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
     <url>/blog/2019/03/03/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%82%B9%E5%87%BB%E7%9A%84300ms%E5%BB%B6%E8%BF%9F/</url>
     <content><![CDATA[<script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="有300ms延迟的原因"><a href="#有300ms延迟的原因" class="headerlink" title="有300ms延迟的原因"></a>有300ms延迟的原因</h1><p>&emsp;&emsp;之所以移动端click会有300ms的延迟，主要是为了让用户在双击屏幕时可以对视图进行放大缩小，而这300ms就是用于判断在这时间范围之内是否有第二次点击，有则双击，否则就是单击。若每次单击屏幕都会延迟300ms才触发事件，很明显这对于用户体验来说是极其不友好的。</p>
 <h1 id="解决300ms延迟的办法"><a href="#解决300ms延迟的办法" class="headerlink" title="解决300ms延迟的办法"></a>解决300ms延迟的办法</h1><h2 id="zepto-js"><a href="#zepto-js" class="headerlink" title="zepto.js"></a>zepto.js</h2><p>&emsp;&emsp;在zepto.js这个JavaScript库里，使用touch事件封装了tap事件，模仿了click的实现，并且不会有300ms的延迟。实现思路是：给目标元素添加touch监听事件，只要满足touch的时间不超过规定的超时时间(防止长按)，并且touch过程不发生移动则在touchend时触发tap事件。(touchend事件是冒泡到document时才触发目标元素绑定的tap事件的)</p>
-<p> <img src="/2019/03/03/移动端点击的300ms延迟/2.png" alt> </p>
+<p> <img src="/blog/2019/03/03/移动端点击的300ms延迟/2.png" alt> </p>
 <h3 id="zepto-js的穿透bug"><a href="#zepto-js的穿透bug" class="headerlink" title="zepto.js的穿透bug"></a>zepto.js的穿透bug</h3><p>&emsp;&emsp;zepto.js虽然使用tap事件模拟click避开了300ms延迟，但存在一个bug，即点击穿透。这里需要先说明的是，当用户手指触摸到屏幕的时候，系统会生成两个事件，一个是touch，另一个是click，<strong>执行顺序依次为：touchstart、touchmove、touchend、click</strong>。其中touch事件会优先处理，经过捕获、处理,、冒泡一系列流程完成后才回去触发click事件。</p>
 <p>&emsp;&emsp;所谓的点击穿透，是指当用户在上层有一个模态框或覆盖层（诸如蒙版）时，当触发tap事件关闭掉模态框或覆盖层后，此时事件只进行到touchend阶段，而300ms后将会触发的click事件在上层失去了目标元素，若此时下层的位置上恰好有元素绑定了click事件或是click时会触发事件，诸如input输入框在focus时会弹出键盘，a标签会跳转链接等的元素时，则会触发其绑定的click事件。</p>
 <h3 id="解决穿透的办法"><a href="#解决穿透的办法" class="headerlink" title="解决穿透的办法"></a>解决穿透的办法</h3><p>&emsp;&emsp;1：在touch事件里面，调用<strong>e.preventDefault()</strong>可以阻止本次点击触发的click事件，而且不会阻止后续的touch事件。<br>&emsp;&emsp;2： 对tap事件做一下延迟，加一个setTimeout来使上层的模态框或覆盖层等click事件触发后再消失，这样下层的元素就不会被暴露出来了，click事件自然也不会作用到下层元素上去。<br>&emsp;&emsp;3：使用css的<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/pointer-events#%E8%AF%AD%E6%B3%95" target="_blank" rel="noopener">pointer-events</a>给下层那个会触发到click的元素添加<strong>pointer-events:none</strong>属性，这会使得该元素永远不会成为click事件的目标。需要的话可以再添加一个setTimeout再把 pointer-event 的值设回auto。</p>
-<h2 id="fastclick"><a href="#fastclick" class="headerlink" title="fastclick"></a>fastclick</h2><h3 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h3><p>   &emsp;&emsp;监听touchstart事件获取目标元素。监听到touchend事件后，使用e.preventDefault()取消掉300ms后的click，合成相应的click事件并立即触发达到fastclick的目的。(合成事件的三步骤：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createEvent" target="_blank" rel="noopener">创建事件</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/initMouseEvent" target="_blank" rel="noopener">初始化鼠标事件</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent" target="_blank" rel="noopener">给目标元素分发事件</a>)<br><img src="/2019/03/03/移动端点击的300ms延迟/3.png" alt></p>
-<h3 id="不需要使用fastclick的场景"><a href="#不需要使用fastclick的场景" class="headerlink" title="不需要使用fastclick的场景"></a>不需要使用fastclick的场景</h3><h2 id><a href="#" class="headerlink" title></a><img src="/2019/03/03/移动端点击的300ms延迟/1.png" alt></h2><p>(上述图片来源于网络)</p>
+<h2 id="fastclick"><a href="#fastclick" class="headerlink" title="fastclick"></a>fastclick</h2><h3 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h3><p>   &emsp;&emsp;监听touchstart事件获取目标元素。监听到touchend事件后，使用e.preventDefault()取消掉300ms后的click，合成相应的click事件并立即触发达到fastclick的目的。(合成事件的三步骤：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createEvent" target="_blank" rel="noopener">创建事件</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/initMouseEvent" target="_blank" rel="noopener">初始化鼠标事件</a>，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/dispatchEvent" target="_blank" rel="noopener">给目标元素分发事件</a>)<br><img src="/blog/2019/03/03/移动端点击的300ms延迟/3.png" alt></p>
+<h3 id="不需要使用fastclick的场景"><a href="#不需要使用fastclick的场景" class="headerlink" title="不需要使用fastclick的场景"></a>不需要使用fastclick的场景</h3><h2 id><a href="#" class="headerlink" title></a><img src="/blog/2019/03/03/移动端点击的300ms延迟/1.png" alt></h2><p>(上述图片来源于网络)</p>
 ]]></content>
       <categories>
         <category>踩坑指南</category>
@@ -5931,14 +5931,14 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li><p>通过配置后可以使用 <code>import { Input } from &#39;dangosky&#39;</code> 来导入我们的 <code>dangosky</code> 组件库，使得项目使用的组件库从 Antd 迁移到 <code>dangosky</code> 只需要修改它的导入包名就行，实现低成本迁移。</p>
 </li>
 </ol>
-<p><img src="/2020/04/30/组件库开发小结/4.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/4.png" alt></p>
 <p>下面再说说基于 Antd 再度封装的组件库实现原理。因为只是对 Antd 的样式修改而已，所以主要就是修改组件的 <code>className</code> 类名、修改 less 样式文件中的类名：</p>
 <h4 id="1-修改组件的类名"><a href="#1-修改组件的类名" class="headerlink" title="1. 修改组件的类名"></a>1. 修改组件的类名</h4><p>Antd 为每个组件的 props 都提供了一个 <code>prefixCls</code> 属性，用来作为每个组件的类名前缀。所以可以在我们的新组件中指定 <code>prefixCls</code>，将其替换成我们自己的 <code>dangosky</code>。这样组件中的 <code>className</code> 类名就可以从 <code>ant-input</code> 变成 <code>.dangosky-input</code> 了。</p>
 <p>Antd 有一个 <code>getPrefixCls</code> 函数来处理这个逻辑，它是由外层的 <code>configProvider</code> 组件利用 React 的 <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">Context</a> 特性传递到内部组件的，可以无视组件嵌套的深度。</p>
-<p><img src="/2020/04/30/组件库开发小结/1.png" alt></p>
-<p><img src="/2020/04/30/组件库开发小结/2.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/1.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/2.png" alt></p>
 <p>以 input 组件为例，Antd 内部是这样调用的。如果我们在组件内指定了 <code>prefixCls</code> 这个 prop 的话（它重命名为了 <code>customizePrefixCls</code>），<code>getPrefixCls</code> 就会返回我们指定的类名前缀，否则就默认返回 <code>ant-{组件名}</code>。</p>
-<p><img src="/2020/04/30/组件库开发小结/3.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/3.png" alt></p>
 <h4 id="2-修改样式文件的类名"><a href="#2-修改样式文件的类名" class="headerlink" title="2. 修改样式文件的类名"></a>2. 修改样式文件的类名</h4><p>将 DOM 节点的类名前缀改为 <code>dangosky</code> 后，还需要将 less 中的类名前缀也改为 <code>dangosky</code> 才行，不然会匹配不到相应的样式。Antd 里有一个<a href="https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less" target="_blank" rel="noopener">全局的样式文件</a>，包含了一些全局的样式变量，它会在每个组件中都被引入进去。其中有一个变量是 <code>@ant-prefix</code> ，less 中的每个类名都会在前面加上 <code>@ant-prefix</code> 。所以我们可以定制新组件库的主题文件，在里面将 <code>@ant-prefix</code> 值修改成 <code>dangosky</code>，之后在每个新组件的样式文件中导入这个主题文件覆盖原来的 Antd 值就可以了。</p>
 <h4 id="3-在组件里自动引入样式文件"><a href="#3-在组件里自动引入样式文件" class="headerlink" title="3. 在组件里自动引入样式文件"></a>3. 在组件里自动引入样式文件</h4><p>在使用 Antd 组件的时候可以不用手动 <code>import</code> 进样式文件，Antd 提供了一个插件 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 来实现按需加载和自动引入样式文件。</p>
 <p>我们在使用某个组件的时候，都是直接 <code>import { xxx } from &#39;antd&#39;</code>。如果不加以额外的插件辅助的话，这样的写法会导入 antd 中的所有模块，如果要只加载指定的组件的话，我们就需要使用下面这种写法了。</p>
@@ -5947,7 +5947,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </code></pre>
 <p>这种写法的问题在于比较繁琐，那么有没有更简洁的方式来实现按需引入呢？我们可以使用 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 插件，使用这个插件后，我们依旧可以使用 <code>import { xxx } from &#39;antd&#39;</code> 来导入我们想要的组件，这个插件背后会帮我们转换成 <code>antd/es/xxx</code>。可见<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L76" target="_blank" rel="noopener">源码</a>。</p>
 <p><code>babel-plugin-import</code> 还会再自动导入进它的样式文件。从它的<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L90" target="_blank" rel="noopener">源码</a>里可以看到，当在 babel 配置里设置了 <code>style: true</code> 的话，它会自动引入该组件下的 <code>style</code> 文件夹，所以就会默认引入我们写好的 <code>index.tsx</code> 文件（再在这里引入具体的样式文件）。除了取值为 true 外，还可以是 false 和一个函数，具体可以看文档。</p>
-<p><img src="/2020/04/30/组件库开发小结/5.jpg" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/5.jpg" alt></p>
 ]]></content>
       <categories>
         <category>实习记录</category>
@@ -5997,7 +5997,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <p>意料之中的是，控制台会报 CORS 跨域的错误。</p>
-<p><img src="/2020/01/10/跨域解决方案实践/1.png" alt></p>
+<p><img src="/blog/2020/01/10/跨域解决方案实践/1.png" alt></p>
 <h1 id="跨域解决方案"><a href="#跨域解决方案" class="headerlink" title="跨域解决方案"></a>跨域解决方案</h1><blockquote>
 <p>其他跨域方案可参考 <a href="https://mp.weixin.qq.com/s/OC9yEU6JasHxXH_M2b6bHA" target="_blank" rel="noopener">10 种跨域解决方案（附终极方案）</a></p>
 </blockquote>
@@ -6514,7 +6514,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><p>&emsp;&emsp;防抖其实就是当触发一个事件后，如果在指定时间 n 内再次触发该事件，则以新的触发时间为准重新计算执行时间，保证每次触发都会等到 n 秒后才执行并且不会累计触发（持续触发的情况下只会执行一次）。</p>
 <p>&emsp;&emsp;举个栗子，我们常常会给输入框绑定一个<code>input</code>监听函数，根据用户的输入内容来发送<code>Ajax</code>请求实时显示搜索结果。但这样有个问题，每次用户敲一下键盘都会触发到监听函数，造成监听函数被频繁地触发到了（尤其是输入中文的时候），如果监听函数是发送<code>Ajax</code>请求的话那简直就是场灾难。这时候防抖就可以派上用场了，我们设置一个定时器<code>setTimeout</code>让监听函数在指定的延迟时间比如 1s 后才执行，如果在定时器计时的这 1s 内再次触发了事件，则清除之前的定时器重新开始计时，保证监听函数一定会在每次触发的 1s 后才执行。这样监听<code>input</code>事件时就不会频繁地触发到监听函数了，大大优化了页面性能。其他的监听事件如<code>scroll</code>和<code>mousemove</code>也是如此。</p>
 <p>&emsp;&emsp;我们先来看看普通的<code>input</code>监听函数的执行情况，从下图中可以看到我只是输入短短的 “世界很温柔” 五个字，监听函数却执行了多达 17 次。可以<a href="https://jsfiddle.net/DangoSky/4dyn1pv0/12/" target="_blank" rel="noopener">戳这里进行实验</a>。</p>
-<p><img src="/2019/05/20/防抖和节流/1.gif" alt></p>
+<p><img src="/blog/2019/05/20/防抖和节流/1.gif" alt></p>
 <p>&emsp;&emsp;下面我们先来实现一个简单版的防抖，抓住每次触发事件时都会先清除掉之前的定时器再开始计时，我们不难写出下面这几行代码。需要注意的是要使用<code>apply</code>或<code>call</code>来显示绑定监听函数（以下简称<code>fn</code>）的 this 为当前绑定监听函数的 DOM 对象，否则<code>fn</code>里的 this 会指向 window。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> wait<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
@@ -6786,7 +6786,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&emsp;&emsp;面试的时候我回答的思路大致如上，不过当时没有考虑很多，写的代码还有一些细节错误 Orz。当时面试官提出的问题是，比如 <code>#a .b p</code>，如果这个 p 标签是 .c 的孙节点的话怎么办。我就说循环或递归去找 p 标签的父亲节点，判断 .c 是否是 p 标签的祖先节点。但是面试官说如果 DOM 节点一多的话这样会很耗性能，问有没有其他的方法，我想了一会没想出来就直接说我不会了。结束的时候面试官说了句其实不用那么麻烦，只用 XXX 就够了，当时那句话我没听清楚，以为有什么 api 可以直接获取一个 DOM 节点的所有父级元素。然而现在才发现这道题其实根本不用写那么多，只需要短短的 <code>return document.querySelector(str)</code> 就可以了！！！ <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelector#%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%8D%E6%9D%82%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8" target="_blank" rel="noopener">querySelector</a> 完全可以实现 jQuery 中 $ 的效果。我… </p>
-<p><img src="/2019/06/01/面试总结-字节跳动前端实习/1.png" alt></p>
+<p><img src="/blog/2019/06/01/面试总结-字节跳动前端实习/1.png" alt></p>
 <h1 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h1><p>&emsp;&emsp;一面之后隔了十分钟左右二面的面试官就上线了，只进行了四十分钟（感觉凉凉）。一来先是常规的自我介绍（一面的时候没有自我介绍），介绍完之后直接问除了前端之外还有没有学其他的，计算机组成会吗（Orz）。我直接回答只会那么一点点，仅限于了解而已。然后面试官开始出题，<code>0.1 + 0.2</code> 等于多少，这个还好我之前写过一篇博客捣鼓过就直接答出来并解释一下为什么，还好面试官后面就没有再问计算机组成方面的问题了，不然可 hold 不住。</p>
 <ul>
 <li>JS 的数据类型</li>
@@ -6912,7 +6912,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> res <span class="token operator">=</span> css<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>fileContent<span class="token punctuation">,</span> <span class="token punctuation">{</span>source<span class="token punctuation">:</span> file<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -> AST</span>
 </code></pre>
-<p><img src="/2020/04/11/颜色规范校验-lint/./1.png" alt></p>
+<p><img src="/blog/2020/04/11/颜色规范校验-lint/./1.png" alt></p>
 <h4 id="对于-Less-文件"><a href="#对于-Less-文件" class="headerlink" title="对于 Less 文件"></a>对于 Less 文件</h4><p><strong>第一个方案</strong></p>
 <p>将 Less 解析成 AST 有多种方法，一开始的做法是将 Less 编译成 CSS，再使用上述的 <code>css.parse</code> 解析成 AST。将 Less 编译成 CSS，可以使用 Less 提供的 <a href="http://lesscss.cn/#using-less-command-line-usage" target="_blank" rel="noopener">lessc</a> 命令编译，但 lessc 执行有些问题，所以就没采用 lessc 了。使用的是 Less 自带的 <a href="http://lesscss.org/usage/#programmatic-usage" target="_blank" rel="noopener">less.render</a> 函数编译。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> less <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'less'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -6949,7 +6949,7 @@ less<span class="token punctuation">.</span><span class="token function">render<
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// -> AST 对象</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/2020/04/11/颜色规范校验-lint/./2.png" alt></p>
+<p><img src="/blog/2020/04/11/颜色规范校验-lint/./2.png" alt></p>
 <p>到这里就可以将 Less 成功解析成 AST 了，接着就是遍历 CSS 和 Less 解析出来的 AST，用上面的正则表达式去判断使用到的键值对里有没有不规范的色值。下面就不展开了，贴一下遍历两个 AST 的代码，方便以后有需要使用的话可以直接复用。</p>
 <p><strong>解析 CSS 文件</strong></p>
 <pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/* 

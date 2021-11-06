@@ -371,7 +371,7 @@ performance.memory 表示内存">
                 <script src="\blog\assets\js\APlayer.min.js"> </script><h2 id="为什么要统计监控指标"><a href="#为什么要统计监控指标" class="headerlink" title="为什么要统计监控指标"></a>为什么要统计监控指标</h2><p>量化出一个页面的性能，根据不断阶段的耗时，找出其中的短板进行性能优化。</p>
 <h2 id="监控指标数据"><a href="#监控指标数据" class="headerlink" title="监控指标数据"></a>监控指标数据</h2><h3 id="window-performance-API"><a href="#window-performance-API" class="headerlink" title="window.performance API"></a>window.performance API</h3><p><a href="https://www.w3.org/TR/navigation-timing/" target="_blank" rel="noopener">W3C</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance" target="_blank" rel="noopener">MDN Performance</a></p>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./1.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./1.png" alt></p>
 <ul>
 <li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance/%E5%86%85%E5%AD%98" target="_blank" rel="noopener">performance.memory</a> 表示内存使用情况。</p>
 </li>
@@ -380,7 +380,7 @@ performance.memory 表示内存">
 <li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceTiming" target="_blank" rel="noopener">performance.timing</a> 统计了页面从网页开始导航到加载完成的一些时间点，通过计算某些特定事件的时间差，从而获取中间过程的耗时，就可以得出一些用于页面性能监控的指标。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./7.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./7.png" alt></p>
 <ul>
 <li><p>navigationStart: 准备加载页面的时间点，相当于在地址栏输入地址后回车的那个时刻。</p>
 </li>
@@ -417,7 +417,7 @@ performance.memory 表示内存">
 <li><p>loadEventStart、loadEventEnd 分别表示 onload 事件触发和结束的时间点。</p>
 </li>
 </ul>
-<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p><img src="/2020/07/18/前端性能监控指标介绍/./5.png" alt></p>
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><p><img src="/blog/2020/07/18/前端性能监控指标介绍/./5.png" alt></p>
 <ul>
 <li>DNS 查询耗时 = domainLookupEnd - domainLookupStart</li>
 <li>TCP 连接耗时 = connectEnd - connectStart</li>
@@ -429,7 +429,7 @@ performance.memory 表示内存">
 <li>onload 时间 = loadEventEnd - navigationStart</li>
 </ul>
 <h3 id="performance-getEntries"><a href="#performance-getEntries" class="headerlink" title="performance.getEntries"></a>performance.getEntries</h3><p>返回值是一个包含了所有静态资源的数组，包括请求资源的绝对路径、类型、耗时等信息。</p>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./8.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./8.png" alt></p>
 <h3 id="其他基于用户视觉反馈的性能指标"><a href="#其他基于用户视觉反馈的性能指标" class="headerlink" title="其他基于用户视觉反馈的性能指标"></a>其他基于用户视觉反馈的性能指标</h3><p>window.performance API 虽然提供了很多数据指标，但在某些方面依旧存在缺陷。比如：</p>
 <ol>
 <li><p>SPA 切换路由时，performance.timing 的数据不会更新，所以无法获得每一个路由所对应的页面性能指标。</p>
@@ -443,7 +443,7 @@ performance.memory 表示内存">
 <li><p>获取：可以直接通过 <code>performance.getEntriesByType(&#39;paint&#39;)</code> 方法获取到。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./3.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./3.png" alt></p>
 <h4 id="FCP-First-Contentful-Paint"><a href="#FCP-First-Contentful-Paint" class="headerlink" title="FCP (First Contentful Paint)"></a>FCP (First Contentful Paint)</h4><ul>
 <li><p>含义：首次内容绘制的时间点，指浏览器第一次向屏幕绘制内容。只有首次绘制文本、图片/背景图、非白色的 canvas 或 SVG 时才算数。</p>
 </li>
@@ -452,7 +452,7 @@ performance.memory 表示内存">
 <li><p>FP 和 FCP 的区别：FP 是当浏览器开始绘制内容到屏幕上的时候，只要在视觉上开始发生变化，无论是什么内容触发的视觉变化，这一个时间点就叫做 FP。而 FCP 指的是浏览器首次绘制来自 DOM 的内容例如文本、图片等。所以 FP 和 FCP 可能是相同的时间，也可能是先 FP 后 FCP。</p>
 </li>
 </ul>
-<p><img src="/2020/07/18/前端性能监控指标介绍/./4.png" alt></p>
+<p><img src="/blog/2020/07/18/前端性能监控指标介绍/./4.png" alt></p>
 <h4 id="FMP（First-Meaningful-Paint）"><a href="#FMP（First-Meaningful-Paint）" class="headerlink" title="FMP（First Meaningful Paint）"></a>FMP（First Meaningful Paint）</h4><p><a href="https://docs.google.com/document/d/1BR94tJdZLsin5poeet0XoTW60M0SjvOJQttKT-JK8HI/view?hl=zh-cn#" target="_blank" rel="noopener">Time to First Meaningful Paint</a></p>
 <ul>
 <li><p>含义：首次有效绘制，指页面的主要内容开始出现在屏幕上的时间点。这里的主要内容通常等于页面渲染过中元素增量最大的点。</p>
@@ -503,7 +503,7 @@ performance.memory 表示内存">
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/blog/2020/07/18/前端性能监控指标介绍/" class="b-link-green">前端性能监控指标介绍</a>
                 </p>
@@ -526,7 +526,7 @@ performance.memory 表示内存">
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2020/07/18/前端性能监控指标介绍/';
+        this.page.url = 'https://dangosky.github.io/blog/2020/07/18/前端性能监控指标介绍/';
         this.page.identifier = '/2020/07/18/前端性能监控指标介绍/';
         this.page.title = '前端性能监控指标介绍';
     };

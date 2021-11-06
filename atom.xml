@@ -3,7 +3,7 @@
   <title>DangoSky</title>
   
   <subtitle>团子的天空幻想</subtitle>
-  <link href="./blog/atom.xml" rel="self"/>
+  <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://dangosky.github.io/"/>
   <updated>2021-11-06T08:37:58.242Z</updated>

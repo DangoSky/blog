@@ -29,7 +29,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -38,7 +38,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./blog/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -311,11 +311,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./blog/tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./blog/tags/前端基础/" target="_blank">
+                            <a href="/blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
@@ -327,7 +327,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -372,7 +372,7 @@
 <li>冒泡阶段：事件对象从目标节点经过目标节点的祖先节点到达window，若经过的结点中绑定有同类型事件的监听函数，则会被触发执行。</li>
 </ol>
 <p>&emsp;&emsp;在捕获阶段从 window 到目标节点经过的节点顺序为 window -&gt; document -&gt; html -&gt; body -&gt; 祖先节点 -&gt; 父亲节点 -&gt; 目标节点，冒泡阶段则反过来。</p>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/1.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/1.png" alt></p>
 <p>&emsp;&emsp;我们可以用代码验证一下：</p>
 <pre class=" language-html"><code class="language-html">// html 代码， css的样式代码就不贴了
 &lt;div id="parent>
@@ -399,17 +399,17 @@ document<span class="token punctuation">.</span><span class="token function">get
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"children"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/2.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/2.png" alt></p>
 <p>&emsp;&emsp;上面结果是通过点击 children 节点得到的。 需要注意的是，addEventListener 函数的第三个参数表示是否在捕获阶段触发监听函数，默认为 false 即在冒泡阶段才触发，为 true 时则在捕获阶段触发。我们把上面代码的第三个参数都修改成 false 看看冒泡阶段的执行顺序。</p>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/3.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/3.png" alt></p>
 <p>&emsp;&emsp;可以看到，冒泡阶段的执行顺序确实是和捕获阶段相反的。当然如果你给某一个节点的捕获阶段和冒泡阶段都添加相应的事件监听函数，则在一次点击事件中两者都会触发到。我们把上面捕获阶段和冒泡阶段的代码放到一起执行来验证看看。</p>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/4.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/4.png" alt></p>
 <p>&emsp;&emsp;这里还有一个注意点，如果<strong>目标节点</strong>同时定义了同类型事件捕获阶段和冒泡阶段的监听函数，则<strong>哪个事件代码写在前面就先执行哪个</strong>，而对于非目标节点则都是先执行捕获后执行冒泡。这里就不贴图了，看客们可以自行验证。</p>
 <h1 id="Event-对象"><a href="#Event-对象" class="headerlink" title="Event 对象"></a>Event 对象</h1><p>&emsp;&emsp;关于 Event 对象，这里只介绍四个和事件模型相关的 api，其余部分看客们可直接查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Event" target="_blank" rel="noopener">MDN</a>。</p>
 <h2 id="event-stopPropagation"><a href="#event-stopPropagation" class="headerlink" title="event.stopPropagation()"></a>event.stopPropagation()</h2><p>&emsp;&emsp;如果要阻止事件继续向下捕获或向上冒泡的话，可以直接在相应的目标事件中使用<code>event.stopPropagation()</code>（但依旧会执行当前节点的监听函数）。如果是非目标节点的话，在执行完当前节点的相应事件后就会停止执行了。<strong>如果是目标节点的话，即使在捕获阶段阻止了也还是会执行目标节点的冒泡事件再停止执行</strong>。</p>
 <p>&emsp;&emsp;除了<code>event.stopPropagation()</code>，<code>event.cancelBubble = true</code>也可以达到同样的功能，不过<code>event.cancelBubble = true</code>主要是用于做 IE 兼容，而且已经 Web 标准中删除了。我试了下，发现不管是<code>event.stopPropagation()</code>，还是<code>event.cancelBubble = true</code>在 Chrome 和 IE11 中都起作用了。<code>event.cancelBubble = true</code>了解一下就好了，说不定以后哪天需要兼容到 IE 老古董的时候就可以派上用场。</p>
 <h2 id="event-composedPath"><a href="#event-composedPath" class="headerlink" title="event.composedPath()"></a>event.composedPath()</h2><p>&emsp;&emsp;<code>event.composedPath()</code>会返回一个数组，成员是目标节点最内层的子节点和依次冒泡经过的所有上层节点。还是使用上面的代码，我们在 children 节点的点击监听函数中使用<code>event.composedPath()</code>再点击验证看看。</p>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/6.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/6.png" alt></p>
 <h2 id="event-stopImmediatePropagation"><a href="#event-stopImmediatePropagation" class="headerlink" title="event.stopImmediatePropagation()"></a>event.stopImmediatePropagation()</h2><p>&emsp;&emsp;如果有多个相同类型事件的监听函数绑定到同一个元素上的话，则当触发事件时，会把这些事件按代码编写顺序都执行下去。若在某一个事件上增加<code>event.stopImmediatePropagation()</code>则可以阻止执行剩下的同类型监听函数。</p>
 <h2 id="event-preventDefault"><a href="#event-preventDefault" class="headerlink" title="event.preventDefault()"></a>event.preventDefault()</h2><p>&emsp;&emsp;<code>event.preventDefault()</code>顾名思义是用来阻止默认行为的，可以阻止浏览器给一些事件预先设置好的默认行为如 a 标签的页面跳转等。在 jQuery 中则可以直接使用<code>return false</code>来阻止默认行为，简单粗暴，然而现在这年头估计很少用 jQuery 了吧。</p>
 <p>&emsp;&emsp;之前我在做 <a href="https://github.com/DangoSky/2048" target="_blank" rel="noopener">2048</a> 的时候发现一个问题，在移动端如果一个页面的宽高都只是移动设备视图的百分之百即不会出现水平垂直滚动，但若页面中给某一个元素添加了 touch 监听事件，则在 touchmove 的时候是会触发浏览器的默认行为造成页面滑动的。当然这时候可以选择使用<code>event.preventDefault()</code>来阻止移动端页面的默认滑动行为，但这时候会报错<code>Unable to preventDefault inside passive event listener due to target being treated as passive</code>。</p>
@@ -444,7 +444,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
   ul<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p><img src="/blog/2019/04/12/事件模型和事件委托/6.png" alt></p>
+<p><img src="/2019/04/12/事件模型和事件委托/6.png" alt></p>
 <p>&emsp;&emsp;上面的代码实现中涉及到一个问题，它对于每一个子元素的点击都会进行响应，但如果我们不想给其他子元素例如 p 和 span 等标签也添加事件监听那怎么办？其实这也可以办到，只要在监听函数里判断目标元素是不是 li 标签就可以了。</p>
 <pre><code>if(ele.tagName.toLowerCase() === &#39;li&#39;) {
   ele.style.color = &#39;red&#39;;
@@ -473,7 +473,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./blog/2019/04/12/事件模型和事件委托/" class="b-link-green">事件模型和事件委托</a>
+                    <a href="/blog/2019/04/12/事件模型和事件委托/" class="b-link-green">事件模型和事件委托</a>
                 </p>
             </div>
         </div>
@@ -523,7 +523,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./blog/2019/04/19/从浏览器的渲染机制谈起/">
+                <a href="/blog/2019/04/19/从浏览器的渲染机制谈起/">
                     <div class="card-image">
                         
                         
@@ -542,7 +542,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -553,11 +553,11 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./blog/tags/性能优化/" target="_blank">
+                    <a href="/blog/tags/性能优化/" target="_blank">
                         <span class="chip bg-color">性能优化</span>
                     </a>
                     
@@ -572,7 +572,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./blog/2019/04/07/事件队列和事件循环/">
+                <a href="/blog/2019/04/07/事件队列和事件循环/">
                     <div class="card-image">
                         
                         
@@ -591,7 +591,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -602,7 +602,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
@@ -741,7 +741,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
 
 
 
-    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -797,7 +797,7 @@ btn<span class="token punctuation">.</span><span class="token function">addEvent
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -823,5 +823,5 @@ $(function () {
 
 
 
-<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

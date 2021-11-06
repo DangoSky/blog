@@ -30,7 +30,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -39,7 +39,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./blog/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -312,15 +312,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./blog/tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./blog/tags/Web-Project/" target="_blank">
+                            <a href="/blog/tags/Web-Project/" target="_blank">
                                 <span class="chip bg-color">Web Project</span>
                             </a>
                         
-                            <a href="./blog/tags/Vue/" target="_blank">
+                            <a href="/blog/tags/Vue/" target="_blank">
                                 <span class="chip bg-color">Vue</span>
                             </a>
                         
@@ -332,7 +332,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./blog/categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="/blog/categories/Web-Project/" class="post-category" target="_blank">
                                 Web Project
                             </a>
                         
@@ -433,7 +433,7 @@ npm run build
 </code></pre><h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ol>
 <li><p>iOS上无法播放音乐，不论是用微信打开还是用safari、Firefox打开都没有声音，测试了一下是取得到音乐的url的。问题应该是audiod的paly方法失效了，原因未明，谷歌也未果，而且我看GitHub上别人的仿网易云貌似没有这个问题，未解。安卓的情况比较复杂，拿了几台手机测试，在微信上打开全部功能都正常运行。用浏览器则一些型号的手机可以，一些不可以，而且有的手机用UC打开无法播放，用系统自带的浏览器则可以播放。原因也未明，不过这倒是在意料之中，因为在代码中还没有做兼容性处理，等以后有时间再继续完善吧。</p>
 </li>
-<li><p>偶尔会出现疑似跨域资源共享的问题(见下图)，说疑似是因为这个报错只有小概率会出现，而且即使出现了只要过一会再刷新就不会报错了，不像是跨域的问题。因为api是别人写好的，也不知道是不是后端接口的问题，原因未接。在GitHub上有和一个也在做仿网易云的人交流过，他也偶尔会出现这个cors问题，但也不知道怎么解决。<br><img src="/blog/2019/02/25/vue全家桶仿iOS版网易云音乐/cors.png" alt></p>
+<li><p>偶尔会出现疑似跨域资源共享的问题(见下图)，说疑似是因为这个报错只有小概率会出现，而且即使出现了只要过一会再刷新就不会报错了，不像是跨域的问题。因为api是别人写好的，也不知道是不是后端接口的问题，原因未接。在GitHub上有和一个也在做仿网易云的人交流过，他也偶尔会出现这个cors问题，但也不知道怎么解决。<br><img src="/2019/02/25/vue全家桶仿iOS版网易云音乐/cors.png" alt></p>
 </li>
 <li><p>fixed定位的问题。网易云很多个界面上都有一个用于路由跳转的footer，并且是固定定位的。因为固定定位在文档流中不占据位置，所以会造成上面排版下来的元素会被footer覆盖住，设置z-index也不管用（如果footer有背景色的话，则footer无法被完全覆盖住）。我的解决办法是使用一个空的div或一个伪元素占位，把宽高设得和footer一样加上相对定位，这样就可以把fixed定位的空间补回来了。但我感觉这只是一种hack，并没有根本上解决问题，每次在一个页面中遇到这种问题都得手动再去新增一个伪元素和空div，而且这样一个空div不太符合语义化。但fixed定位本就规定了在文档流中不占据位置，貌似也没有更好的解决办法了。</p>
 </li>
@@ -478,7 +478,7 @@ npm run build
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./blog/2019/02/25/vue全家桶仿iOS版网易云音乐/" class="b-link-green">Vue全家桶仿iOS版网易云音乐</a>
+                    <a href="/blog/2019/02/25/vue全家桶仿iOS版网易云音乐/" class="b-link-green">Vue全家桶仿iOS版网易云音乐</a>
                 </p>
             </div>
         </div>
@@ -528,7 +528,7 @@ npm run build
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./blog/2019/02/28/==中的类型转换/">
+                <a href="/blog/2019/02/28/==中的类型转换/">
                     <div class="card-image">
                         
                         
@@ -551,7 +551,7 @@ npm run build
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -562,11 +562,11 @@ npm run build
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./blog/tags/前端基础/" target="_blank">
+                    <a href="/blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -581,7 +581,7 @@ npm run build
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./blog/2018/12/25/CSS制作三角形/">
+                <a href="/blog/2018/12/25/CSS制作三角形/">
                     <div class="card-image">
                         
                         
@@ -604,7 +604,7 @@ npm run build
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/CSS/" class="post-category" target="_blank">
+                            <a href="/blog/categories/CSS/" class="post-category" target="_blank">
                                     CSS
                                 </a>
                             
@@ -615,7 +615,7 @@ npm run build
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/CSS/" target="_blank">
+                    <a href="/blog/tags/CSS/" target="_blank">
                         <span class="chip bg-color">CSS</span>
                     </a>
                     
@@ -754,7 +754,7 @@ npm run build
 
 
 
-    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -810,7 +810,7 @@ npm run build
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -836,5 +836,5 @@ $(function () {
 
 
 
-<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

@@ -31,7 +31,7 @@ text-overflow: ell">
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -40,7 +40,7 @@ text-overflow: ell">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./blog/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -313,11 +313,11 @@ text-overflow: ell">
                     
                     <div class="article-tag">
                         
-                            <a href="./blog/tags/前端基础/" target="_blank">
+                            <a href="/blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
-                            <a href="./blog/tags/CSS/" target="_blank">
+                            <a href="/blog/tags/CSS/" target="_blank">
                                 <span class="chip bg-color">CSS</span>
                             </a>
                         
@@ -329,7 +329,7 @@ text-overflow: ell">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./blog/categories/CSS/" class="post-category" target="_blank">
+                            <a href="/blog/categories/CSS/" class="post-category" target="_blank">
                                 CSS
                             </a>
                         
@@ -378,7 +378,7 @@ text-overflow: ell">
 <span class="token property">-webkit-box-orient</span><span class="token punctuation">:</span> vertical<span class="token punctuation">;</span>
 </code></pre>
 <p>之前在公司使用到多行截断，在 Chrome、Firefox 和 safari 上都可以得到良好的支持，但在 IE11 上就不行了。因为 IE 识别不了 <code>-webkit-line-clamp</code> 这个 css 属性（详情看<a href="https://caniuse.com/#search=-webkit-line-clamp" target="_blank" rel="noopener">这里</a>），所以只能通过其他方式来模拟一下多行截断了。</p>
-<p><img src="/blog/2019/11/12/文本溢出截断的几种方案/1.png" alt></p>
+<p><img src="/2019/11/12/文本溢出截断的几种方案/1.png" alt></p>
 <h3 id="伪元素-绝对定位"><a href="#伪元素-绝对定位" class="headerlink" title="伪元素 + 绝对定位"></a>伪元素 + 绝对定位</h3><p>通过伪元素 + 绝对定位来模拟多行截断原理其实很简单，就只是使用伪元素来表示省略号… ，并通过定位来将它放到文末就行了。但还需要固定文本框的高度来控制要显示的行数。</p>
 <pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.ie-polyfills</span> </span><span class="token punctuation">{</span>
     <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">4.5</span>rem<span class="token punctuation">;</span>
@@ -400,7 +400,7 @@ text-overflow: ell">
 </code></pre>
 <p>使用这种方法来模拟多行截断缺点也很明显，就是因为是手动控制 … 的位置，所以文本和 … 之间的过渡就没有原生方法那么自然，文字可能还会漏出一点出来。并且无法识别文本的长短，无论文本是否溢出都会显示省略号。</p>
 <p>所以必须保证文本一定会溢出才行。</p>
-<p><img src="/blog/2019/11/12/文本溢出截断的几种方案/2.png" alt></p>
+<p><img src="/2019/11/12/文本溢出截断的几种方案/2.png" alt></p>
 <p>目前只发现在 IE 上无法识别 <code>-webkit-line-clamp</code>，所以我们大可不必只为了兼容 IE 就放弃原生的多行截断方法。我们可以判断当前用户使用的浏览器来选择使用哪种截断方式。如果是 IE 浏览器（<code>navigator.userAgent.indexOf(&#39;Trident&#39;) &gt; -1</code>) 的话，我们就采用模拟截断的 CSS 样式，否则就使用原生的截断方法。</p>
 <h3 id="伪元素-float"><a href="#伪元素-float" class="headerlink" title="伪元素 + float"></a>伪元素 + float</h3><p>利用浮动的特性，当文本高度不超过指定最大高度时，省略号（右浮动）会位于文本的下方，因为超出隐藏所以省略号不可见。但文本高度超过指定最大高度时，省略号向右浮动贴着文本的左边线，此时再通过定位把省略号拉到文本右边即可。通过这种方法的好处在于可以根据文本超出与否来控制是否显示省略号，缺点也是文本和省略号之间过渡不好。</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -499,7 +499,7 @@ window<span class="token punctuation">.</span>onresize <span class="token operat
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./blog/2019/11/12/文本溢出截断的几种方案/" class="b-link-green">文本溢出截断的几种方案</a>
+                    <a href="/blog/2019/11/12/文本溢出截断的几种方案/" class="b-link-green">文本溢出截断的几种方案</a>
                 </p>
             </div>
         </div>
@@ -549,7 +549,7 @@ window<span class="token punctuation">.</span>onresize <span class="token operat
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./blog/2019/11/16/React-Hook-中的闭包陷阱/">
+                <a href="/blog/2019/11/16/React-Hook-中的闭包陷阱/">
                     <div class="card-image">
                         
                         
@@ -570,7 +570,7 @@ fun</div>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/React/" class="post-category" target="_blank">
+                            <a href="/blog/categories/React/" class="post-category" target="_blank">
                                     React
                                 </a>
                             
@@ -581,11 +581,11 @@ fun</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./blog/tags/React/" target="_blank">
+                    <a href="/blog/tags/React/" target="_blank">
                         <span class="chip bg-color">React</span>
                     </a>
                     
@@ -600,7 +600,7 @@ fun</div>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./blog/2019/09/03/Git常用命令/">
+                <a href="/blog/2019/09/03/Git常用命令/">
                     <div class="card-image">
                         
                         
@@ -622,7 +622,7 @@ fun</div>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./blog/categories/Git/" class="post-category" target="_blank">
+                            <a href="/blog/categories/Git/" class="post-category" target="_blank">
                                     Git
                                 </a>
                             
@@ -633,11 +633,11 @@ fun</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./blog/tags/Git/" target="_blank">
+                    <a href="/blog/tags/Git/" target="_blank">
                         <span class="chip bg-color">Git</span>
                     </a>
                     
-                    <a href="./blog/tags/实习记录/" target="_blank">
+                    <a href="/blog/tags/实习记录/" target="_blank">
                         <span class="chip bg-color">实习记录</span>
                     </a>
                     
@@ -776,7 +776,7 @@ fun</div>
 
 
 
-    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -832,7 +832,7 @@ fun</div>
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -858,5 +858,5 @@ $(function () {
 
 
 
-<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

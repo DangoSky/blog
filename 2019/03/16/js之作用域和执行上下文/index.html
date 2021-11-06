@@ -18,19 +18,19 @@
     <title>JS之执行上下文和词法作用域 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -39,7 +39,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -214,7 +214,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -312,11 +312,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/JavaScript/" target="_blank">
+                            <a href="/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="/blog/tags/前端基础/" target="_blank">
+                            <a href="/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
@@ -328,7 +328,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -365,7 +365,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h1><ul>
+                <script src="\assets\js\APlayer.min.js"> </script><h1 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h1><ul>
 <li>全局执行上下文： 在浏览器中即window对象，此时this指向该全局对象（作用域链的源头）。JS代码一开始执行就会被创建，而且至始至终都存在直至关闭程序。</li>
 <li>函数执行上下文：每次调用函数时都会创建一个函数执行上下文，此时this指向并不能确定，可能指向当前函数，也可能指向全局对象。</li>
 </ul>
@@ -415,7 +415,7 @@
 </li>
 </ol>
 <p><strong>&emsp;&emsp;总结一下就是，在非严格模式下，arguments和形参会同步改变，一变则两者都变。若是严格模式，arguments和形参则不会同步改变。（类似于JS的按值访问和按引用访问）</strong></p>
-<p><img src="/2019/03/16/js之作用域和执行上下文/1.png" alt></p>
+<p><img src="/blog/2019/03/16/js之作用域和执行上下文/1.png" alt></p>
 <p>&emsp;&emsp;另外还有一点就是，如果形参是由 rest 接受的，或是设置了默认参数的，形参的改变就不会修改到 arguments 上。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   a <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
@@ -538,9 +538,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2019/03/16/js之作用域和执行上下文/" class="b-link-green">JS之执行上下文和词法作用域</a>
+                    <a href="/2019/03/16/js之作用域和执行上下文/" class="b-link-green">JS之执行上下文和词法作用域</a>
                 </p>
             </div>
         </div>
@@ -561,7 +561,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2019/03/16/js之作用域和执行上下文/';
+        this.page.url = 'https://dangosky.github.io/blog/2019/03/16/js之作用域和执行上下文/';
         this.page.identifier = '/2019/03/16/js之作用域和执行上下文/';
         this.page.title = 'JS之执行上下文和词法作用域';
     };
@@ -590,7 +590,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2019/03/20/JS之原型和原型链/">
+                <a href="/2019/03/20/JS之原型和原型链/">
                     <div class="card-image">
                         
                         
@@ -610,7 +610,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -621,11 +621,11 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/前端基础/" target="_blank">
+                    <a href="/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -640,7 +640,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2019/03/12/CSS负边距/">
+                <a href="/2019/03/12/CSS负边距/">
                     <div class="card-image">
                         
                         
@@ -659,7 +659,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/CSS/" class="post-category" target="_blank">
+                            <a href="/categories/CSS/" class="post-category" target="_blank">
                                     CSS
                                 </a>
                             
@@ -670,11 +670,11 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/前端基础/" target="_blank">
+                    <a href="/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
-                    <a href="/blog/tags/CSS/" target="_blank">
+                    <a href="/tags/CSS/" target="_blank">
                         <span class="chip bg-color">CSS</span>
                     </a>
                     
@@ -706,7 +706,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -813,7 +813,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -869,7 +869,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -880,20 +880,20 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

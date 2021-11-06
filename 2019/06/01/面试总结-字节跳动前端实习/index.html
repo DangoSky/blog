@@ -18,19 +18,19 @@
     <title>面试总结| 字节跳动前端实习 | DangoSky</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="blog/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
     <style type="text/css">
         
     </style>
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+    <script src="blog/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -39,7 +39,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -214,7 +214,7 @@
 <main class="post-container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="blog/libs/tocbot/tocbot.css">
 <style>
     #articleContent h1::before,
     #articleContent h2::before,
@@ -312,7 +312,7 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/面试/" target="_blank">
+                            <a href="/tags/面试/" target="_blank">
                                 <span class="chip bg-color">面试</span>
                             </a>
                         
@@ -324,7 +324,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/面试/" class="post-category" target="_blank">
+                            <a href="/categories/面试/" class="post-category" target="_blank">
                                 面试
                             </a>
                         
@@ -361,7 +361,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h1><p>&emsp;&emsp;持续了一个小时，全程都在问 CSS 和 JS。</p>
+                <script src="\assets\js\APlayer.min.js"> </script><h1 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h1><p>&emsp;&emsp;持续了一个小时，全程都在问 CSS 和 JS。</p>
 <ul>
 <li><p>介绍 flex 布局，flex 是什么属性的缩写<br>&emsp;&emsp;flex属性是 <code>flex-grow</code>、<code>flex-shrink</code> 和 <code>flex-basis</code> 的简写，当时我只答出了前两个。</p>
 </li>
@@ -467,7 +467,7 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p>&emsp;&emsp;面试的时候我回答的思路大致如上，不过当时没有考虑很多，写的代码还有一些细节错误 Orz。当时面试官提出的问题是，比如 <code>#a .b p</code>，如果这个 p 标签是 .c 的孙节点的话怎么办。我就说循环或递归去找 p 标签的父亲节点，判断 .c 是否是 p 标签的祖先节点。但是面试官说如果 DOM 节点一多的话这样会很耗性能，问有没有其他的方法，我想了一会没想出来就直接说我不会了。结束的时候面试官说了句其实不用那么麻烦，只用 XXX 就够了，当时那句话我没听清楚，以为有什么 api 可以直接获取一个 DOM 节点的所有父级元素。然而现在才发现这道题其实根本不用写那么多，只需要短短的 <code>return document.querySelector(str)</code> 就可以了！！！ <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelector#%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%8D%E6%9D%82%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8" target="_blank" rel="noopener">querySelector</a> 完全可以实现 jQuery 中 $ 的效果。我… </p>
-<p><img src="/2019/06/01/面试总结-字节跳动前端实习/1.png" alt></p>
+<p><img src="/blog/2019/06/01/面试总结-字节跳动前端实习/1.png" alt></p>
 <h1 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h1><p>&emsp;&emsp;一面之后隔了十分钟左右二面的面试官就上线了，只进行了四十分钟（感觉凉凉）。一来先是常规的自我介绍（一面的时候没有自我介绍），介绍完之后直接问除了前端之外还有没有学其他的，计算机组成会吗（Orz）。我直接回答只会那么一点点，仅限于了解而已。然后面试官开始出题，<code>0.1 + 0.2</code> 等于多少，这个还好我之前写过一篇博客捣鼓过就直接答出来并解释一下为什么，还好面试官后面就没有再问计算机组成方面的问题了，不然可 hold 不住。</p>
 <ul>
 <li>JS 的数据类型</li>
@@ -519,9 +519,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2019/06/01/面试总结-字节跳动前端实习/" class="b-link-green">面试总结| 字节跳动前端实习</a>
+                    <a href="/2019/06/01/面试总结-字节跳动前端实习/" class="b-link-green">面试总结| 字节跳动前端实习</a>
                 </p>
             </div>
         </div>
@@ -542,7 +542,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2019/06/01/面试总结-字节跳动前端实习/';
+        this.page.url = 'https://dangosky.github.io/blog/2019/06/01/面试总结-字节跳动前端实习/';
         this.page.identifier = '/2019/06/01/面试总结-字节跳动前端实习/';
         this.page.title = '面试总结| 字节跳动前端实习';
     };
@@ -571,7 +571,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2019/06/14/elementUI级联选择器踩坑/">
+                <a href="/2019/06/14/elementUI级联选择器踩坑/">
                     <div class="card-image">
                         
                         
@@ -592,7 +592,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/踩坑指南/" class="post-category" target="_blank">
+                            <a href="/categories/踩坑指南/" class="post-category" target="_blank">
                                     踩坑指南
                                 </a>
                             
@@ -603,7 +603,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/踩坑指南/" target="_blank">
+                    <a href="/tags/踩坑指南/" target="_blank">
                         <span class="chip bg-color">踩坑指南</span>
                     </a>
                     
@@ -618,7 +618,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2019/05/28/JavaScript：十大排序的算法思路和代码实现/">
+                <a href="/2019/05/28/JavaScript：十大排序的算法思路和代码实现/">
                     <div class="card-image">
                         
                         
@@ -637,7 +637,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/算法/" class="post-category" target="_blank">
+                            <a href="/categories/算法/" class="post-category" target="_blank">
                                     算法
                                 </a>
                             
@@ -648,15 +648,15 @@ console<span class="token punctuation">.</span><span class="token function">log<
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/算法/" target="_blank">
+                    <a href="/tags/算法/" target="_blank">
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/blog/tags/数据结构/" target="_blank">
+                    <a href="/tags/数据结构/" target="_blank">
                         <span class="chip bg-color">数据结构</span>
                     </a>
                     
@@ -688,7 +688,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+<script src="blog/libs/tocbot/tocbot.min.js"></script>
 <script>
     $(function () {
         tocbot.init({
@@ -795,7 +795,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -851,7 +851,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -862,20 +862,20 @@ $(function () {
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="blog/libs/materialize/materialize.min.js"></script>
+<script src="blog/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="blog/libs/aos/aos.js"></script>
+<script src="blog/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="blog/libs/lightGallery/js/lightgallery-all.min.js"></script>
 <script src="/js/matery.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
+    <script src="blog/libs/others/clicklove.js"></script>
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

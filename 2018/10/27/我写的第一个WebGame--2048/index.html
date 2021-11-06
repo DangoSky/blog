@@ -30,7 +30,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -39,7 +39,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -312,15 +312,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/JavaScript/" target="_blank">
+                            <a href="/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="/blog/tags/Web-Project/" target="_blank">
+                            <a href="/tags/Web-Project/" target="_blank">
                                 <span class="chip bg-color">Web Project</span>
                             </a>
                         
-                            <a href="/blog/tags/jQuery/" target="_blank">
+                            <a href="/tags/jQuery/" target="_blank">
                                 <span class="chip bg-color">jQuery</span>
                             </a>
                         
@@ -332,7 +332,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="/categories/Web-Project/" class="post-category" target="_blank">
                                 Web Project
                             </a>
                         
@@ -375,8 +375,8 @@
 <p>&emsp;&emsp;当event.keyCode=37时调用moveLeft()：</p>
 <p>&emsp;&emsp;1.首先得先判断是否可以向左移动，得满足两个格子之间存有空格或者中间的格子有与其相同数值的格子，才能进行向左移动。</p>
 <p>&emsp;&emsp;2.两个for循环遍历所有的行列，对于一个有数值的格子a，对其所在行的第一个格子到a自身进行遍历（如果是向右移动的话，则从所在行的最后一个格子到a自身进行遍历。向上向下移动亦是如此，这个顺序很关键），遍历过程出现以下三种情况则进行移动：</p>
-<p>&emsp;&emsp;（1）遍历到的格子b还没有数值（空格），而且两个格子之间没有障碍物（即有数值的格子）存在。则把a移动到b的位置（引用jQuery的animate函数，所以说已经有jQuery了为什么还要自己再去封装一个缓动动画函数呢？就当作是了解怎么用js原生态语句做缓动动画了，这就是原理？）<br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.1.png" alt="The requested content cannot be loaded."></p>
-<p>&emsp;&emsp;（2） 遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b已经是合并过了的，那a和b不合并，a移动到b的右手边相邻空格处。<br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.2.png" alt="The requested content cannot be loaded."><br><img src="/blog/2018/10/27/我写的第一个WebGame--2048/2048.3.png" alt="The requested content cannot be loaded."></p>
+<p>&emsp;&emsp;（1）遍历到的格子b还没有数值（空格），而且两个格子之间没有障碍物（即有数值的格子）存在。则把a移动到b的位置（引用jQuery的animate函数，所以说已经有jQuery了为什么还要自己再去封装一个缓动动画函数呢？就当作是了解怎么用js原生态语句做缓动动画了，这就是原理？）<br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.1.png" alt="The requested content cannot be loaded."></p>
+<p>&emsp;&emsp;（2） 遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b已经是合并过了的，那a和b不合并，a移动到b的右手边相邻空格处。<br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.2.png" alt="The requested content cannot be loaded."><br><img src="/2018/10/27/我写的第一个WebGame--2048/2048.3.png" alt="The requested content cannot be loaded."></p>
 <p>&emsp;&emsp;如图，如果不去判断格子是否已经合并过了的话，结果则会是8 0 0 0，但是游戏规则是同一次移动中不能有合并</p>
 <p>&emsp;&emsp;（3）遍历到的格子b和a有相同的数值，而且两个格子之间没有障碍物。如果b还没有合并过，则a移动到b的位置，a和b合并，两者数值相加。因为遍历的顺序是从其所在行的第一个格子到a自身，所以左边的格子2会先左移到第一列，随后右边的格子2再左移与其合并。</p>
 <p>&emsp;&emsp;大致就这些了吧，其他的比如产生随机数、动态布局、缓动动画这些就纯js操作了，不是啥大问题，详情就戳<a href="https://github.com/DangoSky/2048" target="_blank" rel="noopener">Github</a>看源码吧。</p>
@@ -409,9 +409,9 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2018/10/27/我写的第一个WebGame--2048/" class="b-link-green">我写的第一个WebGame--2048</a>
+                    <a href="/2018/10/27/我写的第一个WebGame--2048/" class="b-link-green">我写的第一个WebGame--2048</a>
                 </p>
             </div>
         </div>
@@ -432,7 +432,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/blog/2018/10/27/我写的第一个WebGame--2048/';
+        this.page.url = 'https://dangosky.github.io/2018/10/27/我写的第一个WebGame--2048/';
         this.page.identifier = '/2018/10/27/我写的第一个WebGame--2048/';
         this.page.title = '我写的第一个WebGame--2048';
     };
@@ -461,7 +461,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2018/11/04/还是小白/">
+                <a href="/2018/11/04/还是小白/">
                     <div class="card-image">
                         
                         
@@ -480,7 +480,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/生活日记/" class="post-category" target="_blank">
+                            <a href="/categories/生活日记/" class="post-category" target="_blank">
                                     生活日记
                                 </a>
                             
@@ -491,7 +491,7 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/生活日记/" target="_blank">
+                    <a href="/tags/生活日记/" target="_blank">
                         <span class="chip bg-color">生活日记</span>
                     </a>
                     
@@ -506,7 +506,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2018/10/12/皮一下很开心/">
+                <a href="/2018/10/12/皮一下很开心/">
                     <div class="card-image">
                         
                         
@@ -532,7 +532,7 @@ QAQ
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -543,7 +543,7 @@ QAQ
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
@@ -682,7 +682,7 @@ QAQ
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -738,7 +738,7 @@ QAQ
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -764,5 +764,5 @@ $(function () {
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

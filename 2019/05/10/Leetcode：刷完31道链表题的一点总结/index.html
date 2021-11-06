@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/blog/" class="waves-effect waves-light">
+                <a href="/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,15 +310,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/blog/tags/JavaScript/" target="_blank">
+                            <a href="/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="/blog/tags/算法/" target="_blank">
+                            <a href="/tags/算法/" target="_blank">
                                 <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/blog/tags/数据结构/" target="_blank">
+                            <a href="/tags/数据结构/" target="_blank">
                                 <span class="chip bg-color">数据结构</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/blog/categories/数据结构/" class="post-category" target="_blank">
+                            <a href="/categories/数据结构/" class="post-category" target="_blank">
                                 数据结构
                             </a>
                         
@@ -368,7 +368,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;今天终于刷完了 Leetcode 上的<a href="https://leetcode-cn.com/tag/linked-list/" target="_blank" rel="noopener">链表专题</a>，虽然只有 31 道题（总共是 35 道，但有 4 道题加了锁）而已，但也陆陆续续做了两三个星期，严重跟不上原先计划啊。本来打算数据结构课程老师讲完一个专题，我就用 JS 在 Leetcode 做一个专题的。然而老师现在都讲到图了，而我连二叉树都还没刷 Orz（附上一张 AC 图，看着还是挺有成就感的嘛）。</p>
-<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/3.png" alt></p>
+<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/3.png" alt></p>
 <p>&emsp;&emsp;先写一篇博客总结一下这阵子刷链表题的收获吧，有输入也要有输出。这里就不花篇幅介绍链表的一些基本概念了，不清楚的看官就自行<a href="https://zh.wikipedia.org/wiki/%E9%93%BE%E8%A1%A8" target="_blank" rel="noopener">谷歌一下</a>吧，本文主要介绍一些常见的链表题和解题思路。文中提到的 Leetcode 题目都有给出题目链接以及相关解题代码，使用其他方法的解题代码，或者更多 Leetcode 题解可以访问我的<a href="https://github.com/DangoSky/algorithm/tree/master/LeetCode" target="_blank" rel="noopener">GitHub 仓库</a>。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>&emsp;&emsp;不得不说<strong>使用数组 / map 来缓存链表中结点的信息</strong>是解决链表题的一大杀器，覆盖问题的范围包括但不限于：在链表中插入 / 删除结点、反向输出链表、链表排序、翻转链表、合并链表等，Leetcode 上 31 道链表绝大部分都可以使用这种方法解题。具体实现思路是先使用一个数组或者 map 来存储链表中的结点信息，比如结点的数据值等，之后根据题目要求对数组进行相关操作后，再重新把数组元素做为每一个结点连接成链表返回即可。虽然<strong>使用缓存来解链表题很 dirty，有违链表题的本意</strong>，而且<strong>空间复杂度也达到了 O(n)</strong>（即使我们常常用空间来换时间，不过还是能避免就避免吧），但这种方法的确很简单易懂，看完题目后几乎就可以马上动手不加思考地敲代码一次 AC 了，不像常规操作那样需要去考虑到很多边界情况和结点指向问题。</p>
 <p>&emsp;&emsp;当然，并不是很提倡这种解法，这样就失去了做链表题的意义。如果只是一心想要解题 AC 的话那无妨。否则的话我建议可以使用数组缓存先 AC 一遍题，再使用常规方法解一次题，我个人就是这么刷链表题的。甚至使用常规方法的话，你还可以分别使用迭代和递归来解题，迭代写起来比较容易，而递归的难点在于把握递归边界和递归式，但只要理解清楚了的话，递归的代码写起来真的很少啊（后面会说到）。</p>
@@ -398,7 +398,7 @@
 </code></pre>
 <p>&emsp;&emsp;其他的题目例如链表排序、结点值交换等也是大致相同的代码，使用缓存解题就是这么简单。至于上面这题的常规解法，可以<a href="https://privatebin.net/?0f1f9e6d9b3152f1#3XxfN9PQzFFUy0M8ppCxTx9oMKEhVqWVnGcKO5bKUbA=" target="_blank" rel="noopener">戳这里查看</a>，我已经在代码中标注好解题思路了。</p>
 <p>&emsp;&emsp;使用缓存来解题的时候，我们可以使用数组来存储信息，也可以使用 map，通常情况下两者是可以通用的。但因为<strong>数组和对象的下标只能是字符串，而 map 的键名可以是任意数据类型</strong>，所以 map 有时候能做一些数组无法做到的事。比如当我们要存储的不是结点值，而是整个结点的时候，这时候使用数组就无能为力了。举个例子，<a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a>：判断一个链表中是否有环。先看一下环形链表长什么样。</p>
-<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/1.png" alt></p>
+<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/1.png" alt></p>
 <p>&emsp;&emsp;还是使用缓存的方法，我们在遍历链表的过程中可以把整个结点当作键名放入到 map 中，并把它标记为 true 代表这个结点已经出现过。同时边判断 map 中以这个结点为键名的值是否为 true，是的话说明这个结点重复出现了两次，即这个链表有环。在这道题中我们是没办法用数组来缓存结点的，因为当我们把整个结点（一个对象）当作下标放入数组时，这个对象会先自动转化成字符串<code>[object Object]</code>再作为下标，所以这时候只要链表结点数量大于等于 2 的话，判断结果都会为 true。使用 map 解题的具体实现代码见下。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> hasCycle <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -441,7 +441,7 @@
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>&emsp;&emsp;除了判断链表中有没有环外，快慢指针还可以找出链表中环形的入口。假设 A 是链表的入口结点，B 是环形的入口结点，C 是快慢指针的相遇点，x 是 AB 的长度（也就是 AB 之间的结点数量），y 是 BC 的长度，z 是 CB 的长度。因为快指针移动的距离（x + y）是慢指针移动的距离（x + y + z + y）的两倍（当快慢指针相遇时，快指针比慢指针多移动了一圈），所以 z = x。因此，只要在快慢指针相遇的时候，再让一个新指针从头节点 A 开始移动，与此同时慢指针也继续从 C 点移动。但新指针和慢指针相遇的时候，也就是在链表环形的入口处 B。该题的三种实现代码可以<a href="https://github.com/DangoSky/algorithm/blob/master/LeetCode/142.%20%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%20II.js" target="_blank" rel="noopener">戳这里查看</a>。</p>
-<p><img src="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/2.png" alt></p>
+<p><img src="/2019/05/10/Leetcode：刷完31道链表题的一点总结/2.png" alt></p>
 <p>&emsp;&emsp;如果我们把快指针的速度设置为 2，即每趟循环都指向当前结点的下下个结点。那么快慢指针在移动的过程中，<strong>快指针移动的距离都会是慢指针移动距离的两倍</strong>，利用这个性质我们可以很方便地得到链表的中间结点。只要让快慢指针同时从头节点开始移动，当快指针走到链表的最后一个结点（链表长度是奇数）或是倒数第二个结点（链表长度是偶数）的时候，慢指针就走到了链表中点。这里给出<a href="https://leetcode-cn.com/problems/middle-of-the-linked-list/" target="_blank" rel="noopener">题目链接</a>和实现代码。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> middleNode <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
@@ -541,9 +541,9 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/" class="b-link-green">Leetcode：刷完31道链表题的一点总结</a>
+                    <a href="/2019/05/10/Leetcode：刷完31道链表题的一点总结/" class="b-link-green">Leetcode：刷完31道链表题的一点总结</a>
                 </p>
             </div>
         </div>
@@ -564,7 +564,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/';
+        this.page.url = 'https://dangosky.github.io/2019/05/10/Leetcode：刷完31道链表题的一点总结/';
         this.page.identifier = '/2019/05/10/Leetcode：刷完31道链表题的一点总结/';
         this.page.title = 'Leetcode：刷完31道链表题的一点总结';
     };
@@ -593,7 +593,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/blog/2019/05/20/防抖和节流/">
+                <a href="/2019/05/20/防抖和节流/">
                     <div class="card-image">
                         
                         
@@ -612,7 +612,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -623,15 +623,15 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/前端基础/" target="_blank">
+                    <a href="/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
-                    <a href="/blog/tags/性能优化/" target="_blank">
+                    <a href="/tags/性能优化/" target="_blank">
                         <span class="chip bg-color">性能优化</span>
                     </a>
                     
@@ -646,7 +646,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/blog/2019/05/03/Puzzle-Game/">
+                <a href="/2019/05/03/Puzzle-Game/">
                     <div class="card-image">
                         
                         
@@ -665,7 +665,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/blog/categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="/categories/Web-Project/" class="post-category" target="_blank">
                                     Web Project
                                 </a>
                             
@@ -676,15 +676,15 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/blog/tags/JavaScript/" target="_blank">
+                    <a href="/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/blog/tags/Web-Project/" target="_blank">
+                    <a href="/tags/Web-Project/" target="_blank">
                         <span class="chip bg-color">Web Project</span>
                     </a>
                     
-                    <a href="/blog/tags/Vue/" target="_blank">
+                    <a href="/tags/Vue/" target="_blank">
                         <span class="chip bg-color">Vue</span>
                     </a>
                     
@@ -823,7 +823,7 @@
 
 
 
-    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -879,7 +879,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -905,5 +905,5 @@ $(function () {
 
 
 
-<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

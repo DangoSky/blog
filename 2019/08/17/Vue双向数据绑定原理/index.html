@@ -29,7 +29,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -38,7 +38,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -311,11 +311,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JavaScript/" target="_blank">
+                            <a href="/blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="/tags/Vue/" target="_blank">
+                            <a href="/blog/tags/Vue/" target="_blank">
                                 <span class="chip bg-color">Vue</span>
                             </a>
                         
@@ -327,7 +327,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Vue/" class="post-category" target="_blank">
+                            <a href="/blog/categories/Vue/" class="post-category" target="_blank">
                                 Vue
                             </a>
                         
@@ -364,7 +364,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\assets\js\APlayer.min.js"> </script><h1 id="Vue双向数据绑定原理"><a href="#Vue双向数据绑定原理" class="headerlink" title="Vue双向数据绑定原理"></a>Vue双向数据绑定原理</h1><p>完整的实现代码<a href="https://github.com/DangoSky/MVVM" target="_blank" rel="noopener">戳这里</a>。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="Vue双向数据绑定原理"><a href="#Vue双向数据绑定原理" class="headerlink" title="Vue双向数据绑定原理"></a>Vue双向数据绑定原理</h1><p>完整的实现代码<a href="https://github.com/DangoSky/MVVM" target="_blank" rel="noopener">戳这里</a>。</p>
 <h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>Vue 通过数据劫持来实现数据绑定，使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">Object.defineProperty()</a> 来劫持各个数据的 <code>get</code> 和 <code>set</code> 方法。当使用到某一个数据时会触发该数据的 <code>get</code> 方法，所以我们可以在 <code>get</code> 方法中将使用到该数据的指令收集起来（这些就是该数据的依赖）；当修改到这个数据的值时会触发该数据的 <code>set</code> 方法，我们再在 <code>set</code> 方法中去逐个触发这些依赖的更新函数，从而就可以达到 model / view 双向更新的效果。</p>
 <p>理解了实现思路后，我们再从这个思路出发，想想实现过程中会遇到什么问题：</p>
 <ul>
@@ -520,7 +520,7 @@
                     </span>
                     <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/08/17/Vue双向数据绑定原理/" class="b-link-green">Vue双向数据绑定原理</a>
+                    <a href="/blog/2019/08/17/Vue双向数据绑定原理/" class="b-link-green">Vue双向数据绑定原理</a>
                 </p>
             </div>
         </div>
@@ -570,7 +570,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/09/03/Git常用命令/">
+                <a href="/blog/2019/09/03/Git常用命令/">
                     <div class="card-image">
                         
                         
@@ -592,7 +592,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Git/" class="post-category" target="_blank">
+                            <a href="/blog/categories/Git/" class="post-category" target="_blank">
                                     Git
                                 </a>
                             
@@ -603,11 +603,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Git/" target="_blank">
+                    <a href="/blog/tags/Git/" target="_blank">
                         <span class="chip bg-color">Git</span>
                     </a>
                     
-                    <a href="/tags/实习记录/" target="_blank">
+                    <a href="/blog/tags/实习记录/" target="_blank">
                         <span class="chip bg-color">实习记录</span>
                     </a>
                     
@@ -622,7 +622,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/14/elementUI级联选择器踩坑/">
+                <a href="/blog/2019/06/14/elementUI级联选择器踩坑/">
                     <div class="card-image">
                         
                         
@@ -643,7 +643,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/踩坑指南/" class="post-category" target="_blank">
+                            <a href="/blog/categories/踩坑指南/" class="post-category" target="_blank">
                                     踩坑指南
                                 </a>
                             
@@ -654,7 +654,7 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/踩坑指南/" target="_blank">
+                    <a href="/blog/tags/踩坑指南/" target="_blank">
                         <span class="chip bg-color">踩坑指南</span>
                     </a>
                     
@@ -793,7 +793,7 @@
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -849,7 +849,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -875,5 +875,5 @@ $(function () {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

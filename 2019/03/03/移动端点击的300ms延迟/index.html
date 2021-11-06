@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,7 +310,7 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/踩坑指南/" target="_blank">
+                            <a href="/blog/tags/踩坑指南/" target="_blank">
                                 <span class="chip bg-color">踩坑指南</span>
                             </a>
                         
@@ -322,7 +322,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/踩坑指南/" class="post-category" target="_blank">
+                            <a href="/blog/categories/踩坑指南/" class="post-category" target="_blank">
                                 踩坑指南
                             </a>
                         
@@ -359,7 +359,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="\assets\js\APlayer.min.js"> </script><h1 id="有300ms延迟的原因"><a href="#有300ms延迟的原因" class="headerlink" title="有300ms延迟的原因"></a>有300ms延迟的原因</h1><p>&emsp;&emsp;之所以移动端click会有300ms的延迟，主要是为了让用户在双击屏幕时可以对视图进行放大缩小，而这300ms就是用于判断在这时间范围之内是否有第二次点击，有则双击，否则就是单击。若每次单击屏幕都会延迟300ms才触发事件，很明显这对于用户体验来说是极其不友好的。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="有300ms延迟的原因"><a href="#有300ms延迟的原因" class="headerlink" title="有300ms延迟的原因"></a>有300ms延迟的原因</h1><p>&emsp;&emsp;之所以移动端click会有300ms的延迟，主要是为了让用户在双击屏幕时可以对视图进行放大缩小，而这300ms就是用于判断在这时间范围之内是否有第二次点击，有则双击，否则就是单击。若每次单击屏幕都会延迟300ms才触发事件，很明显这对于用户体验来说是极其不友好的。</p>
 <h1 id="解决300ms延迟的办法"><a href="#解决300ms延迟的办法" class="headerlink" title="解决300ms延迟的办法"></a>解决300ms延迟的办法</h1><h2 id="zepto-js"><a href="#zepto-js" class="headerlink" title="zepto.js"></a>zepto.js</h2><p>&emsp;&emsp;在zepto.js这个JavaScript库里，使用touch事件封装了tap事件，模仿了click的实现，并且不会有300ms的延迟。实现思路是：给目标元素添加touch监听事件，只要满足touch的时间不超过规定的超时时间(防止长按)，并且touch过程不发生移动则在touchend时触发tap事件。(touchend事件是冒泡到document时才触发目标元素绑定的tap事件的)</p>
 <p> <img src="/blog/2019/03/03/移动端点击的300ms延迟/2.png" alt> </p>
 <h3 id="zepto-js的穿透bug"><a href="#zepto-js的穿透bug" class="headerlink" title="zepto.js的穿透bug"></a>zepto.js的穿透bug</h3><p>&emsp;&emsp;zepto.js虽然使用tap事件模拟click避开了300ms延迟，但存在一个bug，即点击穿透。这里需要先说明的是，当用户手指触摸到屏幕的时候，系统会生成两个事件，一个是touch，另一个是click，<strong>执行顺序依次为：touchstart、touchmove、touchend、click</strong>。其中touch事件会优先处理，经过捕获、处理,、冒泡一系列流程完成后才回去触发click事件。</p>
@@ -390,7 +390,7 @@
                     </span>
                     <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/03/03/移动端点击的300ms延迟/" class="b-link-green">移动端点击的300ms延迟</a>
+                    <a href="/blog/2019/03/03/移动端点击的300ms延迟/" class="b-link-green">移动端点击的300ms延迟</a>
                 </p>
             </div>
         </div>
@@ -440,7 +440,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/03/07/未知宽高元素的水平垂直居中布局/">
+                <a href="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/">
                     <div class="card-image">
                         
                         
@@ -463,7 +463,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CSS/" class="post-category" target="_blank">
+                            <a href="/blog/categories/CSS/" class="post-category" target="_blank">
                                     CSS
                                 </a>
                             
@@ -474,11 +474,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前端基础/" target="_blank">
+                    <a href="/blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
-                    <a href="/tags/CSS/" target="_blank">
+                    <a href="/blog/tags/CSS/" target="_blank">
                         <span class="chip bg-color">CSS</span>
                     </a>
                     
@@ -493,7 +493,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/02/0-1-0-2-0-3/">
+                <a href="/blog/2019/03/02/0-1-0-2-0-3/">
                     <div class="card-image">
                         
                         
@@ -512,7 +512,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="/blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -523,11 +523,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/" target="_blank">
+                    <a href="/blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="/tags/前端基础/" target="_blank">
+                    <a href="/blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -666,7 +666,7 @@
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -722,7 +722,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -748,5 +748,5 @@ $(function () {
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

@@ -32,7 +32,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -41,7 +41,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="./blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -314,11 +314,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/前端基础/" target="_blank">
+                            <a href="./blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
-                            <a href="./tags/CSS/" target="_blank">
+                            <a href="./blog/tags/CSS/" target="_blank">
                                 <span class="chip bg-color">CSS</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/CSS/" class="post-category" target="_blank">
+                            <a href="./blog/categories/CSS/" class="post-category" target="_blank">
                                 CSS
                             </a>
                         
@@ -367,7 +367,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="未知宽高元素的水平垂直居中"><a href="#未知宽高元素的水平垂直居中" class="headerlink" title="未知宽高元素的水平垂直居中"></a>未知宽高元素的水平垂直居中</h1><pre class=" language-css"><code class="language-css">&lt;div class=<span class="token string">"container"</span>>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="未知宽高元素的水平垂直居中"><a href="#未知宽高元素的水平垂直居中" class="headerlink" title="未知宽高元素的水平垂直居中"></a>未知宽高元素的水平垂直居中</h1><pre class=" language-css"><code class="language-css">&lt;div class=<span class="token string">"container"</span>>
   &lt;div class=<span class="token string">"ele"</span>>hello world&lt;/div>
 &lt;/div>
 
@@ -385,7 +385,7 @@
 <blockquote>
 <p>将下面任一种方法的css样式分别添加到上面的代码中，都能得到下图这个效果。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/center.png" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/center.png" alt></p>
 <h2 id="方法一：绝对定位-平移"><a href="#方法一：绝对定位-平移" class="headerlink" title="方法一：绝对定位 + 平移"></a>方法一：绝对定位 + 平移</h2><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.contaienr</span> </span><span class="token punctuation">{</span>
   <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -446,7 +446,7 @@
 <p>使用 padding 有个问题是，因为给矩形设置了 height: 0，所以如果这个矩形有子元素并且设置了 height: 100% 的话，子元素的高度也会是 0 而不是预期的 100px。这时需要给子元素绝对定位，给矩形相对定位才可以让子元素的高度保持和矩形一致（此时子元素脱离了文档流，宽高就相对于父元素的宽高来了）。</p>
 <h2 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h2><p>使用 vw 来给矩形的宽高设置为成比例的 vw 值。这个方法的问题在于 vw 是相对于屏幕宽度而言，不同设备有不同的宽度，所以无法控制矩形具体的宽度值。</p>
 <h2 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h2><p>给 html 根元素设置一个 font-size 值，矩形通过 rem 单位设置宽高，这样它的宽高就是相对于根元素的字体大小而言的，再给矩形的宽高设置成比例的 rem 值就可以了。</p>
-<h1 id="两栏等高"><a href="#两栏等高" class="headerlink" title="两栏等高"></a>两栏等高</h1><p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/1.png" alt></p>
+<h1 id="两栏等高"><a href="#两栏等高" class="headerlink" title="两栏等高"></a>两栏等高</h1><p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/1.png" alt></p>
 <h2 id="padding内补偿法"><a href="#padding内补偿法" class="headerlink" title="padding内补偿法"></a>padding内补偿法</h2><pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="box">
   &lt;div class="left">
     &lt;p>左浮动&lt;/p>
@@ -528,7 +528,7 @@
 <h1 id="两栏布局"><a href="#两栏布局" class="headerlink" title="两栏布局"></a>两栏布局</h1><blockquote>
 <p>左栏固定宽度，右栏自适应。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/2.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/2.gif" alt></p>
 <h3 id="利用负margin"><a href="#利用负margin" class="headerlink" title="利用负margin"></a>利用负margin</h3><blockquote>
 <p>实现逻辑请看<a href="https://dangosky.github.io/blog/2019/03/12/CSS%E8%B4%9F%E8%BE%B9%E8%B7%9D/#toc-heading-14">盒模型和负margin</a>这篇文章里的解释。</p>
 </blockquote>
@@ -774,11 +774,11 @@
   <span class="token property">background-color</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/3.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/3.gif" alt></p>
 <blockquote>
 <p>从效果图中可以看出，使用浮动实现三栏布局在中间栏容纳得下内容时是可以正常工作的，但内容一旦超出，中间栏就会向下扩展。如果给它们指定 height 的话自然就不存在这问题了，不过内容还是会溢出来的（见下图）。当然我们可以选择给外层容器box设置<code>overflow: hidden</code>来隐藏，但如果我们要显示全部内容的话要怎么办？答案是给左中右三个元素使用padding内补偿法，使它们三栏等高。（当浏览器宽度小于左右两栏的宽度和时，右栏会被挤下来，这时要也只能去给 body 设置<code>min-width</code>了，这点跟圣杯布局一样）。</p>
 </blockquote>
-<p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/4.gif" alt></p>
+<p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/4.gif" alt></p>
 <h2 id="绝对定位-1"><a href="#绝对定位-1" class="headerlink" title="绝对定位"></a>绝对定位</h2><pre class=" language-css"><code class="language-css"><span class="token selector">&lt;div class="box">
   &lt;div class="left">
     &lt;p>我是左导航栏我是左导航栏我是左导航栏&lt;/p>
@@ -1040,7 +1040,7 @@ body </span><span class="token punctuation">{</span>
 </ul>
 <p>&emsp;&emsp;flex布局和grid布局是新生的布局方式，功能强大对高度的适应性好，但对浏览器的兼容性不是很好。</p>
 <p>&emsp;&emsp;table布局适应性好，对浏览器的兼容性也好，但table布局好像一直受人诟病，似乎毛病很多？我没在项目里用到过，也不知道真假。</p>
-<h1 id="三栏布局之固定高度中间自适应"><a href="#三栏布局之固定高度中间自适应" class="headerlink" title="三栏布局之固定高度中间自适应"></a>三栏布局之固定高度中间自适应</h1><p><img src="/2019/03/07/未知宽高元素的水平垂直居中布局/5.gif" alt></p>
+<h1 id="三栏布局之固定高度中间自适应"><a href="#三栏布局之固定高度中间自适应" class="headerlink" title="三栏布局之固定高度中间自适应"></a>三栏布局之固定高度中间自适应</h1><p><img src="/blog/2019/03/07/未知宽高元素的水平垂直居中布局/5.gif" alt></p>
 <blockquote>
 <p>上下固定高度，中间自适应。都需要使用<code>overflow: scroll</code>来使中间栏溢出的部分在内部滚动，否则中间栏会扩展自身高度把底栏挤出视图，这我也不知道有什么更好的解决办法了。</p>
 </blockquote>
@@ -1210,7 +1210,7 @@ body </span><span class="token punctuation">{</span>
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2019/03/07/未知宽高元素的水平垂直居中布局/" class="b-link-green">CSS常见的几种布局方式</a>
+                    <a href="./blog/2019/03/07/未知宽高元素的水平垂直居中布局/" class="b-link-green">CSS常见的几种布局方式</a>
                 </p>
             </div>
         </div>
@@ -1260,7 +1260,7 @@ body </span><span class="token punctuation">{</span>
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2019/03/12/CSS负边距/">
+                <a href="./blog/2019/03/12/CSS负边距/">
                     <div class="card-image">
                         
                         
@@ -1279,7 +1279,7 @@ body </span><span class="token punctuation">{</span>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/CSS/" class="post-category" target="_blank">
+                            <a href="./blog/categories/CSS/" class="post-category" target="_blank">
                                     CSS
                                 </a>
                             
@@ -1290,11 +1290,11 @@ body </span><span class="token punctuation">{</span>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/前端基础/" target="_blank">
+                    <a href="./blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
-                    <a href="./tags/CSS/" target="_blank">
+                    <a href="./blog/tags/CSS/" target="_blank">
                         <span class="chip bg-color">CSS</span>
                     </a>
                     
@@ -1309,7 +1309,7 @@ body </span><span class="token punctuation">{</span>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2019/03/03/移动端点击的300ms延迟/">
+                <a href="./blog/2019/03/03/移动端点击的300ms延迟/">
                     <div class="card-image">
                         
                         
@@ -1328,7 +1328,7 @@ body </span><span class="token punctuation">{</span>
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/踩坑指南/" class="post-category" target="_blank">
+                            <a href="./blog/categories/踩坑指南/" class="post-category" target="_blank">
                                     踩坑指南
                                 </a>
                             
@@ -1339,7 +1339,7 @@ body </span><span class="token punctuation">{</span>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/踩坑指南/" target="_blank">
+                    <a href="./blog/tags/踩坑指南/" target="_blank">
                         <span class="chip bg-color">踩坑指南</span>
                     </a>
                     
@@ -1478,7 +1478,7 @@ body </span><span class="token punctuation">{</span>
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -1534,7 +1534,7 @@ body </span><span class="token punctuation">{</span>
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -1560,5 +1560,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

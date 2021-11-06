@@ -32,7 +32,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -41,7 +41,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="./blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -314,11 +314,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/JavaScript/" target="_blank">
+                            <a href="./blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./tags/前端基础/" target="_blank">
+                            <a href="./blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -367,7 +367,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><pre class=" language-js"><code class="language-js"><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>        <span class="token comment" spellcheck="true">// false</span>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><pre class=" language-js"><code class="language-js"><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>        <span class="token comment" spellcheck="true">// false</span>
 <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">[</span><span class="token punctuation">]</span>       <span class="token comment" spellcheck="true">// true</span>
 <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">{</span><span class="token punctuation">}</span>       <span class="token comment" spellcheck="true">// false</span>
 <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">{</span><span class="token punctuation">}</span>       <span class="token comment" spellcheck="true">// true</span>
@@ -387,10 +387,10 @@
 <li>转化为字符串： 先调用toString(),如果没有toString方法或返回的不是一个原始值，则再调用valueOf()。若得到一个原始值则返回，否则抛出异常。   </li>
 <li>转化为数字： 先调用valueOf(),如果没有valueOf方法或返回的不是一个原始值，则再调用toString()。若得到一个原始值则返回，否则抛出异常。</li>
 <li><p>默认的valueOf方法简单地返回对象本身,数组、函数和正则表达式使用默认的valueOf方法，所以valueOf([])放回一个空字符串。</p>
-<p><img src="/2019/02/28/==中的类型转换/1.png" alt>  </p>
+<p><img src="/blog/2019/02/28/==中的类型转换/1.png" alt>  </p>
 </li>
 </ol>
-<p>&emsp;&emsp;同理可得其他的运算结果，要注意的是:<br><code>![]=={}   //false</code>    和  <code>{}==![]   //VM1896:1 Uncaught SyntaxError: Unexpected token</code>。刚开始看的时候我也是觉得很奇怪，就左右互换了个位置而已，咋就报错了呢？我没想到的是，在<code>{}==![]</code>里{}被当作是代码块来处理了，所以自然就报错了。根据StackOverflow里某位daolao的回复，就是如果代码是以 { 开头以 } 结尾，就会被解析成表达式，否则就是代码块了，而以!开头的都会被认为是表达式。详情见下图：<br> <img src="/2019/02/28/==中的类型转换/2.png" alt>  </p>
+<p>&emsp;&emsp;同理可得其他的运算结果，要注意的是:<br><code>![]=={}   //false</code>    和  <code>{}==![]   //VM1896:1 Uncaught SyntaxError: Unexpected token</code>。刚开始看的时候我也是觉得很奇怪，就左右互换了个位置而已，咋就报错了呢？我没想到的是，在<code>{}==![]</code>里{}被当作是代码块来处理了，所以自然就报错了。根据StackOverflow里某位daolao的回复，就是如果代码是以 { 开头以 } 结尾，就会被解析成表达式，否则就是代码块了，而以!开头的都会被认为是表达式。详情见下图：<br> <img src="/blog/2019/02/28/==中的类型转换/2.png" alt>  </p>
 <hr>
 <p>本节完，如果有后续再另行补充。</p>
 
@@ -416,7 +416,7 @@
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2019/02/28/==中的类型转换/" class="b-link-green">==中的类型转换</a>
+                    <a href="./blog/2019/02/28/==中的类型转换/" class="b-link-green">==中的类型转换</a>
                 </p>
             </div>
         </div>
@@ -466,7 +466,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2019/03/02/0-1-0-2-0-3/">
+                <a href="./blog/2019/03/02/0-1-0-2-0-3/">
                     <div class="card-image">
                         
                         
@@ -485,7 +485,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
                                     JavaScript
                                 </a>
                             
@@ -496,11 +496,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="./blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/前端基础/" target="_blank">
+                    <a href="./blog/tags/前端基础/" target="_blank">
                         <span class="chip bg-color">前端基础</span>
                     </a>
                     
@@ -515,7 +515,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2019/02/25/vue全家桶仿iOS版网易云音乐/">
+                <a href="./blog/2019/02/25/vue全家桶仿iOS版网易云音乐/">
                     <div class="card-image">
                         
                         
@@ -536,7 +536,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/Web-Project/" class="post-category" target="_blank">
+                            <a href="./blog/categories/Web-Project/" class="post-category" target="_blank">
                                     Web Project
                                 </a>
                             
@@ -547,15 +547,15 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="./blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/Web-Project/" target="_blank">
+                    <a href="./blog/tags/Web-Project/" target="_blank">
                         <span class="chip bg-color">Web Project</span>
                     </a>
                     
-                    <a href="./tags/Vue/" target="_blank">
+                    <a href="./blog/tags/Vue/" target="_blank">
                         <span class="chip bg-color">Vue</span>
                     </a>
                     
@@ -694,7 +694,7 @@
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -750,7 +750,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -776,5 +776,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

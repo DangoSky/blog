@@ -28,7 +28,7 @@
     </style>
 
     <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="./css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="./blog/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -37,7 +37,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="./" class="waves-effect waves-light">
+                <a href="./blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">DangoSky</span>
                 </a>
@@ -310,15 +310,15 @@
                     
                     <div class="article-tag">
                         
-                            <a href="./tags/JavaScript/" target="_blank">
+                            <a href="./blog/tags/JavaScript/" target="_blank">
                                 <span class="chip bg-color">JavaScript</span>
                             </a>
                         
-                            <a href="./tags/前端基础/" target="_blank">
+                            <a href="./blog/tags/前端基础/" target="_blank">
                                 <span class="chip bg-color">前端基础</span>
                             </a>
                         
-                            <a href="./tags/性能优化/" target="_blank">
+                            <a href="./blog/tags/性能优化/" target="_blank">
                                 <span class="chip bg-color">性能优化</span>
                             </a>
                         
@@ -330,7 +330,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="./categories/JavaScript/" class="post-category" target="_blank">
+                            <a href="./blog/categories/JavaScript/" class="post-category" target="_blank">
                                 JavaScript
                             </a>
                         
@@ -367,12 +367,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script src="assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;常常听到防抖和节流这两个名词，但一直只是有个粗浅的认识而已，现在终于腾出时间来一探这两者的究竟啦。先用一句话概括这两者：防抖和节流都是为了<strong>限制函数的执行频率，以优化函数触发频率过高导致的响应速度跟不上触发频率，出现页面延迟、假死或卡顿的现象</strong>。主要应用于一些会被频繁触发的事件中，例如<code>input</code>输入框的监听，<code>resize</code>，<code>scroll</code>，<code>mousemove</code>，<code>keyup</code>等。</p>
+                <script src="\blog\assets\js\APlayer.min.js"> </script><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;常常听到防抖和节流这两个名词，但一直只是有个粗浅的认识而已，现在终于腾出时间来一探这两者的究竟啦。先用一句话概括这两者：防抖和节流都是为了<strong>限制函数的执行频率，以优化函数触发频率过高导致的响应速度跟不上触发频率，出现页面延迟、假死或卡顿的现象</strong>。主要应用于一些会被频繁触发的事件中，例如<code>input</code>输入框的监听，<code>resize</code>，<code>scroll</code>，<code>mousemove</code>，<code>keyup</code>等。</p>
 <p>&emsp;&emsp;下面分别介绍防抖和节流的异同和实现方式，其中的函数实现主要参照<code>underscore</code>，再根据自己的一些理解写成的，诸位看官可以翻读<a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank" rel="noopener">underscore</a>的源码。</p>
 <h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><p>&emsp;&emsp;防抖其实就是当触发一个事件后，如果在指定时间 n 内再次触发该事件，则以新的触发时间为准重新计算执行时间，保证每次触发都会等到 n 秒后才执行并且不会累计触发（持续触发的情况下只会执行一次）。</p>
 <p>&emsp;&emsp;举个栗子，我们常常会给输入框绑定一个<code>input</code>监听函数，根据用户的输入内容来发送<code>Ajax</code>请求实时显示搜索结果。但这样有个问题，每次用户敲一下键盘都会触发到监听函数，造成监听函数被频繁地触发到了（尤其是输入中文的时候），如果监听函数是发送<code>Ajax</code>请求的话那简直就是场灾难。这时候防抖就可以派上用场了，我们设置一个定时器<code>setTimeout</code>让监听函数在指定的延迟时间比如 1s 后才执行，如果在定时器计时的这 1s 内再次触发了事件，则清除之前的定时器重新开始计时，保证监听函数一定会在每次触发的 1s 后才执行。这样监听<code>input</code>事件时就不会频繁地触发到监听函数了，大大优化了页面性能。其他的监听事件如<code>scroll</code>和<code>mousemove</code>也是如此。</p>
 <p>&emsp;&emsp;我们先来看看普通的<code>input</code>监听函数的执行情况，从下图中可以看到我只是输入短短的 “世界很温柔” 五个字，监听函数却执行了多达 17 次。可以<a href="https://jsfiddle.net/DangoSky/4dyn1pv0/12/" target="_blank" rel="noopener">戳这里进行实验</a>。</p>
-<p><img src="/2019/05/20/防抖和节流/1.gif" alt></p>
+<p><img src="/blog/2019/05/20/防抖和节流/1.gif" alt></p>
 <p>&emsp;&emsp;下面我们先来实现一个简单版的防抖，抓住每次触发事件时都会先清除掉之前的定时器再开始计时，我们不难写出下面这几行代码。需要注意的是要使用<code>apply</code>或<code>call</code>来显示绑定监听函数（以下简称<code>fn</code>）的 this 为当前绑定监听函数的 DOM 对象，否则<code>fn</code>里的 this 会指向 window。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> wait<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
@@ -548,7 +548,7 @@
                     </span>
                     <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="./2019/05/20/防抖和节流/" class="b-link-green">防抖和节流</a>
+                    <a href="./blog/2019/05/20/防抖和节流/" class="b-link-green">防抖和节流</a>
                 </p>
             </div>
         </div>
@@ -598,7 +598,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="./2019/05/28/JavaScript：十大排序的算法思路和代码实现/">
+                <a href="./blog/2019/05/28/JavaScript：十大排序的算法思路和代码实现/">
                     <div class="card-image">
                         
                         
@@ -617,7 +617,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/算法/" class="post-category" target="_blank">
+                            <a href="./blog/categories/算法/" class="post-category" target="_blank">
                                     算法
                                 </a>
                             
@@ -628,15 +628,15 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="./blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/算法/" target="_blank">
+                    <a href="./blog/tags/算法/" target="_blank">
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="./tags/数据结构/" target="_blank">
+                    <a href="./blog/tags/数据结构/" target="_blank">
                         <span class="chip bg-color">数据结构</span>
                     </a>
                     
@@ -651,7 +651,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="./2019/05/10/Leetcode：刷完31道链表题的一点总结/">
+                <a href="./blog/2019/05/10/Leetcode：刷完31道链表题的一点总结/">
                     <div class="card-image">
                         
                         
@@ -670,7 +670,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="./categories/数据结构/" class="post-category" target="_blank">
+                            <a href="./blog/categories/数据结构/" class="post-category" target="_blank">
                                     数据结构
                                 </a>
                             
@@ -681,15 +681,15 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="./tags/JavaScript/" target="_blank">
+                    <a href="./blog/tags/JavaScript/" target="_blank">
                         <span class="chip bg-color">JavaScript</span>
                     </a>
                     
-                    <a href="./tags/算法/" target="_blank">
+                    <a href="./blog/tags/算法/" target="_blank">
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="./tags/数据结构/" target="_blank">
+                    <a href="./blog/tags/数据结构/" target="_blank">
                         <span class="chip bg-color">数据结构</span>
                     </a>
                     
@@ -828,7 +828,7 @@
 
 
 
-    <a href="./atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="./blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -884,7 +884,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("./" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("./blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
@@ -910,5 +910,5 @@ $(function () {
 
 
 
-<script src="./live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
+<script src="./blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>

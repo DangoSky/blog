@@ -409,14 +409,14 @@
 <li><p>通过配置后可以使用 <code>import { Input } from &#39;dangosky&#39;</code> 来导入我们的 <code>dangosky</code> 组件库，使得项目使用的组件库从 Antd 迁移到 <code>dangosky</code> 只需要修改它的导入包名就行，实现低成本迁移。</p>
 </li>
 </ol>
-<p><img src="/2020/04/30/组件库开发小结/4.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/4.png" alt></p>
 <p>下面再说说基于 Antd 再度封装的组件库实现原理。因为只是对 Antd 的样式修改而已，所以主要就是修改组件的 <code>className</code> 类名、修改 less 样式文件中的类名：</p>
 <h4 id="1-修改组件的类名"><a href="#1-修改组件的类名" class="headerlink" title="1. 修改组件的类名"></a>1. 修改组件的类名</h4><p>Antd 为每个组件的 props 都提供了一个 <code>prefixCls</code> 属性，用来作为每个组件的类名前缀。所以可以在我们的新组件中指定 <code>prefixCls</code>，将其替换成我们自己的 <code>dangosky</code>。这样组件中的 <code>className</code> 类名就可以从 <code>ant-input</code> 变成 <code>.dangosky-input</code> 了。</p>
 <p>Antd 有一个 <code>getPrefixCls</code> 函数来处理这个逻辑，它是由外层的 <code>configProvider</code> 组件利用 React 的 <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener">Context</a> 特性传递到内部组件的，可以无视组件嵌套的深度。</p>
-<p><img src="/2020/04/30/组件库开发小结/1.png" alt></p>
-<p><img src="/2020/04/30/组件库开发小结/2.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/1.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/2.png" alt></p>
 <p>以 input 组件为例，Antd 内部是这样调用的。如果我们在组件内指定了 <code>prefixCls</code> 这个 prop 的话（它重命名为了 <code>customizePrefixCls</code>），<code>getPrefixCls</code> 就会返回我们指定的类名前缀，否则就默认返回 <code>ant-{组件名}</code>。</p>
-<p><img src="/2020/04/30/组件库开发小结/3.png" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/3.png" alt></p>
 <h4 id="2-修改样式文件的类名"><a href="#2-修改样式文件的类名" class="headerlink" title="2. 修改样式文件的类名"></a>2. 修改样式文件的类名</h4><p>将 DOM 节点的类名前缀改为 <code>dangosky</code> 后，还需要将 less 中的类名前缀也改为 <code>dangosky</code> 才行，不然会匹配不到相应的样式。Antd 里有一个<a href="https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less" target="_blank" rel="noopener">全局的样式文件</a>，包含了一些全局的样式变量，它会在每个组件中都被引入进去。其中有一个变量是 <code>@ant-prefix</code> ，less 中的每个类名都会在前面加上 <code>@ant-prefix</code> 。所以我们可以定制新组件库的主题文件，在里面将 <code>@ant-prefix</code> 值修改成 <code>dangosky</code>，之后在每个新组件的样式文件中导入这个主题文件覆盖原来的 Antd 值就可以了。</p>
 <h4 id="3-在组件里自动引入样式文件"><a href="#3-在组件里自动引入样式文件" class="headerlink" title="3. 在组件里自动引入样式文件"></a>3. 在组件里自动引入样式文件</h4><p>在使用 Antd 组件的时候可以不用手动 <code>import</code> 进样式文件，Antd 提供了一个插件 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 来实现按需加载和自动引入样式文件。</p>
 <p>我们在使用某个组件的时候，都是直接 <code>import { xxx } from &#39;antd&#39;</code>。如果不加以额外的插件辅助的话，这样的写法会导入 antd 中的所有模块，如果要只加载指定的组件的话，我们就需要使用下面这种写法了。</p>
@@ -425,7 +425,7 @@
 </code></pre>
 <p>这种写法的问题在于比较繁琐，那么有没有更简洁的方式来实现按需引入呢？我们可以使用 <a href="https://github.com/ant-design/babel-plugin-import" target="_blank" rel="noopener">babel-plugin-import</a> 插件，使用这个插件后，我们依旧可以使用 <code>import { xxx } from &#39;antd&#39;</code> 来导入我们想要的组件，这个插件背后会帮我们转换成 <code>antd/es/xxx</code>。可见<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L76" target="_blank" rel="noopener">源码</a>。</p>
 <p><code>babel-plugin-import</code> 还会再自动导入进它的样式文件。从它的<a href="https://github.com/ant-design/babel-plugin-import/blob/39afe424ffd81baf80c8a8b0f573a5bd21cf0736/src/Plugin.js#L90" target="_blank" rel="noopener">源码</a>里可以看到，当在 babel 配置里设置了 <code>style: true</code> 的话，它会自动引入该组件下的 <code>style</code> 文件夹，所以就会默认引入我们写好的 <code>index.tsx</code> 文件（再在这里引入具体的样式文件）。除了取值为 true 外，还可以是 false 和一个函数，具体可以看文档。</p>
-<p><img src="/2020/04/30/组件库开发小结/5.jpg" alt></p>
+<p><img src="/blog/2020/04/30/组件库开发小结/5.jpg" alt></p>
 
             </div>
             <hr/>
@@ -447,7 +447,7 @@
                     <span class="reprint-tip">
                         <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
                     </span>
-                    <a href="https://dangosky.github.io" class="b-link-green">DangoSky</a>
+                    <a href="https://dangosky.github.io/blog" class="b-link-green">DangoSky</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/blog/2020/04/30/组件库开发小结/" class="b-link-green">组件库开发小结</a>
                 </p>
@@ -470,7 +470,7 @@
 
 <script type="text/javascript">
     disqus_config = function () {
-        this.page.url = 'https://dangosky.github.io/2020/04/30/组件库开发小结/';
+        this.page.url = 'https://dangosky.github.io/blog/2020/04/30/组件库开发小结/';
         this.page.identifier = '/2020/04/30/组件库开发小结/';
         this.page.title = '组件库开发小结';
     };
